@@ -23,7 +23,7 @@
 	<category_index>0</category_index>
 	<zoom>1.0</zoom>
 	<x>0</x>
-	<y>-12</y>
+	<y>168</y>
 	<default_color>
 		<r>128</r>
 		<g>128</g>
@@ -146,7 +146,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2017-04-11 15:29:50</creation_date>
-			<updated_date>2017-04-12 15:45:48</updated_date>
+			<updated_date>2017-04-12 15:53:50</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -843,8 +843,8 @@
 					<relation>0</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
+					<logical_name>room_option_id</logical_name>
+					<physical_name>room_option_id</physical_name>
 					<type>decimal</type>
 					<constraint></constraint>
 					<default_value></default_value>
