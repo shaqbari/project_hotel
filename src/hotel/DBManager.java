@@ -30,7 +30,11 @@ public class DBManager { //여기서 class는 클래스 생성하는 예약어
 		try {
 			Class.forName(driver); //Class class는 클래스에대한 정보를 가지고 있다. 어떤 메소드와 변수로 구성되어 있는지 알 수 있다.
 			con=DriverManager.getConnection(url, user, password);
-			
+			if (con!=null) {
+				System.out.println("접속성공");
+			} else {
+				System.out.println("접속실패");			
+			}
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

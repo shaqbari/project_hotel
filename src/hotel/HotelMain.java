@@ -1,15 +1,13 @@
 package hotel;
 
 
-import javax.swing.JFrame;
-
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.URL;
 import java.sql.Connection;
 
 import javax.swing.JButton;
@@ -32,9 +30,21 @@ public class HotelMain extends JFrame implements ActionListener{
 	MemberPanel p_member;
 	ChatPanel p_chat;	
 	
+	MyButton[] myButtons=new MyButton[5];	
+	URL[] url=new URL[5];
+	String path="";
+	
 	public HotelMain() {
 		manager=manager.getInstance();
 		con=manager.getConnection();
+		
+		 
+		//System.out.println(url.toString());
+		url[0]=this.getClass().getResource("/home.png");
+		url[1]=this.getClass().getResource("/room.png");
+		url[2]=this.getClass().getResource("/resv.png");
+		url[3]=this.getClass().getResource("/membership.png");
+		url[4]=this.getClass().getResource("/chat.png");
 		
 		p_north=new JPanel();
 		p_west=new JPanel();
@@ -45,12 +55,18 @@ public class HotelMain extends JFrame implements ActionListener{
 		la_user=new JLabel("包府磊");
 				
 		bt_logout=new JButton("肺弊酒眶");
-		bt_home=new JButton("权");
-		bt_now=new JButton("按角包府");
-		bt_resv=new JButton("抗距包府");
-		bt_member=new JButton("雀盔包府");
-		bt_chat=new JButton("盲泼");
-		
+		bt_home=new JButton();
+		bt_now=new JButton();
+		bt_resv=new JButton();
+		bt_member=new JButton();
+		bt_chat=new JButton();
+			
+		myButtons[0]=new MyButton(this, bt_home, url[0], "权");
+		myButtons[1]=new MyButton(this, bt_now, url[1], "按角包府");
+		myButtons[2]=new MyButton(this, bt_resv, url[2], "抗距包府");
+		myButtons[3]=new MyButton(this, bt_member, url[3], "绊按包府");
+		myButtons[4]=new MyButton(this, bt_chat, url[4], "盲泼");
+				
 		p_home=new HomePanel(this);
 		p_now=new NowPanel(this);
 		p_resv=new ResvPanel(this);
@@ -62,13 +78,7 @@ public class HotelMain extends JFrame implements ActionListener{
 		menu[2]=p_resv;
 		menu[3]=p_member;
 		menu[4]=p_chat;
-		
-		//p_center.setLayout(new BorderLayout());
-		
-		p_north.setBackground(Color.YELLOW);
-		p_west.setBackground(Color.ORANGE);
-		p_center.setBackground(Color.GREEN);
-		
+	
 		p_north.setPreferredSize(new Dimension(1280, 60));
 		p_west.setPreferredSize(new Dimension(180, 900));
 		p_center.setPreferredSize(new Dimension(1100, 900));
@@ -77,12 +87,11 @@ public class HotelMain extends JFrame implements ActionListener{
 		p_north.add(la_time);
 		p_north.add(la_user);
 		p_north.add(bt_logout);
+				
+		for (int i = 0; i < myButtons.length; i++) {
+			p_west.add(myButtons[i]);
+		}
 		
-		p_west.add(bt_home);
-		p_west.add(bt_now);
-		p_west.add(bt_resv);
-		p_west.add(bt_member);
-		p_west.add(bt_chat);
 		
 		p_center.add(p_home);
 		p_center.add(p_now);
