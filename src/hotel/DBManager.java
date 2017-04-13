@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class DBManager { //여기서 class는 클래스 생성하는 예약어
 	static private DBManager instance;
 	private String driver="oracle.jdbc.driver.OracleDriver";
-	private String url="jdbc:oracle:thin:@sist108:1521:XE";
+	private String url="jdbc:oracle:thin:@localhost:1521:XE";
 	private String user="bread";
 	private String password="bread";
 	
