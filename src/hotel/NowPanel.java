@@ -14,7 +14,7 @@ public class NowPanel extends JPanel{
 		this.main=main;
 		con=main.con;
 		
-		setBackground(Color.cyan);
+		setBackground(Color.WHITE);
 		
 		setPreferredSize(new Dimension(1100, 900));
 		setVisible(false);	

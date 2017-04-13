@@ -17,9 +17,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-
-
-
 public class HotelMain extends JFrame implements ActionListener{
 	JPanel p_north, p_west, p_center;
 	JLabel la_hotel, la_time, la_user;
@@ -54,11 +51,11 @@ public class HotelMain extends JFrame implements ActionListener{
 		bt_member=new JButton("회원관리");
 		bt_chat=new JButton("채팅");
 		
-		p_home=new HomePanel(this);
-		p_now=new NowPanel(this);
-		p_resv=new ResvPanel(this);
-		p_member=new MemberPanel(this);
-		p_chat=new ChatPanel(this);
+		menu[0]=new HomePanel(this);
+		menu[1]=new NowPanel(this);
+		menu[2]=new ResvPanel(this);
+		menu[3]=new MemberPanel(this);
+		menu[4]=new ChatPanel(this);
 		
 		//p_center.setLayout(new BorderLayout());
 		
