@@ -1,5 +1,7 @@
 package hotel;
 
-public class HotelMain {
+import javax.swing.JFrame;
 
+public class HotelMain extends JFrame{
+	
 }
