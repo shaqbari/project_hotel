@@ -1,0 +1,183 @@
+﻿/* Create Tables */
+
+
+CREATE TABLE check_io
+(
+        check_io_id number NOT NULL,
+        resv_id number NOT NULL,
+        check_in_time date,
+        check_out_time date,
+        PRIMARY KEY (check_io_id)
+);
+
+
+
+
+CREATE TABLE guest
+(
+        guest_id number NOT NULL,
+        hotel_user_id number NOT NULL,
+        guest_name varchar2(30) NOT NULL,
+        guest_phone varchar2(30) NOT NULL,
+        PRIMARY KEY (guest_id)
+);
+
+
+
+
+CREATE TABLE hotel_user
+(
+        hotel_user_id number NOT NULL,
+        is_guest number NOT NULL,
+        PRIMARY KEY (hotel_user_id)
+);
+
+
+
+
+CREATE TABLE membership
+(
+        membership_id number NOT NULL,
+        hotel_user_id number NOT NULL,
+        membership_name varchar2(30) NOT NULL,
+        membership_nick varchar2(30) NOT NULL,
+        membership_pw number NOT NULL,
+        membership_regdate date NOT NULL,
+        membership_phone varchar2(30) NOT NULL,
+        membership_email varchar2(30),
+        membership_gender varchar2(10),
+        membership_birthday date,
+        PRIMARY KEY (membership_id)
+);
+
+
+
+
+CREATE TABLE resv
+(
+        resv_id number NOT NULL,
+        hotel_user_id number NOT NULL,
+        room_number number NOT NULL,
+        resv_time date,
+        PRIMARY KEY (resv_id)
+);
+
+
+
+
+CREATE TABLE room
+(
+        room_number number NOT NULL,
+        room_option_id number NOT NULL,
+        room_floor number NOT NULL,
+        PRIMARY KEY (room_number)
+);
+
+
+
+
+CREATE TABLE room_option
+(
+        room_option_id number NOT NULL,
+        room_option_name varchar2(30) NOT NULL,
+        room_option_size number NOT NULL,
+        room_option_bed varchar2(30) NOT NULL,
+        room_option_view varchar2(30) NOT NULL,
+        room_option_max number NOT NULL,
+        room_option_img varchar2(30) NOT NULL,
+        room_option_price number NOT NULL,
+        PRIMARY KEY (room_option_id)
+);
+
+
+
+
+CREATE TABLE service
+(
+        service_id number NOT NULL,
+        service_name varchar2(30) NOT NULL,
+        service_img varchar2(30) NOT NULL,
+        service_price number NOT NULL,
+        PRIMARY KEY (service_id)
+);
+
+
+
+
+CREATE TABLE service_use
+(
+        service_use_id number NOT NULL,
+        hotel_user_id number NOT NULL,
+        service_id number NOT NULL,
+        service_use_time date,
+        PRIMARY KEY (service_use_id)
+);
+
+
+
+
+
+
+/* Create Foreign Keys */
+
+
+ALTER TABLE guest
+        ADD FOREIGN KEY (hotel_user_id)
+        REFERENCES hotel_user (hotel_user_id)
+;
+
+
+
+
+ALTER TABLE membership
+        ADD FOREIGN KEY (hotel_user_id)
+        REFERENCES hotel_user (hotel_user_id)
+;
+
+
+
+
+ALTER TABLE resv
+        ADD FOREIGN KEY (hotel_user_id)
+        REFERENCES hotel_user (hotel_user_id)
+;
+
+
+
+
+ALTER TABLE service_use
+        ADD FOREIGN KEY (hotel_user_id)
+        REFERENCES hotel_user (hotel_user_id)
+;
+
+
+
+
+ALTER TABLE check_io
+        ADD FOREIGN KEY (resv_id)
+        REFERENCES resv (resv_id)
+;
+
+
+
+
+ALTER TABLE resv
+        ADD FOREIGN KEY (room_number)
+        REFERENCES room (room_number)
+;
+
+
+
+
+ALTER TABLE room
+        ADD FOREIGN KEY (room_option_id)
+        REFERENCES room_option (room_option_id)
+;
+
+
+
+
+ALTER TABLE service_use
+        ADD FOREIGN KEY (service_id)
+        REFERENCES service (service_id)
+;
