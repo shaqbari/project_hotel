@@ -51,11 +51,17 @@ public class HotelMain extends JFrame implements ActionListener{
 		bt_member=new JButton("회원관리");
 		bt_chat=new JButton("채팅");
 		
-		menu[0]=new HomePanel(this);
-		menu[1]=new NowPanel(this);
-		menu[2]=new ResvPanel(this);
-		menu[3]=new MemberPanel(this);
-		menu[4]=new ChatPanel(this);
+		p_home=new HomePanel(this);
+		p_now=new NowPanel(this);
+		p_resv=new ResvPanel(this);
+		p_member=new MemberPanel(this);
+		p_chat=new ChatPanel(this);
+		
+		menu[0]=p_home;
+		menu[1]=p_now;
+		menu[2]=p_resv;
+		menu[3]=p_member;
+		menu[4]=p_chat;
 		
 		//p_center.setLayout(new BorderLayout());
 		
@@ -108,23 +114,29 @@ public class HotelMain extends JFrame implements ActionListener{
 		
 	}
 	
+	public void menuVisible(JPanel p){
+		for (int i = 0; i < menu.length; i++) {			
+			if (p==menu[i]) {
+				menu[i].setVisible(true);
+			}else {
+				menu[i].setVisible(false);
+			}
+		}
+		p_center.updateUI();		
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 		Object obj=(Object)e.getSource();
 		if (obj==bt_home) {			
-			p_home.setVisible(true);
-			p_center.updateUI();
+			menuVisible(p_home);
 		}else if (obj==bt_now) {
-			p_now.setVisible(true);
-			p_center.updateUI();
+			menuVisible(p_now);
 		}else if (obj==bt_resv) {
-			p_resv.setVisible(true);
-			p_center.updateUI();
+			menuVisible(p_resv);
 		}else if (obj==bt_member){
-			p_member.setVisible(true);
-			p_center.updateUI();
+			menuVisible(p_member);
 		}else if (obj==bt_chat) {
-			p_chat.setVisible(true);
-			p_center.updateUI();
+			menuVisible(p_chat);
 		}
 	}
 
