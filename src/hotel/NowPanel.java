@@ -90,10 +90,14 @@ public class NowPanel extends JPanel{
 				String number = Integer.toString(room.getRoom_option_id());
 				//ㄴ임시로 room_option_id 넣음. 추후에 join 통해 rooom_number 구해와야 함.
 				String name = room.getRoom_option_name();
+				//Image img = ImageIO.read(new File(path+room.getRoom_option_img()));
 						
 				/*---------------------------선생님께 질문-----------------------------------------------*/
-				URL url=this.getClass().getResource(room.getRoom_option_img());
-				Image img = ImageIO.read(new File(path+room.getRoom_option_img()));
+				//URL url=this.getClass().getResource("/grand.jpg");
+				URL url=this.getClass().getResource("/"+room.getRoom_option_img());
+				//System.out.println(url.toString());
+				
+				Image img = ImageIO.read(url);
 				/*-----------------------------------------------------------------------------*/
 				
 				Room_Item item = new Room_Item(number, name, img);
