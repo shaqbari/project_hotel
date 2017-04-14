@@ -26,13 +26,15 @@ public class Room_Item extends JPanel {
 		la_name = new JLabel(name);
 		can = new Canvas(){
 			public void paint(Graphics g) {
-				g.drawImage(img, 0, 0, 130, 100, this);
+				g.drawImage(img, 0, 0, 165, 120, this);
 			}
 		};
 		
-		this.addMouseListener(new MouseAdapter() {
+		//캔버스에 마우스 클릭이벤트 추가
+		can.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				DetailView();
+				//DetailView();
+				new Room_Detail();
 			}
 		});
 		
@@ -40,21 +42,22 @@ public class Room_Item extends JPanel {
 		add(la_name);
 		add(can);
 		
-		can.setPreferredSize(new Dimension(130, 100));
-		setPreferredSize(new Dimension(130, 150));
+		can.setPreferredSize(new Dimension(165, 120));
+		setPreferredSize(new Dimension(165, 125));
 		setBackground(Color.WHITE);
 	}
 	
+	//방의 상세정보 보기
 	public void DetailView(){
 		JFrame frame = new JFrame("상세정보");
 		frame.setVisible(true);
 		
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				frame.setVisible(false);
 				frame.dispose();
 			}
 		});
+		
 		frame.setSize(500, 300);
 		frame.setLocation(400, 500);
 	}

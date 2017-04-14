@@ -20,8 +20,7 @@ import javax.swing.JPanel;
 
 public class NowPanel extends JPanel{
 	HotelMain main;
-	Connection con;
-	String path = "C:/java_workspace2/project_hotel/image/room/";
+	Connection con;	
 	ArrayList<Room_Option> list = new ArrayList<Room_Option>();
 	
 	public NowPanel(HotelMain main) {
@@ -39,7 +38,8 @@ public class NowPanel extends JPanel{
 	
 	//객실 현황 불러오기 메서드
 	public void loadData(){
-		String sql = "select * from room_option order by room_option_id asc";
+		//room 테이블과 room_option 테이블의 자료를 조인.
+		String sql = "select * from room_option o left outer join room r on o.room_option_id = r.room_option_id order by r.room_number asc";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
@@ -57,6 +57,7 @@ public class NowPanel extends JPanel{
 				dto.setRoom_option_max(rs.getInt("room_option_max"));
 				dto.setRoom_option_img(rs.getString("room_option_img"));
 				dto.setRoom_option_price(rs.getInt("room_option_price"));
+				dto.setRoom_number(rs.getInt("room_number"));
 				
 				list.add(dto);
 			}
@@ -87,19 +88,13 @@ public class NowPanel extends JPanel{
 		for(int i=0;i<list.size();i++){
 			Room_Option room = list.get(i);
 			try {
-				String number = Integer.toString(room.getRoom_option_id());
-				//ㄴ임시로 room_option_id 넣음. 추후에 join 통해 rooom_number 구해와야 함.
+				String number = Integer.toString(room.getRoom_number());
 				String name = room.getRoom_option_name();
-				//Image img = ImageIO.read(new File(path+room.getRoom_option_img()));
-						
-				/*---------------------------선생님께 질문-----------------------------------------------*/
-				//URL url=this.getClass().getResource("/grand.jpg");
+				
+				//이미지 res 폴더에서 불러오기
 				URL url=this.getClass().getResource("/"+room.getRoom_option_img());
-				//System.out.println(url.toString());
-				
 				Image img = ImageIO.read(url);
-				/*-----------------------------------------------------------------------------*/
-				
+						
 				Room_Item item = new Room_Item(number, name, img);
 				add(item);
 				
