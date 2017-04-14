@@ -27,6 +27,7 @@ public class HotelMain extends JFrame implements ActionListener{
 	HomePanel p_home;
 	NowPanel p_now;
 	ResvPanel p_resv;
+	
 	MemberPanel p_member;
 	ChatPanel p_chat;	
 	

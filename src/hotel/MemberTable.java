@@ -36,12 +36,7 @@ Vector<Vector> data= new Vector<Vector>();
 		try {
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
-			Vector<String> columnName= new Vector<String>();
-			ResultSetMetaData meta=rs.getMetaData();
-			int count=meta.getColumnCount();
-			for(int i=0;i<count;i++){
-				columnName.add(meta.getColumnName(i+1));
-			}
+
 			//System.out.println(columnName.size());
 			while(rs.next()){
 				Vector vec=new Vector();
@@ -141,6 +136,16 @@ Vector<Vector> data= new Vector<Vector>();
 	}
 	public Object getValueAt(int row, int col) {
 		return data.elementAt(row).elementAt(col);
+	}
+	public boolean isCellEditable(int row, int col) {
+		boolean flag=true;
+		if(col==0){
+			flag=false;
+		}
+		return flag;
+	}
+	public void setValueAt(Object Value, int row, int col) {
+		data.elementAt(row).set(col, Value);
 	}
 
 
