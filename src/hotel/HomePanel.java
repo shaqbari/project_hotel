@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 public class HomePanel extends JPanel{
 	HotelMain main;
 	Connection con;
+
 	
 	public HomePanel(HotelMain main) {
 		this.main=main;

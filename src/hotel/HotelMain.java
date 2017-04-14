@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class HotelMain extends JFrame implements ActionListener{
 	JPanel p_north, p_west, p_center;
@@ -33,13 +34,13 @@ public class HotelMain extends JFrame implements ActionListener{
 	
 	MyButton[] myButtons=new MyButton[5];	
 	URL[] url=new URL[5];
-	String path="";
 	
+	ClockThread clock; //½Ã°è
+		
 	public HotelMain() {
 		manager=manager.getInstance();
 		con=manager.getConnection();
-		
-		 
+				 
 		//System.out.println(url.toString());
 		url[0]=this.getClass().getResource("/home.png");
 		url[1]=this.getClass().getResource("/room.png");
@@ -74,6 +75,8 @@ public class HotelMain extends JFrame implements ActionListener{
 		p_member=new MemberPanel(this);
 		p_chat=new ChatPanel(this);
 		
+		clock=new ClockThread(this);
+		
 		menu[0]=p_home;
 		menu[1]=p_now;
 		menu[2]=p_resv;
@@ -83,7 +86,7 @@ public class HotelMain extends JFrame implements ActionListener{
 		p_north.setPreferredSize(new Dimension(1280, 60));
 		p_west.setPreferredSize(new Dimension(180, 900));
 		p_center.setPreferredSize(new Dimension(1100, 900));
-		
+			
 		p_north.add(la_hotel);
 		p_north.add(la_time);
 		p_north.add(la_user);
@@ -91,8 +94,7 @@ public class HotelMain extends JFrame implements ActionListener{
 				
 		for (int i = 0; i < myButtons.length; i++) {
 			p_west.add(myButtons[i]);
-		}
-		
+		}		
 		
 		p_center.add(p_home);
 		p_center.add(p_now);
@@ -147,7 +149,8 @@ public class HotelMain extends JFrame implements ActionListener{
 			menuVisible(p_member);
 		}else if (obj==bt_chat) {
 			menuVisible(p_chat);
-		}
+		}		
+		
 	}
 
 	public static void main(String[] args) {
