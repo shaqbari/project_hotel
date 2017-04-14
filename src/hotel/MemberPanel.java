@@ -24,11 +24,11 @@ import javax.swing.JTextField;
 public class MemberPanel extends JPanel implements ActionListener{
 	HotelMain main;
 	Connection con;
-	JPanel p_north,p_center,p_container,p_south;
+	JPanel p_north,p_center,p_container,p_south,p_main;
 	JTable table;
 	JScrollPane scroll;
 	JLabel la_north,la_center;
-	JButton bt_regist,bt_modify,bt_search;
+	JButton bt_reservation,bt_modify,bt_search;
 	JTextField t_name;
 	MemberTable table_member;
 	GuestTable table_guest;
@@ -41,6 +41,7 @@ public class MemberPanel extends JPanel implements ActionListener{
 		this.main=main;
 		con=main.con;
 		con=manager.getConnection();
+		p_main=new JPanel();
 		p_north=new JPanel();
 		p_center=new JPanel();
 		p_container=new JPanel();
@@ -48,15 +49,15 @@ public class MemberPanel extends JPanel implements ActionListener{
 		chkgroup=new CheckboxGroup();
 		table=new JTable();
 		scroll=new JScrollPane(table);
-		bt_regist=new JButton("등록");
+		bt_reservation=new JButton("예약확인");
 		bt_modify=new JButton("수정");
 		bt_search=new JButton("조회");
-		la_north=new JLabel("회원관리");
+		//la_north=new JLabel("회원관리");
 		la_center=new JLabel("회원명");
 		ch_member=new Checkbox("회원",chkgroup,true);
 		ch_guest=new Checkbox("비회원",chkgroup,false);
 		t_name=new JTextField(10);
-		p_north.add(la_north,BorderLayout.EAST);
+		//p_north.add(la_north,BorderLayout.EAST);
 		p_center.add(ch_member);
 		p_center.add(ch_guest);
 		p_center.add(la_center);
@@ -66,12 +67,15 @@ public class MemberPanel extends JPanel implements ActionListener{
 		p_container.add(p_north);
 		p_container.add(p_center);
 		
-		p_container.setPreferredSize(new Dimension(800, 100));
-		p_south.add(bt_regist);
+		//p_container.setPreferredSize(new Dimension(800, 100));
+		p_south.add(bt_reservation);
 		p_south.add(bt_modify);
-		add(p_container,BorderLayout.NORTH);
-		add(scroll);
-		add(p_south,BorderLayout.SOUTH);
+		p_main.setLayout(new BorderLayout());
+		p_main.add(p_container,BorderLayout.NORTH);
+		p_main.add(scroll,BorderLayout.CENTER);
+		p_main.add(p_south,BorderLayout.SOUTH);
+		p_main.setPreferredSize(new Dimension(1050, 850));
+		add(p_main);
 		ch_member.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				findmember();
@@ -84,16 +88,20 @@ public class MemberPanel extends JPanel implements ActionListener{
 		});
 		bt_search.addActionListener(this);
 		bt_modify.addActionListener(this);
-		bt_regist.addActionListener(this);
-		setBackground(Color.PINK);
+		bt_reservation.addActionListener(this);
+		//setBackground(Color.PINK);
 		
 		setPreferredSize(new Dimension(1100, 900));
 		setVisible(false);	
 	}
-	public void regist(){
+	public void reservation(){
+		ReservationTable reservation=new ReservationTable();
+		reservation.setVisible(true);
+		System.out.println(table.getColumnCount());
 		
 	}
 	public void modify(){
+		
 		
 	}
 	public void searchmember(){
@@ -125,8 +133,8 @@ public class MemberPanel extends JPanel implements ActionListener{
 			searchmember();
 		}else if(obj==bt_search&&flag==false){
 			serachguest();
-		}else if(obj==bt_regist){
-			regist();
+		}else if(obj==bt_reservation){
+			reservation();
 		}else if(obj==bt_modify){
 			modify();
 		}

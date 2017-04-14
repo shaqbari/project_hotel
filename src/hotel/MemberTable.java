@@ -142,6 +142,16 @@ Vector<Vector> data= new Vector<Vector>();
 	public Object getValueAt(int row, int col) {
 		return data.elementAt(row).elementAt(col);
 	}
+	public boolean isCellEditable(int row, int col) {
+		boolean flag=true;
+		if(col==0){
+			flag=false;
+		}
+		return flag;
+	}
+	public void setValueAt(Object Value, int row, int col) {
+		data.elementAt(row).set(col, Value);
+	}
 
 
 }

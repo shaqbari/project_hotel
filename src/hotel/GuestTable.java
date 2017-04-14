@@ -112,6 +112,7 @@ public class GuestTable extends AbstractTableModel{
 			}
 		}
 	}
+	
 	public String getColumnName(int col) {
 		return columnName.get(col);
 	}
@@ -123,5 +124,16 @@ public class GuestTable extends AbstractTableModel{
 	}
 	public Object getValueAt(int row, int col) {
 		return data.elementAt(row).elementAt(col);
+	}
+	//수정적용
+	public boolean isCellEditable(int row, int col) {
+		boolean flag=true;
+		if(col==0){
+			flag=false;
+		}
+		return flag;
+	}
+	public void setValueAt(Object Value, int row, int col) {
+		data.elementAt(row).set(col, Value);
 	}
 }
