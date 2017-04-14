@@ -95,9 +95,11 @@ public class MemberPanel extends JPanel implements ActionListener{
 		setVisible(false);	
 	}
 	public void reservation(){
-		ReservationTable reservation=new ReservationTable();
+		int index=table.getSelectedRow()+1;
+		System.out.println(index);
+		ReservationTable reservation=new ReservationTable(con,index);
 		reservation.setVisible(true);
-		System.out.println(table.getColumnCount());
+		//System.out.println(table.getColumnCount());
 		
 	}
 	public void modify(){

@@ -7,6 +7,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Vector;
 
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
 
 public class GuestTable extends AbstractTableModel{
@@ -112,7 +113,7 @@ public class GuestTable extends AbstractTableModel{
 			}
 		}
 	}
-	
+
 	public String getColumnName(int col) {
 		return columnName.get(col);
 	}

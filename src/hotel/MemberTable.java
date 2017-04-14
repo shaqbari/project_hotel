@@ -36,12 +36,7 @@ Vector<Vector> data= new Vector<Vector>();
 		try {
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
-			Vector<String> columnName= new Vector<String>();
-			ResultSetMetaData meta=rs.getMetaData();
-			int count=meta.getColumnCount();
-			for(int i=0;i<count;i++){
-				columnName.add(meta.getColumnName(i+1));
-			}
+
 			//System.out.println(columnName.size());
 			while(rs.next()){
 				Vector vec=new Vector();
