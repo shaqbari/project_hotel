@@ -1,0 +1,7 @@
+-- hotel_user_id가 1인 사람의 
+-- 예약id, 게스트이름, 게스트전화번호, 예약시간, 예약방번호, 입실시간, 퇴실시간을 출력하라
+
+select re.RESV_ID, g.GUEST_NAME, g.GUEST_PHONE, re.RESV_TIME, r.ROOM_NUMBER, ro.ROOM_OPTION_NAME, c.CHECK_IN_TIME, c.CHECK_OUT_TIME 
+ from ROOM_OPTION ro, ROOM r, RESV re, CHECK_IO c, HOTEL_USER h, GUEST g
+ where r.ROOM_OPTION_ID=ro.ROOM_OPTION_ID and r.ROOM_NUMBER=re.ROOM_NUMBER and re.RESV_ID=c.RESV_ID and re.HOTEL_USER_ID=h.HOTEL_USER_ID and h.HOTEL_USER_ID = g.HOTEL_USER_ID
+ and g.HOTEL_USER_ID=1;
