@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Vector;
- 
+
 import javax.swing.table.AbstractTableModel;
  
 public class ResvModel extends AbstractTableModel{
@@ -25,8 +25,9 @@ public class ResvModel extends AbstractTableModel{
 		//열에 날짜 데이터가 들어옴
 		this.cal=cal;
 		yy=cal.get(Calendar.YEAR);
-		mm=cal.get(Calendar.MONTH);
+		mm=cal.get(Calendar.MONTH)+1;
 		
+		System.out.println("현재 달은?"+(mm));
 		
 		lastDay=cal.get(Calendar.DATE);
 		int num=0;
@@ -37,13 +38,11 @@ public class ResvModel extends AbstractTableModel{
 			num++;
 			columnName.add(Integer.toString(num));
 		}
-		
+	
 		getList();
-		
 	}
 	
-	
-	
+
 	/*-------------------------------------------------------
 	 * Room 테이블의 room_number를 첫번째 열에 가져옴 
 	 *-------------------------------------------------------*/
@@ -56,11 +55,8 @@ public class ResvModel extends AbstractTableModel{
 		String sql="select resv_id, hotel_user_id, room_number, to_char(resv_time, 'yy-mm-dd') as resv_time from resv where to_char(resv_time, 'yyyy')=?";
 		sql+=" and to_char(resv_time,'mm')=?";
 		*/
-		String sql="select resv_id, hotel_user_id, room_number, to_char(resv_time, 'yy-mm-dd') as resv_time from resv where to_char(resv_time, 'yyyy')='"+yy+"'";
-		sql+=" and to_char(resv_time,'mm')='"+DateUtil.getDateString(Integer.toString(mm))+"'";
-
-		System.out.println(sql);
-		
+		String sql="select resv_id, hotel_user_id, room_number, to_char(resv_time, 'yy-mm-dd') as resv_time from resv where to_char(resv_time, 'yyyy')='"+yy+"' and to_char(resv_time,'mm')='"+DateUtil.getDateString(Integer.toString(mm))+"'order by room_number";
+	
 		try {
 			pstmt=con.prepareStatement(sql);
 			//pstmt.setString(1, Integer.toString(yy));
