@@ -578,7 +578,7 @@ insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
  insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
  VALUES (seq_check_io.nextVal, 15, to_date('2017-4-27-14-00-00','yyyy-mm-dd-hh24-mi-ss'), to_date('2017-4-29-12-00-00','yyyy-mm-dd-hh24-mi-ss')); 
  insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
- VALUES (seq_check_io.nextVal, 16, to_date('2017-4-28-14-00-00','yyyy-mm-dd-hh24-mi-ss'), to_date('2017-4-19-12-00-00','yyyy-mm-dd-hh24-mi-ss')); 
+ VALUES (seq_check_io.nextVal, 16, to_date('2017-4-28-14-00-00','yyyy-mm-dd-hh24-mi-ss'), to_date('2017-4-29-12-00-00','yyyy-mm-dd-hh24-mi-ss')); 
  insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
  VALUES (seq_check_io.nextVal, 17, to_date('2017-4-29-14-00-00','yyyy-mm-dd-hh24-mi-ss'), to_date('2017-5-1-12-00-00','yyyy-mm-dd-hh24-mi-ss')); 
  insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
