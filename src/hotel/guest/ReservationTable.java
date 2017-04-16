@@ -1,4 +1,4 @@
-package hotel;
+package hotel.guest;
 
 import java.awt.Color;
 import java.sql.Connection;

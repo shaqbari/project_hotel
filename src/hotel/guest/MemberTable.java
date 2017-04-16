@@ -1,4 +1,4 @@
-package hotel;
+package hotel.guest;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,10 +1,12 @@
-package hotel;
+package hotel.home;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.sql.Connection;
 
 import javax.swing.JPanel;
+
+import hotel.HotelMain;
 
 public class HomePanel extends JPanel{
 	HotelMain main;

@@ -1,4 +1,4 @@
-package hotel;
+package hotel.guest;
 
 import java.awt.BorderLayout;
 import java.awt.Checkbox;
@@ -18,6 +18,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+
+import hotel.DBManager;
+import hotel.HotelMain;
 
 
 

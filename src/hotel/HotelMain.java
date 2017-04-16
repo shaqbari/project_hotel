@@ -14,14 +14,19 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+
+import hotel.chat.ChatPanel;
+import hotel.guest.MemberPanel;
+import hotel.home.HomePanel;
+import hotel.now.NowPanel;
+import hotel.resv.ResvPanel;
 
 public class HotelMain extends JFrame implements ActionListener{
 	JPanel p_north, p_west, p_center;
 	JLabel la_hotel, la_time, la_user;
 	JButton bt_logout, bt_home, bt_now, bt_resv, bt_member, bt_chat;
 	
-	Connection con;
+	public Connection con;
 	DBManager manager;
 	
 	JPanel[] menu=new JPanel[5];

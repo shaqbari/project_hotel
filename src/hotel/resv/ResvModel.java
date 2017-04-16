@@ -1,4 +1,4 @@
-package hotel;
+package hotel.resv;
  
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,8 @@ import java.util.Calendar;
 import java.util.Vector;
 
 import javax.swing.table.AbstractTableModel;
+
+import hotel.HotelMain;
  
 public class ResvModel extends AbstractTableModel{
 	Vector<String> columnName=new Vector<String>(); //컬럼명:날짜 

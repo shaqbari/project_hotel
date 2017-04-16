@@ -1,4 +1,4 @@
-package hotel;
+package hotel.resv;
 
 public class DateUtil {
 	

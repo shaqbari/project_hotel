@@ -1,10 +1,12 @@
-package hotel;
+package hotel.chat;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.sql.Connection;
 
 import javax.swing.JPanel;
+
+import hotel.HotelMain;
 
 public class ChatPanel extends JPanel{
 	HotelMain main;

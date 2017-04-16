@@ -4,7 +4,7 @@
  	2. 이를 위해 각각의 정보를 배열에 담기
 */
 
-package hotel;
+package hotel.now;
 
 import java.awt.BorderLayout;
 import java.awt.Canvas;

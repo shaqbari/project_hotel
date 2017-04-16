@@ -1,5 +1,5 @@
 /*DBProject 2 참고*/
-package hotel;
+package hotel.now;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,6 +16,8 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+
+import hotel.HotelMain;
 
 /*이패널을 그리드레이아웃으로 만들고 room_item을 원하는곳에 배치시키면
  * 맨아래쪽이 1층 맨 위쪽에 6층이 나오게 할 수 있지 않을까?*/

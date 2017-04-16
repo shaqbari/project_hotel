@@ -1,4 +1,4 @@
-package hotel;
+package hotel.now;
 
 public class Room_Option {
 	private int room_option_id;

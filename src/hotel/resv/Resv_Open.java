@@ -1,4 +1,4 @@
-package hotel;
+package hotel.resv;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+
+import hotel.HotelMain;
 
 public class Resv_Open extends JFrame{
 	JPanel p_date;

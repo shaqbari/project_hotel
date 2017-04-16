@@ -1,4 +1,4 @@
-package hotel;
+package hotel.now;
 
 import java.awt.Canvas;
 import java.awt.Color;
