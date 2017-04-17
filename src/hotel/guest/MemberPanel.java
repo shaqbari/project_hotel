@@ -26,8 +26,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import hotel.DBManager;
 import hotel.HotelMain;
+import hotel.main.DBManager;
 
 
 

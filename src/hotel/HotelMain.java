@@ -22,6 +22,11 @@ import javax.swing.JPanel;
 import hotel.chat.ChatPanel;
 import hotel.guest.MemberPanel;
 import hotel.home.HomePanel;
+import hotel.main.CheckAdminPanel;
+import hotel.main.ClockThread;
+import hotel.main.DBManager;
+import hotel.main.MyButton;
+import hotel.main.RegAdminPanel;
 import hotel.now.NowPanel;
 import hotel.resv.ResvPanel;
 
@@ -34,9 +39,14 @@ public class HotelMain extends JFrame implements ActionListener{
 	JPanel p_container;
 	JPanel[] page=new JPanel[3];
 	
-	JPanel p_north, p_west, p_center; //p_conatainerdp 에 담길 패널들	
-	JPanel p_north_west, p_north_east;
-	JLabel la_hotel, la_time, la_user; //p_north에 담길 label
+	public JPanel p_north; //p_conatainerdp 에 담길 패널들	
+	JPanel p_west;
+	JPanel p_center;
+	JPanel p_north_west, p_north_east;//p_north에 담길 패널들
+	JLabel la_hotel; //p_north에 담길 label
+	public JLabel la_time;
+	JLabel la_admin;
+	public JLabel la_user;
 	Font font_north, font_content;
 	JButton bt_logout;	
 	JButton bt_home, bt_now, bt_resv, bt_member, bt_chat; //p_west에 담길 button
@@ -49,7 +59,7 @@ public class HotelMain extends JFrame implements ActionListener{
 			{"membership.png", "고객관리"},
 			{"chat.png", "채팅"}
 	};//res폴더에서 사용할 이미지		
-	MyButton[] myButtons=new MyButton[imgName.length];
+	public MyButton[] myButtons=new MyButton[imgName.length];
 	
 	HomePanel p_home;
 	NowPanel p_now;
@@ -76,10 +86,11 @@ public class HotelMain extends JFrame implements ActionListener{
 		//p_north에 붙일 예정
 		la_hotel=new JLabel("4조호텔                ");
 		la_time=new JLabel();
+		la_admin=new JLabel("ADMINISTRATOR: ");
 		la_user=new JLabel("관리자");
 		font_north=new Font("맑은 고딕", Font.BOLD, 30);
 		font_content=new Font("맑은고딕", Font.PLAIN, 20);
-		bt_logout=new JButton("로그아웃");
+		bt_logout=new JButton("LOGOUT");
 		
 		//여기서부터는 MyButton에 담겨 p_west에 붙일예정, 관리하기 쉽게 배열에 담는다.
 		buttons[0]=bt_home=new JButton();
@@ -118,14 +129,16 @@ public class HotelMain extends JFrame implements ActionListener{
 		
 		la_hotel.setFont(font_north);
 		la_time.setFont(font_content);
-		la_user.setFont(font_north);
-		bt_logout.setFont(font_north);
+		la_admin.setFont(font_content);
+		la_user.setFont(font_content);
+		bt_logout.setFont(font_content);
 		
 		p_north_west.setAlignmentX(LEFT_ALIGNMENT);
 		la_hotel.setAlignmentX(LEFT_ALIGNMENT);
 		
 		p_north_west.add(la_hotel);
 		p_north_west.add(la_time);
+		p_north_east.add(la_admin);
 		p_north_east.add(la_user);
 		p_north_east.add(bt_logout);
 		

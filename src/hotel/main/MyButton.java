@@ -1,4 +1,4 @@
-package hotel;
+package hotel.main;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,12 +12,14 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import hotel.HotelMain;
+
 public class MyButton extends JPanel implements ActionListener {
 	HotelMain main;
 	JButton bt;
 	JLabel la;
 	ImageIcon icon;
-	boolean flag = true;
+	public boolean flag = true;
 	URL url;
 
 	public MyButton(HotelMain main, JButton bt, URL url, String menu) {

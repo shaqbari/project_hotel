@@ -6,7 +6,7 @@
  * -어플리케이션 가동중 생성되는 connection 객체를 하나로 통일하기 위함
  * */
 
-package hotel;
+package hotel.main;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
