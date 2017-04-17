@@ -35,17 +35,17 @@ public class Resv_Open extends JFrame{
 	Resv_InModel newModel_in;
 	Resv_OutModel newModel_out;
 	
-	public Resv_Open(HotelMain main,Connection con,int col,int mm){
+	public Resv_Open(HotelMain main,Connection con,int col,Calendar cal){
 		this.main=main;
 		this.con=con;
 		this.col=col;
-		this.mm=mm;
+		this.cal=cal;
 		
 		
 		this.setLayout(new BorderLayout());
 		
-		yy=cal.get(cal.YEAR); 
-		mm=mm;
+		yy=cal.get(Calendar.YEAR);
+		mm=cal.get(Calendar.MONTH);
 		dd=col;
 		
 		//north
