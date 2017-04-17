@@ -73,7 +73,7 @@ public class RegAdminPanel extends JPanel implements ActionListener {
 		setPreferredSize(new Dimension(400, 300));
 		setVisible(true);
 	}
-
+/*
 	public void check() {
 		if (true) {// char[]를 인자로 받는 String객체의 생성자를 이용한다.
 			this.setVisible(false);
@@ -88,7 +88,7 @@ public class RegAdminPanel extends JPanel implements ActionListener {
 			txt_id.requestFocus();
 		}
 	}
-
+*/
 	public void regist() {
 
 	}
