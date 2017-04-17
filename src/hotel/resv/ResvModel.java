@@ -105,7 +105,7 @@ public class ResvModel extends AbstractTableModel{
 						//System.out.println(i+"일에 예약발견");
 						
 					}else{
-						vec.addElement("X");
+						vec.addElement(" ");
 					}
 					//System.out.print(i+"일,");
 				}
