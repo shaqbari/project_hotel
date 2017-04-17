@@ -129,7 +129,7 @@ public class GuestTable extends AbstractTableModel{
 	//수정적용
 	public boolean isCellEditable(int row, int col) {
 		boolean flag=true;
-		if(col==0){
+		if(col==0||col==1){
 			flag=false;
 		}
 		return flag;
