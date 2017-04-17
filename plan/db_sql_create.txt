@@ -23,6 +23,14 @@ CREATE TABLE guest
 );
 
 
+CREATE TABLE hotel_admin
+(
+	hotel_admin_id varchar2(20) NOT NULL,
+	hotel_admin_pw varchar2(20) NOT NULL,
+	hotel_admin_name varchar2(20) NOT NULL,
+	PRIMARY KEY (hotel_admin_id)
+);
+
 
 
 CREATE TABLE hotel_user

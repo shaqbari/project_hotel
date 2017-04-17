@@ -73,7 +73,15 @@ public class Room_Detail extends JFrame {
 		setSize(700, 550);
 		setVisible(true);
 		setLocationRelativeTo(null);
+<<<<<<< HEAD
 
+=======
+		
+	}
+	
+	public static void main(String[] args) {
+		new Room_Detail();
+>>>>>>> 6fcc7b2e60734aade9f7ce0c0db732081f021acf
 	}
 
 	public void view() {	

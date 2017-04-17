@@ -139,7 +139,7 @@ Vector<Vector> data= new Vector<Vector>();
 	}
 	public boolean isCellEditable(int row, int col) {
 		boolean flag=true;
-		if(col==0){
+		if(col==0||col==1||col==4||col==8){
 			flag=false;
 		}
 		return flag;

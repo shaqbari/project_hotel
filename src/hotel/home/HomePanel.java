@@ -20,7 +20,7 @@ public class HomePanel extends JPanel{
 		setBackground(Color.gray);
 		
 		setPreferredSize(new Dimension(1100, 900));
-		setVisible(false);		
+		setVisible(true);		
 	}
 	
 }

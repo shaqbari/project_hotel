@@ -44,6 +44,7 @@ public class MyButton extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		//버튼 누르면 나머지 해당버튼만 배경색 바꾸고, 나머지는 초기화
 		if (flag) {
 			flag = !flag;
 			for (int i = 0; i < main.myButtons.length; i++) {
@@ -53,10 +54,10 @@ public class MyButton extends JPanel implements ActionListener {
 					main.myButtons[i].flag = true;
 				}
 			}
-		} else {
+		} /*else {
 			flag = !flag;
 			this.setBackground(null);
-		}
+		}이걸추가해버리면 선택되었을때 또 선택하면 배경색이 초기화되어버린다.*/
 	}
 
 }
