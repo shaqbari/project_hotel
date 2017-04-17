@@ -8,20 +8,20 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 
 public class Room_Item extends JPanel {
 	Canvas can;
 	JLabel la_number, la_name;
 	Image img;
+	NowPanel nowPanel;
 	
-	public Room_Item(String number, String name, Image img) {
+	public Room_Item(String number, String name, Image img, NowPanel nowPanel) {
+		this.nowPanel = nowPanel;
 		la_number = new JLabel(number);
 		la_name = new JLabel(name);
 		can = new Canvas(){
@@ -34,10 +34,12 @@ public class Room_Item extends JPanel {
 		can.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				//DetailView();
-				new Room_Detail();
+				System.out.println("클릭");
+				new Room_Detail(nowPanel);
 			}
 		});
 		
+	
 		add(la_number);
 		add(la_name);
 		add(can);
@@ -47,7 +49,9 @@ public class Room_Item extends JPanel {
 		setBackground(Color.WHITE);
 	}
 	
+	
 	//방의 상세정보 보기
+	/*
 	public void DetailView(){
 		JFrame frame = new JFrame("상세정보");
 		frame.setVisible(true);
@@ -61,7 +65,7 @@ public class Room_Item extends JPanel {
 		frame.setSize(500, 300);
 		frame.setLocation(400, 500);
 	}
-	
+	*/
 }
 
 

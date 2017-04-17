@@ -98,7 +98,7 @@ public class NowPanel extends JPanel{
 				URL url=this.getClass().getResource("/"+room.getRoom_option_img());
 				Image img = ImageIO.read(url);
 						
-				Room_Item item = new Room_Item(number, name, img);
+				Room_Item item = new Room_Item(number, name, img, this);
 				add(item);
 				
 			} catch (IOException e) {
