@@ -1,5 +1,7 @@
 package hotel.resv;
  
+import java.awt.Image;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,11 +9,13 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 
 import hotel.HotelMain;
  
 public class ResvModel extends AbstractTableModel{
+	String TAG=this.getClass().getName();
 	Vector<String> columnName=new Vector<String>(); //컬럼명:날짜 
 	Vector <Vector> data=new Vector<Vector>(); //호수
 	HotelMain main;
@@ -21,17 +25,21 @@ public class ResvModel extends AbstractTableModel{
 	int mm;
 	int dd;
 	int lastDay;
+	Image red, white;
 	
 	public ResvModel(Connection con,Calendar cal) {
 		this.con=con; 
 		//열에 날짜 데이터가 들어옴
 		this.cal=cal;
 		yy=cal.get(Calendar.YEAR);
-		mm=cal.get(Calendar.MONTH)+1;
+		mm=cal.get(Calendar.MONTH);
 		
-		System.out.println("현재 달은?"+(mm));
+		System.out.println(TAG+" 실제 달은?"+(mm));
 		
+		//각 월의 마지막 날 구하기 
+		cal.set(yy, mm+1 ,0);//다음달로 우선 간 후, 그 날보다 -1일인 날이 바로 해당 월의 마지막날.. 
 		lastDay=cal.get(Calendar.DATE);
+		
 		int num=0;
 		
 		columnName.add("날짜");
@@ -42,6 +50,10 @@ public class ResvModel extends AbstractTableModel{
 		}
 	
 		getList();
+		URL url=this.getClass().getResource("/folder_on.png");
+		
+		
+		//reserve.add()
 	}
 	
 
@@ -57,10 +69,17 @@ public class ResvModel extends AbstractTableModel{
 		String sql="select resv_id, hotel_user_id, room_number, to_char(resv_time, 'yy-mm-dd') as resv_time from resv where to_char(resv_time, 'yyyy')=?";
 		sql+=" and to_char(resv_time,'mm')=?";
 		*/
-		String sql="select resv_id, hotel_user_id, room_number, to_char(resv_time, 'yy-mm-dd') as resv_time from resv where to_char(resv_time, 'yyyy')='"+yy+"' and to_char(resv_time,'mm')='"+DateUtil.getDateString(Integer.toString(mm))+"'order by room_number";
+		StringBuffer sql=new StringBuffer();
+		
+		sql.append("select r.room_number, nvl(resv_id,0) as resv_id , nvl(hotel_user_id,0) as hotel_user_id ,  nvl(to_char(resv_time, 'yy-mm-dd'), '0000-00-00') as resv_time");
+		sql.append(" from  room r  left outer join resv rv  on r.room_number = rv.room_number ");
+		sql.append(" and to_char(resv_time, 'yyyy')='"+yy+"' and to_char(resv_time,'mm')='"+DateUtil.getDateString(Integer.toString(mm+1))+"' ");
+		sql.append(" order by r.room_number");
+		
+		System.out.println(sql.toString());
 	
 		try {
-			pstmt=con.prepareStatement(sql);
+			pstmt=con.prepareStatement(sql.toString());
 			//pstmt.setString(1, Integer.toString(yy));
 			//pstmt.setString(2, DateUtil.getDateString(Integer.toString(mm)));
 			
@@ -79,6 +98,7 @@ public class ResvModel extends AbstractTableModel{
 					if(i==date){
 						vec.addElement("O");
 						//System.out.println(i+"일에 예약발견");
+						
 					}else{
 						vec.addElement("X");
 					}
@@ -109,15 +129,11 @@ public class ResvModel extends AbstractTableModel{
 	}
 	
 	public int getColumnCount() {
-		
 		return columnName.size();
 	}
- 
 	
 	public int getRowCount() {
-		
 		return data.size();
-		
 	}
 	
 	public String getColumnName(int col) {
