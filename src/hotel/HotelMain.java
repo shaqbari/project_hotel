@@ -33,7 +33,6 @@ import hotel.resv.ResvPanel;
 public class HotelMain extends JFrame implements ActionListener{
 	DBManager manager;
 	public Connection con;
-
 	CheckAdminPanel checkAdminPanel; //로그인패널
 	RegAdminPanel regAdminPanel;	//관리자 등록패널
 	JPanel p_container;

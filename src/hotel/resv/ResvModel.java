@@ -15,6 +15,7 @@ import java.util.Calendar;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
+import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 import hotel.HotelMain;
@@ -30,12 +31,13 @@ public class ResvModel extends AbstractTableModel{
 	int mm;
 	int dd;
 	int lastDay;
-	Image red, white;
+	JTable table;
 	
-	public ResvModel(Connection con,Calendar cal) {
+	public ResvModel(Connection con,Calendar cal, JTable table) {
 		this.con=con; 
 		//열에 날짜 데이터가 들어옴
 		this.cal=cal;
+		this.table=table;
 		yy=cal.get(Calendar.YEAR);
 		mm=cal.get(Calendar.MONTH);
 		
@@ -55,10 +57,7 @@ public class ResvModel extends AbstractTableModel{
 		}
 	
 		getList();
-		URL url=this.getClass().getResource("/folder_on.png");
 		
-	
-		//reserve.add()
 	}
 	
 	

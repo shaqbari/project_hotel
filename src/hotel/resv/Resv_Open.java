@@ -38,8 +38,8 @@ public class Resv_Open extends JFrame{
 	public Resv_Open(HotelMain main,Connection con,int col,int mm){
 		this.main=main;
 		this.con=con;
-		this.mm=mm;
 		this.col=col;
+		this.mm=mm;
 		
 		
 		this.setLayout(new BorderLayout());

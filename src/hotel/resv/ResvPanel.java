@@ -90,7 +90,12 @@ public class ResvPanel extends JPanel implements ActionListener{
 		la_date.setText(yy+"-"+(mm+1));
 		
 		//공통사항 옮겨서 부착
-		table.setModel(rm=new ResvModel(con, cal));
+		table.setModel(rm=new ResvModel(con, cal,table));
+		
+		for(int i=0; i<rm.getColumnCount(); i++){
+			table.setDefaultRenderer(table.getColumnClass(i), new Resv_Render());
+		}
+	
 		table.updateUI();
 		p_center.updateUI();
 	}
