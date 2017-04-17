@@ -40,6 +40,7 @@ public class Resv_InModel extends AbstractTableModel{
 			ResultSetMetaData meta = rs.getMetaData();
 			for(int i=1; i<=meta.getColumnCount(); i++){
 				columnName.add(meta.getColumnName(i));
+				System.out.println(columnName);
 			}
 			
 			
@@ -49,7 +50,7 @@ public class Resv_InModel extends AbstractTableModel{
 				vec.add(rs.getString("check_io_id"));
 				vec.add(rs.getString("resv_id"));
 				vec.add(rs.getString("check_in_time"));
-				
+								
 				list.add(vec);
 			}
 			

@@ -22,24 +22,36 @@ public class Resv_Open extends JFrame{
 	Calendar cal=Calendar.getInstance();
 	HotelMain main;
 	Connection con;
+	ResvModel rm;
+	ResvPanel rp;
 	
 	//ResvModel 과 날짜가 늘 일치하여야하므로, 수정필요
 	//지금은 테스트상태
-	int yy=cal.get(cal.YEAR); 
-	int mm=cal.get(cal.MONTH)+1;
-	int dd=cal.get(cal.DATE);
+	int yy;
+	int mm;
+	int dd;
+	int col;
 	
 	Resv_InModel newModel_in;
 	Resv_OutModel newModel_out;
-	public Resv_Open(HotelMain main,Connection con){
+	
+	public Resv_Open(HotelMain main,Connection con,int col,int mm){
 		this.main=main;
 		this.con=con;
+		this.mm=mm;
+		this.col=col;
+		
 		
 		this.setLayout(new BorderLayout());
+		
+		yy=cal.get(cal.YEAR); 
+		mm=mm;
+		dd=col;
+		
 		//north
 		p_date = new JPanel();
 		//**선택된 테이블 셀의 날짜에 맞게 ....
-		la_date = new JLabel(yy+"-"+(mm)+"-"+dd);
+		la_date = new JLabel(yy+"-"+(mm+1)+"-"+dd);
 		//west
 		p_in = new JPanel();
 		la_in = new JLabel("Check-In");

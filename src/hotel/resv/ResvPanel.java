@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.util.Calendar;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -36,6 +37,7 @@ public class ResvPanel extends JPanel implements ActionListener{
 	int yy;
 	int mm;
 	int dd;
+	String value;
 	
 	public ResvPanel(HotelMain main) {
 		this.main=main;
@@ -62,8 +64,14 @@ public class ResvPanel extends JPanel implements ActionListener{
 		
 		table.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				//System.out.println("예약관리 달력테이블 클릭시 이벤트발생");
-				newOpen = new Resv_Open(main,con);
+				int row=table.getSelectedRow();
+				int col=table.getSelectedColumn();
+				value=(String) rm.getValueAt(row, col);
+				if(value=="O"){
+				newOpen = new Resv_Open(main,con,col,mm);
+				}else{
+					
+				}
 			}
 		});
 		
