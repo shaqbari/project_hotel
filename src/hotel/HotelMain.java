@@ -142,6 +142,7 @@ public class HotelMain extends JFrame implements ActionListener{
 		p_container.add(p_center);
 		
 		add(checkAdminPanel);
+		add(regAdminPanel);
 		add(p_container);
 		setPage(0);//처음실행했을때는 로그인패널보이게 한다.
 		
