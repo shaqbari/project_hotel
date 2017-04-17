@@ -17,15 +17,15 @@ Vector<Vector> data= new Vector<Vector>();
 	public MemberTable(Connection con,MemberPanel main) {
 		this.con=con;
 		this.main=main;
-		columnName.add("membership_id");
-		columnName.add("hotel_user_id");
-		columnName.add("membership_name");
-		columnName.add("membership_nick");
-		columnName.add("membership_regdate");
-		columnName.add("membership_phone");
-		columnName.add("membership_email");
-		columnName.add("membership_gender");
-		columnName.add("membership_birthday");
+		columnName.add("MEMBERSHIP_ID");
+		columnName.add("HOTEL_USER_ID");
+		columnName.add("MEMBERSHIP_NAME");
+		columnName.add("MEMBERSHIP_NICK");
+		columnName.add("MEMBERSHIP_REGDATE");
+		columnName.add("MEMBERSHIP_PHONE");
+		columnName.add("MEMBERSHIP_EMAIL");
+		columnName.add("MEMBERSHIP_GENDER");
+		columnName.add("MEMBERSHIP_BIRTHDAY");
 	}
 	
 	public void getMemberList(){

@@ -59,7 +59,6 @@ public class ReservationGuestTable extends AbstractTableModel{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	public String getColumnName(int col) {

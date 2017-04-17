@@ -62,7 +62,7 @@ public class ReservationMemberTable extends AbstractTableModel{
 		}
 		
 	}
-
+	
 	public String getColumnName(int col) {
 	
 		return columnName.get(col);
