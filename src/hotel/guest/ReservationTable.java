@@ -12,12 +12,19 @@ public class ReservationTable extends JFrame{
 	JTable table;
 	Connection con;
 	ReservationGuestTable guestTable;
+	ReservationMemberTable memberTable;
 	JScrollPane scroll;
-	int index;
-	public ReservationTable(Connection con,int index) {
+	boolean flag;
+	String value;
+	public ReservationTable(Connection con,String value,boolean flag) {
 		this.con=con;
-		this.index=index;
-		table=new JTable(guestTable=new ReservationGuestTable(con,index));
+		this.value=value;
+		this.flag=flag;
+		if(flag==false){
+			table=new JTable(guestTable=new ReservationGuestTable(con,value));
+		}else if(flag==true){
+			table=new JTable(memberTable=new ReservationMemberTable(con,value));
+		}
 		scroll=new JScrollPane(table);
 		add(scroll);
 		setSize(1100,200);

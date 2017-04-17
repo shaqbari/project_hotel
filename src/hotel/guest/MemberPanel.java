@@ -3,7 +3,6 @@ package hotel.guest;
 import java.awt.BorderLayout;
 import java.awt.Checkbox;
 import java.awt.CheckboxGroup;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -57,7 +56,7 @@ public class MemberPanel extends JPanel implements ActionListener{
 		bt_search=new JButton("조회");
 		//la_north=new JLabel("회원관리");
 		la_center=new JLabel("회원명");
-		ch_member=new Checkbox("회원",chkgroup,true);
+		ch_member=new Checkbox("회원",chkgroup,false);
 		ch_guest=new Checkbox("비회원",chkgroup,false);
 		t_name=new JTextField(10);
 		//p_north.add(la_north,BorderLayout.EAST);
@@ -81,7 +80,8 @@ public class MemberPanel extends JPanel implements ActionListener{
 		add(p_main);
 		ch_member.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				findmember();
+					findmember();
+				
 			}
 		});
 		ch_guest.addItemListener(new ItemListener() {
@@ -98,9 +98,11 @@ public class MemberPanel extends JPanel implements ActionListener{
 		setVisible(false);	
 	}
 	public void reservation(){
-		int index=table.getSelectedRow()+1;
-		System.out.println(index);
-		ReservationTable reservation=new ReservationTable(con,index);
+		int row=table.getSelectedRow();
+		Object obj=table.getValueAt(row, 0);
+		String value=obj.toString();
+		System.out.println(value);
+		ReservationTable reservation=new ReservationTable(con,value,flag);
 		reservation.setVisible(true);
 		//System.out.println(table.getColumnCount());
 		
@@ -134,9 +136,9 @@ public class MemberPanel extends JPanel implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		Object obj=e.getSource();
-		if(obj==bt_search&&flag==true){
+		if(obj==bt_search && flag==true){
 			searchmember();
-		}else if(obj==bt_search&&flag==false){
+		}else if(obj==bt_search && flag==false){
 			serachguest();
 		}else if(obj==bt_reservation){
 			reservation();
