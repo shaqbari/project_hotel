@@ -588,5 +588,10 @@ insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
  insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
  VALUES (seq_check_io.nextVal, 20, to_date('2017-5-2-14-00-00','yyyy-mm-dd-hh24-mi-ss'), to_date('2017-5-6-12-00-00','yyyy-mm-dd-hh24-mi-ss')); 
 
+--10.hotel_admin테이블 입력
+insert into HOTEL_ADMIN (HOTEL_ADMIN_ID, HOTEL_ADMIN_PW, HOTEL_ADMIN_NAME) VALUES ('admin','admin', 'admin');
+
+
+
 
 commit;

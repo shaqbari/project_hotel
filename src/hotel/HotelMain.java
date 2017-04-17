@@ -2,7 +2,11 @@ package hotel;
 
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -22,23 +26,37 @@ import hotel.now.NowPanel;
 import hotel.resv.ResvPanel;
 
 public class HotelMain extends JFrame implements ActionListener{
-	JPanel p_north, p_west, p_center;
-	JLabel la_hotel, la_time, la_user;
-	JButton bt_logout, bt_home, bt_now, bt_resv, bt_member, bt_chat;
-	
-	public Connection con;
 	DBManager manager;
+	public Connection con;
+
+	CheckAdminPanel checkAdminPanel; //로그인패널
+	RegAdminPanel regAdminPanel;	//관리자 등록패널
+	JPanel p_container;
+	JPanel[] page=new JPanel[3];
 	
-	JPanel[] menu=new JPanel[5];
+	JPanel p_north, p_west, p_center; //p_conatainerdp 에 담길 패널들	
+	JPanel p_north_west, p_north_east;
+	JLabel la_hotel, la_time, la_user; //p_north에 담길 label
+	Font font_north, font_content;
+	JButton bt_logout;	
+	JButton bt_home, bt_now, bt_resv, bt_member, bt_chat; //p_west에 담길 button
+	JButton[] buttons=new JButton[5];
+	
+	String[][] imgName={
+			{"home.png", "홈"},
+			{"room.png", "객실관리"},
+			{"resv.png", "예약관리"},
+			{"membership.png", "고객관리"},
+			{"chat.png", "채팅"}
+	};//res폴더에서 사용할 이미지		
+	MyButton[] myButtons=new MyButton[imgName.length];
+	
 	HomePanel p_home;
 	NowPanel p_now;
-	ResvPanel p_resv;
-	
+	ResvPanel p_resv;	
 	MemberPanel p_member;
 	ChatPanel p_chat;	
-	
-	MyButton[] myButtons=new MyButton[5];	
-	URL[] url=new URL[5];
+	JPanel[] p_menus=new JPanel[5];	
 	
 	ClockThread clock; //시계
 		
@@ -46,71 +64,89 @@ public class HotelMain extends JFrame implements ActionListener{
 		manager=manager.getInstance();
 		con=manager.getConnection();
 				 
-		//System.out.println(url.toString());
-		url[0]=this.getClass().getResource("/home.png");
-		url[1]=this.getClass().getResource("/room.png");
-		url[2]=this.getClass().getResource("/resv.png");
-		url[3]=this.getClass().getResource("/membership.png");
-		url[4]=this.getClass().getResource("/chat.png");
-		
+		page[0]=checkAdminPanel=new CheckAdminPanel(this);//로그인정보 확인 패널
+		page[1]=regAdminPanel=new RegAdminPanel(this);//로그인정보 확인 패널
+		page[2]=p_container=new JPanel();//아래 패널을 담을 패널
 		p_north=new JPanel();
 		p_west=new JPanel();
-		p_center=new JPanel();
+		p_center=new JPanel();		
+		p_north_west=new JPanel();
+		p_north_east=new JPanel();
 		
-		la_hotel=new JLabel("신라호텔");
-		la_time=new JLabel("2017년 4월 13일");
+		//p_north에 붙일 예정
+		la_hotel=new JLabel("4조호텔                ");
+		la_time=new JLabel();
 		la_user=new JLabel("관리자");
-				
+		font_north=new Font("맑은 고딕", Font.BOLD, 30);
+		font_content=new Font("맑은고딕", Font.PLAIN, 20);
 		bt_logout=new JButton("로그아웃");
-		bt_home=new JButton();
-		bt_now=new JButton();
-		bt_resv=new JButton();
-		bt_member=new JButton();
-		bt_chat=new JButton();
-			
-		myButtons[0]=new MyButton(this, bt_home, url[0], "홈");
-		myButtons[1]=new MyButton(this, bt_now, url[1], "객실관리");
-		myButtons[2]=new MyButton(this, bt_resv, url[2], "예약관리");
-		myButtons[3]=new MyButton(this, bt_member, url[3], "고객관리");
-		myButtons[4]=new MyButton(this, bt_chat, url[4], "채팅");
+		
+		//여기서부터는 MyButton에 담겨 p_west에 붙일예정, 관리하기 쉽게 배열에 담는다.
+		buttons[0]=bt_home=new JButton();
+		buttons[1]=bt_now=new JButton();
+		buttons[2]=bt_resv=new JButton();
+		buttons[3]=bt_member=new JButton();
+		buttons[4]=bt_chat=new JButton();
+		
+		//mybuttons생성
+		for (int i = 0; i < imgName.length; i++) {
+			URL url=this.getClass().getResource("/"+imgName[i][0]); //앞에 /가 있어야 한다.
+			myButtons[i]=new MyButton(this, buttons[i], url, imgName[i][1]);
+		}		
+		myButtons[0].flag=false;//처음에 home버튼 선택되어있게 초기화
+		myButtons[0].setBackground(Color.GRAY);;		
 				
-		p_home=new HomePanel(this);
-		p_now=new NowPanel(this);
-		p_resv=new ResvPanel(this);
-		p_member=new MemberPanel(this);
-		p_chat=new ChatPanel(this);
+		//메뉴별로 패널을 나눈다. 나중에 관리하기쉽게 배열에 담는다.
+		p_menus[0]=p_home=new HomePanel(this);
+		p_menus[1]=p_now=new NowPanel(this);
+		p_menus[2]=p_resv=new ResvPanel(this);
+		p_menus[3]=p_member=new MemberPanel(this);
+		p_menus[4]=p_chat=new ChatPanel(this);
 		
-		clock=new ClockThread(this);
+		clock=new ClockThread(this); //시계생성
 		
-		menu[0]=p_home;
-		menu[1]=p_now;
-		menu[2]=p_resv;
-		menu[3]=p_member;
-		menu[4]=p_chat;
-	
+		//레이아웃조정
+		this.setLayout(new FlowLayout()); //pack이용하게 flowlayout으로
+		p_container.setLayout(new BorderLayout());
+		p_north.setLayout(new GridLayout(1, 2));
+		
+		//size조정
+		p_container.setPreferredSize(new Dimension(1280, 960));
 		p_north.setPreferredSize(new Dimension(1280, 60));
 		p_west.setPreferredSize(new Dimension(180, 900));
 		p_center.setPreferredSize(new Dimension(1100, 900));
-			
-		p_north.add(la_hotel);
-		p_north.add(la_time);
-		p_north.add(la_user);
-		p_north.add(bt_logout);
-				
+		
+		la_hotel.setFont(font_north);
+		la_time.setFont(font_content);
+		la_user.setFont(font_north);
+		bt_logout.setFont(font_north);
+		
+		p_north_west.setAlignmentX(LEFT_ALIGNMENT);
+		la_hotel.setAlignmentX(LEFT_ALIGNMENT);
+		
+		p_north_west.add(la_hotel);
+		p_north_west.add(la_time);
+		p_north_east.add(la_user);
+		p_north_east.add(bt_logout);
+		
+		p_north.add(p_north_west);		
+		p_north.add(p_north_east);		
+		
 		for (int i = 0; i < myButtons.length; i++) {
 			p_west.add(myButtons[i]);
-		}		
+			p_center.add(p_menus[i]);
+		}			
 		
-		p_center.add(p_home);
-		p_center.add(p_now);
-		p_center.add(p_resv);
-		p_center.add(p_member);
-		p_center.add(p_chat);		
+		p_container.add(p_north, BorderLayout.NORTH);
+		p_container.add(p_west, BorderLayout.WEST);
+		p_container.add(p_center);
 		
-		add(p_north, BorderLayout.NORTH);
-		add(p_west, BorderLayout.WEST);
-		add(p_center);
+		add(checkAdminPanel);
+		add(p_container);
+		setPage(0);//처음실행했을때는 로그인패널보이게 한다.
 		
+		//리스너와의 연결
+		bt_logout.addActionListener(this);
 		bt_home.addActionListener(this);
 		bt_now.addActionListener(this);
 		bt_resv.addActionListener(this);
@@ -118,25 +154,38 @@ public class HotelMain extends JFrame implements ActionListener{
 		bt_chat.addActionListener(this);
 				
 		addWindowListener(new WindowAdapter() {
-		public void windowClosing(WindowEvent arg0) {
-			manager.disConnect(con);
-			System.exit(0);
-		}
-		
+			public void windowClosing(WindowEvent arg0) {
+				manager.disConnect(con);
+				System.exit(0);
+			}		
 		});
 		
-		setSize(1280, 960);
+		//setSize(1280, 960); //pack()을 이용할 예정이므로 여기서사이즈 지정하면 안된다.
 		setLocationRelativeTo(null);
 		setVisible(true);	
 		
 	}
 	
+	//인자에 따라 로그인페이지와 메인페이지 교체
+	public void setPage(int index){
+		for (int i = 0; i < page.length; i++) {
+			if (i==index) {
+				page[i].setVisible(true);
+			}else{
+				page[i].setVisible(false);
+			}			
+		}
+		this.pack();//내용물의 크기만큼 윈도우 크기를 설정, 하나의 윈도우가 여러가지 모습을 보일수 있다.
+		this.setLocationRelativeTo(null); //화면중앙에 배치, 여기서 또 안하면 원래있던데서 크기 바뀐다.
+	}
+	
+	//메뉴선택에 따라 패널을 보여주는 메소드
 	public void menuVisible(JPanel p){
-		for (int i = 0; i < menu.length; i++) {			
-			if (p==menu[i]) {
-				menu[i].setVisible(true);
+		for (int i = 0; i < p_menus.length; i++) {			
+			if (p==p_menus[i]) {
+				p_menus[i].setVisible(true);
 			}else {
-				menu[i].setVisible(false);
+				p_menus[i].setVisible(false);
 			}
 		}
 		p_center.updateUI();		
@@ -144,6 +193,12 @@ public class HotelMain extends JFrame implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e) {
 		Object obj=(Object)e.getSource();
+		
+		//로그아웃버튼 누르면 checkAdminPanel보이게 설정
+		if (obj==bt_logout) {
+			setPage(0);
+		}
+		
 		if (obj==bt_home) {			
 			menuVisible(p_home);
 		}else if (obj==bt_now) {
@@ -154,12 +209,10 @@ public class HotelMain extends JFrame implements ActionListener{
 			menuVisible(p_member);
 		}else if (obj==bt_chat) {
 			menuVisible(p_chat);
-		}		
-		
+		}				
 	}
-
+	
 	public static void main(String[] args) {
 		new HotelMain();
 	}
-
 }

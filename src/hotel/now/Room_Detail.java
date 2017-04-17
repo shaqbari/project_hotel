@@ -69,7 +69,7 @@ public class Room_Detail extends JFrame{
 		
 		setSize(700,550);
 		setVisible(true);
-		setLocation(null);
+		setLocationRelativeTo(null);
 		
 	}
 	
