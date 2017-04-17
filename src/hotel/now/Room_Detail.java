@@ -3,7 +3,6 @@
  	1. 선택한 방에 따라 다른 정보 나오기
  	2. 이를 위해 각각의 정보를 배열에 담기
 
- 	
 */
 
 package hotel.now;
@@ -28,7 +27,7 @@ public class Room_Detail extends JFrame {
 	JPanel p_north, p_center, p_east;
 	JLabel la_north, la_center;
 	Canvas can;
-	ArrayList roomInfo = new ArrayList();
+	//ArrayList roomInfo = new ArrayList();
 	URL[] url = new URL[7];
 	Image img;
 	NowPanel nowPanel;
@@ -73,17 +72,8 @@ public class Room_Detail extends JFrame {
 		setSize(700, 550);
 		setVisible(true);
 		setLocationRelativeTo(null);
-<<<<<<< HEAD
-
-=======
-		
 	}
 	
-	public static void main(String[] args) {
-		new Room_Detail();
->>>>>>> 6fcc7b2e60734aade9f7ce0c0db732081f021acf
-	}
-
 	public void view() {	
 		for(int i=0;i<nowPanel.list.size();i++){
 			Room_Option room = nowPanel.list.get(i);
@@ -106,9 +96,6 @@ public class Room_Detail extends JFrame {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
-			//roomInfo.add();
-			
 			
 		}
 	}
