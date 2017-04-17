@@ -9,10 +9,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.temporal.ValueRange;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -75,7 +79,7 @@ public class MemberPanel extends JPanel implements ActionListener{
 		
 		//p_container.setPreferredSize(new Dimension(800, 100));
 		p_south.add(bt_reservation);
-		p_south.add(bt_modify);
+		//p_south.add(bt_modify);
 		p_main.setLayout(new BorderLayout());
 		p_main.add(p_container,BorderLayout.NORTH);
 		p_main.add(scroll,BorderLayout.CENTER);
@@ -91,6 +95,14 @@ public class MemberPanel extends JPanel implements ActionListener{
 		ch_guest.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				findguest();
+			}
+		});
+		table.addKeyListener(new KeyAdapter() {
+			public void keyReleased(KeyEvent e) {
+				int key=e.getKeyCode();
+				if(key==KeyEvent.VK_ENTER){
+					modify();
+				}
 			}
 		});
 		bt_search.addActionListener(this);
