@@ -3,17 +3,24 @@ package hotel.guest;
 import java.awt.BorderLayout;
 import java.awt.Checkbox;
 import java.awt.CheckboxGroup;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.temporal.ValueRange;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -57,7 +64,7 @@ public class MemberPanel extends JPanel implements ActionListener{
 		bt_search=new JButton("조회");
 		//la_north=new JLabel("회원관리");
 		la_center=new JLabel("회원명");
-		ch_member=new Checkbox("회원",chkgroup,true);
+		ch_member=new Checkbox("회원",chkgroup,false);
 		ch_guest=new Checkbox("비회원",chkgroup,false);
 		t_name=new JTextField(10);
 		//p_north.add(la_north,BorderLayout.EAST);
@@ -72,7 +79,7 @@ public class MemberPanel extends JPanel implements ActionListener{
 		
 		//p_container.setPreferredSize(new Dimension(800, 100));
 		p_south.add(bt_reservation);
-		p_south.add(bt_modify);
+		//p_south.add(bt_modify);
 		p_main.setLayout(new BorderLayout());
 		p_main.add(p_container,BorderLayout.NORTH);
 		p_main.add(scroll,BorderLayout.CENTER);
@@ -81,12 +88,21 @@ public class MemberPanel extends JPanel implements ActionListener{
 		add(p_main);
 		ch_member.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				findmember();
+					findmember();
+				
 			}
 		});
 		ch_guest.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				findguest();
+			}
+		});
+		table.addKeyListener(new KeyAdapter() {
+			public void keyReleased(KeyEvent e) {
+				int key=e.getKeyCode();
+				if(key==KeyEvent.VK_ENTER){
+					modify();
+				}
 			}
 		});
 		bt_search.addActionListener(this);
@@ -98,14 +114,90 @@ public class MemberPanel extends JPanel implements ActionListener{
 		setVisible(false);	
 	}
 	public void reservation(){
-		int index=table.getSelectedRow()+1;
-		System.out.println(index);
-		ReservationTable reservation=new ReservationTable(con,index);
+		int row=table.getSelectedRow();
+		Object obj=table.getValueAt(row, 0);
+		String value=obj.toString();
+		System.out.println(value);
+		ReservationTable reservation=new ReservationTable(con,value,flag);
 		reservation.setVisible(true);
 		//System.out.println(table.getColumnCount());
 		
 	}
 	public void modify(){
+		int row=table.getSelectedRow();
+		int col=table.getSelectedColumn();
+		String value= table.getValueAt(row, 0).toString();
+		if(flag==true){
+			PreparedStatement pstmt=null;
+			String[] data= new String[9];
+			for(int i=0; i<9; i++){
+				data[i]=table.getValueAt(row, i).toString();
+			}
+			StringBuffer sb= new StringBuffer();
+			sb.append("update membership set membership_id=?");
+			sb.append(", hotel_user_id=?");
+			sb.append(", membership_name=?");
+			sb.append(", membership_nick=?");
+			sb.append(", membership_phone=?");
+			sb.append(", membership_email=?");
+			sb.append(", membership_gender=?");
+			//sb.append(", membership_birthday=?");
+			sb.append(" where membership_id=?");
+			try {
+				pstmt=con.prepareStatement(sb.toString());
+				pstmt.setInt(1, Integer.parseInt(data[0]));
+				pstmt.setInt(2, Integer.parseInt(data[1]));
+				pstmt.setString(3, data[2]);
+				pstmt.setString(4, data[3]);
+				pstmt.setString(5, data[5]);
+				pstmt.setString(6, data[6]);
+				pstmt.setString(7, data[7]);
+				//pstmt.setString(8, data[8]);
+				pstmt.setInt(8, Integer.parseInt(value));
+				int result=pstmt.executeUpdate();
+				if(result!=0){
+					JOptionPane.showMessageDialog(this, "수정완료");
+				}else{
+					JOptionPane.showMessageDialog(this, "수정실패");
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(flag==false){
+			PreparedStatement pstmt=null;
+			String[] data= new String[4];
+			for(int i=0; i<4; i++){
+				data[i]=table.getValueAt(row, i).toString();
+			}
+			StringBuffer sb= new StringBuffer();
+			sb.append("update guest set guest_id=?");
+			sb.append(", hotel_user_id=?");
+			sb.append(", guest_name=?");
+			sb.append(", guest_phone=?");
+			sb.append(" where guest_id=?");
+			try {
+				pstmt=con.prepareStatement(sb.toString());
+				pstmt.setInt(1, Integer.parseInt(data[0]));
+				pstmt.setInt(2, Integer.parseInt(data[1]));
+				pstmt.setString(3, data[2]);
+				pstmt.setString(4, data[3]);
+				pstmt.setInt(5, Integer.parseInt(value));
+				int result=pstmt.executeUpdate();
+				if(result!=0){
+					JOptionPane.showMessageDialog(this, "수정완료");
+				}else{
+					JOptionPane.showMessageDialog(this, "수정실패");
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		//String sql="update "
+		//pstmt=con.prepareStatement(sql);
 		
 		
 	}
@@ -134,9 +226,9 @@ public class MemberPanel extends JPanel implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		Object obj=e.getSource();
-		if(obj==bt_search&&flag==true){
+		if(obj==bt_search && flag==true){
 			searchmember();
-		}else if(obj==bt_search&&flag==false){
+		}else if(obj==bt_search && flag==false){
 			serachguest();
 		}else if(obj==bt_reservation){
 			reservation();

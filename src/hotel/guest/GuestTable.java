@@ -18,10 +18,10 @@ public class GuestTable extends AbstractTableModel{
 	public GuestTable(Connection con,MemberPanel main) {
 		this.con=con;
 		this.main=main;
-		columnName.add("guest_id");
-		columnName.add("hotel_user_id");
-		columnName.add("guest_name");
-		columnName.add("guest_phone");
+		columnName.add("GUEST_ID");
+		columnName.add("HOTEL_USER_ID");
+		columnName.add("GUEST_NAME");
+		columnName.add("GUEST_PHONE");
 	}
 	public void getGuestList(){
 		PreparedStatement pstmt=null;
@@ -129,7 +129,7 @@ public class GuestTable extends AbstractTableModel{
 	//수정적용
 	public boolean isCellEditable(int row, int col) {
 		boolean flag=true;
-		if(col==0){
+		if(col==0||col==1){
 			flag=false;
 		}
 		return flag;

@@ -205,6 +205,7 @@ public class HotelMain extends JFrame implements ActionListener{
 			menuVisible(p_now);
 		}else if (obj==bt_resv) {
 			menuVisible(p_resv);
+			p_resv.setMonth();
 		}else if (obj==bt_member){
 			menuVisible(p_member);
 		}else if (obj==bt_chat) {
