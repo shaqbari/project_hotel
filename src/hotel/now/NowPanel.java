@@ -89,7 +89,7 @@ public class NowPanel extends JPanel{
 	
 	public void init(){
 		JPanel vacant=new JPanel();
-		vacant.setPreferredSize(new Dimension(165*4, 120));
+		vacant.setPreferredSize(new Dimension(165, 120));
 		for(int i=list.size()-1; i>=0; i--){
 			Room_Option room = list.get(i);
 			try {
@@ -104,6 +104,7 @@ public class NowPanel extends JPanel{
 				if(i==list.size()-2){
 					add(item);
 					add(vacant);
+
 				}else{
 					add(item);
 				}
