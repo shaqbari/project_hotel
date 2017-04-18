@@ -23,7 +23,7 @@ public class Resv_InModel extends AbstractTableModel{
 		this.main=main;
 		this.con=con;
 		this.col=col;
-		
+				
 		getList();
 	}
 	

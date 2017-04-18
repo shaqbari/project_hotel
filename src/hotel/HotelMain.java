@@ -105,7 +105,7 @@ public class HotelMain extends JFrame implements ActionListener{
 			myButtons[i]=new MyButton(this, buttons[i], url, imgName[i][1]);
 		}		
 		myButtons[0].flag=false;//처음에 home버튼 선택되어있게 초기화
-		myButtons[0].setBackground(Color.GRAY);;		
+		myButtons[0].setBackground(Color.LIGHT_GRAY);		
 				
 		//메뉴별로 패널을 나눈다. 나중에 관리하기쉽게 배열에 담는다.
 		p_menus[0]=p_home=new HomePanel(this);
