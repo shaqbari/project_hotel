@@ -66,7 +66,9 @@ CREATE TABLE resv
         resv_id number NOT NULL,
         hotel_user_id number NOT NULL,
         room_number number NOT NULL,
-        resv_time date,
+        resv_time date NOT NULL,
+		stay number NOT NULL,
+       	resv_regtime date NOT NULL,
         PRIMARY KEY (resv_id)
 );
 
@@ -190,5 +192,4 @@ ALTER TABLE service_use
         REFERENCES service (service_id)
 ;
 
-ALTER TABLE RESV
-ADD STAY NUMBER;
+commit;
