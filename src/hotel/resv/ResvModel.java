@@ -81,7 +81,7 @@ public class ResvModel extends AbstractTableModel{
 		sql.append(" and to_char(resv_time, 'yyyy')='"+yy+"' and to_char(resv_time,'mm')='"+DateUtil.getDateString(Integer.toString(mm+1))+"' ");
 		sql.append(" order by r.room_number");
 		
-		System.out.println(sql.toString());
+		//System.out.println(sql.toString());
 	
 		try {
 			pstmt=con.prepareStatement(sql.toString());

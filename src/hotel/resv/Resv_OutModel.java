@@ -44,6 +44,9 @@ public class Resv_OutModel extends AbstractTableModel{
 				columnName.add(meta.getColumnName(i));
 			}
 			
+			columnName.removeAll(columnName);
+			list.removeAll(columnName);
+			
 			
 			while(rs.next()){
 				Vector vec = new Vector();
@@ -90,6 +93,14 @@ public class Resv_OutModel extends AbstractTableModel{
 	public String getColumnName(int col) {
 		
 		return columnName.get(col);
+	}
+	
+	public boolean isCellEditable(int row, int col) {
+		boolean flag=true;
+		if(col==0|col==1){
+			flag=false;
+		}
+		return flag;
 	}
 	
 	public Object getValueAt(int row, int col) {
