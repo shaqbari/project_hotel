@@ -38,12 +38,16 @@ public class Resv_InModel extends AbstractTableModel{
 			pstmt.setInt(1,col);
 			rs=pstmt.executeQuery();
 			
+			//먼저지우고 추가하자
+			columnName.removeAll(columnName);
+			list.removeAll(list);
+			
 			//컬럼명 추출하자
 			ResultSetMetaData meta = rs.getMetaData();
 			for(int i=1; i<=meta.getColumnCount(); i++){
 				columnName.add(meta.getColumnName(i));
 			}
-			
+			System.out.println(columnName);
 			
 			while(rs.next()){
 				Vector vec = new Vector();
@@ -56,8 +60,7 @@ public class Resv_InModel extends AbstractTableModel{
 				vec.add(rs.getString("check_in_time"));
 								
 				list.add(vec);
-			}
-			
+			}	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally{
@@ -88,7 +91,6 @@ public class Resv_InModel extends AbstractTableModel{
 	}
 	
 	public String getColumnName(int col) {
-		
 		return columnName.get(col);
 	}
 	
