@@ -29,7 +29,6 @@ public class Room_Detail extends JFrame {
 	Image img;
 	NowPanel nowPanel;
 	int i;
-	Font font=new Font("¸¼Àº °íµñ", Font.PLAIN, 15);
 	
 	public Room_Detail(NowPanel nowPanel,int i) {
 		this.nowPanel = nowPanel;
@@ -52,9 +51,13 @@ public class Room_Detail extends JFrame {
 			}
 		};
 
-		p_north.setBackground(Color.LIGHT_GRAY);
+		p_north.setBackground(Color.DARK_GRAY);
 		p_center.setBackground(Color.WHITE);
-		//p_east.setBackground(Color.PINK);
+		
+		la_north.setForeground(Color.WHITE);
+		
+		la_north.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 30));
+		la_center.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 17));
 
 		p_north.setPreferredSize(new Dimension(600, 50));
 		can.setPreferredSize(new Dimension(530, 400));
@@ -67,17 +70,13 @@ public class Room_Detail extends JFrame {
 		add(p_center);
 		add(p_east, BorderLayout.EAST);
 		
-		la_north.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 30));
-		la_center.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 17));
-		
 		setSize(750, 450);
 		setVisible(true);
 		setLocationRelativeTo(null);
 	}
 	
 	public void view() {	
-			Room_Option room = nowPanel.list.get(i);
-			
+			Room_Option room = nowPanel.list.get(i);		
 			try {
 				String number = Integer.toString(room.getRoom_number());
 				String name = room.getRoom_option_name();
@@ -89,13 +88,10 @@ public class Room_Detail extends JFrame {
 				
 				URL url=this.getClass().getResource("/"+room.getRoom_option_img());
 				img = ImageIO.read(url);
-				
-				
-				
+		
 				la_north.setText(number+"È£");			
 				la_center.setText("<html>"+"<br> ¤ýÀÌ¸§ : "+name+"<br> ¤ýÆòÇü : "+size+"Æò <br> ¤ýÄ§´ë : " +bed+"<br> ¤ý°´½Ç ºä : "+view+"<br> ¤ýÃÖ´ë ÀÎ¿ø¼ö : "+max+"¸í <br> ¤ý°¡°Ý : "+price+"¿ø </html>");
-				
-					
+									
 			} catch (IOException e) {
 				e.printStackTrace();
 			

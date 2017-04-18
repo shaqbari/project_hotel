@@ -86,7 +86,7 @@ public class NowPanel extends JPanel {
 			}
 		}
 	}
-
+	
 	public void init() {
 
 		/*

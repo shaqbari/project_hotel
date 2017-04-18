@@ -94,6 +94,14 @@ public class Resv_InModel extends AbstractTableModel{
 		return columnName.get(col);
 	}
 	
+	public boolean isCellEditable(int row, int col) {
+		boolean flag=true;
+		if(col==0|col==1){
+			flag=false;
+		}
+		return flag;
+	}
+	
 	public Object getValueAt(int row, int col) {
 		return list.get(row).get(col);
 	}

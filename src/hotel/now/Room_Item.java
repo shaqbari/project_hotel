@@ -3,6 +3,7 @@ package hotel.now;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
@@ -20,16 +21,23 @@ public class Room_Item extends JPanel {
 	JLabel la_number, la_name;
 	Image img;
 	NowPanel nowPanel;
+	Font font=new Font("맑은 고딕", Font.BOLD,16);
 	
 	public Room_Item(String number, String name, Image img, NowPanel nowPanel) {
 		this.nowPanel = nowPanel;
 		la_number = new JLabel(number);
-		la_name = new JLabel(name);
+		la_name = new JLabel("/ "+name);
 		can = new Canvas(){
 			public void paint(Graphics g) {
 				g.drawImage(img, 0, 0, 165, 120, this);
 			}
 		};
+		
+		//la_number.setForeground(Color.BLACK);
+		//la_name.setForeground(Color.BLACK);
+		
+		la_number.setFont(font);
+		la_name.setFont(font);
 		
 		//캔버스에 마우스 클릭이벤트 추가
 		can.addMouseListener(new MouseAdapter() {
@@ -43,9 +51,6 @@ public class Room_Item extends JPanel {
 					}
 				}
 				
-				//DetailView();
-				//new Room_Detail(nowPanel);
-				//System.out.println("클릭");
 			}
 		});
 		
@@ -56,26 +61,9 @@ public class Room_Item extends JPanel {
 		
 		can.setPreferredSize(new Dimension(165, 120));
 		setPreferredSize(new Dimension(165, 125));
-		setBackground(Color.WHITE);
+		//setBackground(Color.LIGHT_GRAY);
 	}
 	
-	
-	//방의 상세정보 보기
-	/*
-	public void DetailView(){
-		JFrame frame = new JFrame("상세정보");
-		frame.setVisible(true);
-		
-		frame.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				frame.dispose();
-			}
-		});
-		
-		frame.setSize(500, 300);
-		frame.setLocation(400, 500);
-	}
-	*/
 }
 
 
