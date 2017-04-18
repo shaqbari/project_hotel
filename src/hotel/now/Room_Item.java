@@ -42,13 +42,10 @@ public class Room_Item extends JPanel {
 						new Room_Detail(nowPanel,i);
 					}
 				}
-				//DetailView();
-<<<<<<< HEAD
-				new Room_Detail(nowPanel);
-=======
-				System.out.println("클릭");
 				
->>>>>>> 9c6c715c954a844f3175e565a40181eec90cabe5
+				//DetailView();
+				//new Room_Detail(nowPanel);
+				//System.out.println("클릭");
 			}
 		});
 		
