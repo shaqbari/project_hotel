@@ -31,9 +31,11 @@ public class Room_Detail extends JFrame {
 	URL[] url = new URL[7];
 	Image img;
 	NowPanel nowPanel;
+	int i;
 	
-	public Room_Detail(NowPanel nowPanel) {
+	public Room_Detail(NowPanel nowPanel,int i) {
 		this.nowPanel = nowPanel;
+		this.i=i;
 		p_north = new JPanel();
 		p_center = new JPanel();
 		p_east = new JPanel();
@@ -75,8 +77,7 @@ public class Room_Detail extends JFrame {
 	}
 	
 	public void view() {	
-		for(int i=0;i<nowPanel.list.size();i++){
-			Room_Option room = nowPanel.list.get(i);
+					Room_Option room = nowPanel.list.get(i);
 			
 			try {
 				String number = Integer.toString(room.getRoom_number());
@@ -90,12 +91,12 @@ public class Room_Detail extends JFrame {
 				URL url=this.getClass().getResource("/"+room.getRoom_option_img());
 				img = ImageIO.read(url);
 				
+				
 				la_north.setText(number);
 				la_center.setText("<html>"+"<br>"+name+"<br>"+size+"<br>"+bed+"<br>"+view+"<br>"+max+"<br>"+price+"</html>");
 			
 			} catch (IOException e) {
 				e.printStackTrace();
-			}
 			
 		}
 	}

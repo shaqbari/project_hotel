@@ -100,7 +100,6 @@ public class NowPanel extends JPanel{
 						
 				Room_Item item = new Room_Item(number, name, img, this);
 				add(item);
-				
 			} catch (IOException e) {
 				e.printStackTrace();
 			} 
