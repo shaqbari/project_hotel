@@ -76,7 +76,7 @@ public class ResvModel extends AbstractTableModel{
 		*/
 		StringBuffer sql=new StringBuffer();
 		
-		sql.append("select r.room_number, nvl(resv_id,0) as resv_id , nvl(hotel_user_id,0) as hotel_user_id ,  nvl(to_char(resv_time, 'yy-mm-dd'), '0000-00-00') as resv_time");
+		sql.append("select r.room_number, nvl(resv_id,0) as resv_id , nvl(hotel_user_id,0) as hotel_user_id ,  nvl(to_char(resv_time, 'yy-mm-dd'), '0000-00-00') as resv_time, stay");
 		sql.append(" from  room r  left outer join resv rv  on r.room_number = rv.room_number ");
 		sql.append(" and to_char(resv_time, 'yyyy')='"+yy+"' and to_char(resv_time,'mm')='"+DateUtil.getDateString(Integer.toString(mm+1))+"' ");
 		sql.append(" order by r.room_number");
@@ -99,11 +99,15 @@ public class ResvModel extends AbstractTableModel{
 				for(int i=1;i<=lastDay;i++){
 					//포문의 i가 날짜이므로, 이 날짜와 rs의 날짜가 일치하면 빨간 사각형 넣자!!
 					int date=Integer.parseInt(rs.getString("resv_time").split("-")[2]);
+					int stay=(rs.getInt("stay"));
 					
+					int duration=date+stay;
 					if(i==date){
-						vec.addElement("O");
-						//System.out.println(i+"일에 예약발견");
-						
+						while(date<duration){
+							vec.addElement("O");
+							//System.out.println(i+"일에 예약발견");
+							date++;
+						}
 					}else{
 						vec.addElement(" ");
 					}
