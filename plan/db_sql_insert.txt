@@ -457,84 +457,84 @@ start with 1;
 
 
 
-insert into resv(resv_id, hotel_user_id,room_number,resv_time)
-values(seq_resv.nextval,1,203,        to_date('2017-04-13-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'));
+insert into resv(resv_id, hotel_user_id, room_number, resv_time, stay, resv_regtime)
+values(seq_resv.nextval,1,203,        to_date('2017-04-13-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'), 1, to_date('2017-4-13-12-00-00','yyyy-mm-dd-hh24-mi-ss'));
 
 
-insert into resv(resv_id,hotel_user_id,        room_number,resv_time)
-values(seq_resv.nextval,        2        ,404        ,to_date('2017-04-14-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'));
+insert into resv(resv_id,hotel_user_id,        room_number,resv_time, stay, resv_regtime)
+values(seq_resv.nextval,        2        ,404        ,to_date('2017-04-14-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'), 1, to_date('2017-4-14-12-00-00','yyyy-mm-dd-hh24-mi-ss'));
 
 
-insert into resv(resv_id,hotel_user_id,        room_number,resv_time)
-values(seq_resv.nextval,        3,        104,        to_date('2017-04-15-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'));
+insert into resv(resv_id,hotel_user_id,        room_number,resv_time, stay, resv_regtime)
+values(seq_resv.nextval,        3,        104,        to_date('2017-04-15-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'), 1, to_date('2017-4-15-12-00-00','yyyy-mm-dd-hh24-mi-ss'));
 
 
-insert into resv(resv_id,hotel_user_id,        room_number,resv_time)
-values(seq_resv.nextval,4,        106,        to_date('2017-04-16-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'));
+insert into resv(resv_id,hotel_user_id,        room_number,resv_time, stay, resv_regtime)
+values(seq_resv.nextval,4,        106,        to_date('2017-04-16-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'), 1, to_date('2017-4-16-20-00-00','yyyy-mm-dd-hh24-mi-ss'));
 
 
-insert into resv(resv_id,hotel_user_id,        room_number,resv_time)
-values(seq_resv.nextval,5,        202,        to_date('2017-04-17-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'));
+insert into resv(resv_id,hotel_user_id,        room_number,resv_time, stay, resv_regtime)
+values(seq_resv.nextval,5,        202,        to_date('2017-04-17-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'), 3, to_date('2017-4-17-21-00-00','yyyy-mm-dd-hh24-mi-ss'));
 
 
-insert into resv(resv_id,hotel_user_id,        room_number,resv_time)
-values(seq_resv.nextval,6,        303,        to_date('2017-04-18-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'));
+insert into resv(resv_id,hotel_user_id,        room_number,resv_time, stay, resv_regtime)
+values(seq_resv.nextval,6,        303,        to_date('2017-04-18-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'), 3, to_date('2017-4-18-12-00-00','yyyy-mm-dd-hh24-mi-ss'));
 
 
-insert into resv(resv_id,hotel_user_id,        room_number,resv_time)
-values(seq_resv.nextval,8,        105,        to_date('2017-04-19-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'));
+insert into resv(resv_id,hotel_user_id,        room_number,resv_time, stay, resv_regtime)
+values(seq_resv.nextval,8,        105,        to_date('2017-04-19-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'), 1, to_date('2017-4-19-12-00-00','yyyy-mm-dd-hh24-mi-ss'));
 
 
-insert into resv(resv_id,hotel_user_id,        room_number,resv_time)
-values(seq_resv.nextval,7,        501,        to_date('2017-04-20-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'));
+insert into resv(resv_id,hotel_user_id,        room_number,resv_time, stay, resv_regtime)
+values(seq_resv.nextval,7,        501,        to_date('2017-04-20-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'), 1, to_date('2017-4-20-12-00-00','yyyy-mm-dd-hh24-mi-ss'));
 
 
-insert into resv(resv_id,hotel_user_id,        room_number,resv_time)
-values(seq_resv.nextval,9,        505,        to_date('2017-04-21-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'));
+insert into resv(resv_id,hotel_user_id,        room_number,resv_time, stay, resv_regtime)
+values(seq_resv.nextval,9,        505,        to_date('2017-04-21-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'), 1, to_date('2017-4-21-12-00-00','yyyy-mm-dd-hh24-mi-ss'));
 
 
-insert into resv(resv_id,hotel_user_id,        room_number,resv_time)
-values(seq_resv.nextval,10,        504,        to_date('2017-04-22-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'));
+insert into resv(resv_id,hotel_user_id,        room_number,resv_time, stay, resv_regtime)
+values(seq_resv.nextval,10,        504,        to_date('2017-04-22-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'), 1, to_date('2017-4-22-12-00-00','yyyy-mm-dd-hh24-mi-ss'));
 
 
-insert into resv(resv_id,hotel_user_id,        room_number,resv_time)
-values(seq_resv.nextval,11,        403,        to_date('2017-04-23-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'));
+insert into resv(resv_id,hotel_user_id,        room_number,resv_time, stay, resv_regtime)
+values(seq_resv.nextval,11,        403,        to_date('2017-04-23-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'), 1, to_date('2017-4-23-12-00-00','yyyy-mm-dd-hh24-mi-ss'));
 
 
-insert into resv(resv_id,hotel_user_id,        room_number,resv_time)
-values(seq_resv.nextval,12,        404,        to_date('2017-04-24-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'));
+insert into resv(resv_id,hotel_user_id,        room_number,resv_time, stay, resv_regtime)
+values(seq_resv.nextval,12,        404,        to_date('2017-04-24-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'), 2, to_date('2017-4-24-12-00-00','yyyy-mm-dd-hh24-mi-ss'));
 
 
-insert into resv(resv_id,hotel_user_id,        room_number,resv_time)
-values(seq_resv.nextval,14,        601,        to_date('2017-04-25-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'));
+insert into resv(resv_id,hotel_user_id,        room_number,resv_time, stay, resv_regtime)
+values(seq_resv.nextval,14,        601,        to_date('2017-04-25-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'), 3, to_date('2017-4-25-12-00-00','yyyy-mm-dd-hh24-mi-ss'));
 
 
-insert into resv(resv_id,hotel_user_id,        room_number,resv_time)
-values(seq_resv.nextval,13,        506,        to_date('2017-04-26-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'));
+insert into resv(resv_id,hotel_user_id,        room_number,resv_time, stay, resv_regtime)
+values(seq_resv.nextval,13,        506,        to_date('2017-04-26-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'), 2, to_date('2017-4-26-12-00-00','yyyy-mm-dd-hh24-mi-ss'));
 
 
-insert into resv(resv_id,hotel_user_id,        room_number,resv_time)
-values(seq_resv.nextval,15,        101,        to_date('2017-04-27-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'));
+insert into resv(resv_id,hotel_user_id,        room_number,resv_time, stay, resv_regtime)
+values(seq_resv.nextval,15,        101,        to_date('2017-04-27-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'), 2, to_date('2017-4-27-12-00-00','yyyy-mm-dd-hh24-mi-ss'));
 
 
-insert into resv(resv_id,hotel_user_id,        room_number,resv_time)
-values(seq_resv.nextval,16,        103,        to_date('2017-04-28-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'));
+insert into resv(resv_id,hotel_user_id,        room_number,resv_time, stay, resv_regtime)
+values(seq_resv.nextval,16,        103,        to_date('2017-04-28-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'), 1, to_date('2017-4-28-12-00-00','yyyy-mm-dd-hh24-mi-ss'));
 
 
-insert into resv(resv_id,hotel_user_id,        room_number,resv_time)
-values(seq_resv.nextval,17,        406,        to_date('2017-04-29-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'));
+insert into resv(resv_id,hotel_user_id,        room_number,resv_time, stay, resv_regtime)
+values(seq_resv.nextval,17,        406,        to_date('2017-04-29-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'), 3, to_date('2017-4-29-12-00-00','yyyy-mm-dd-hh24-mi-ss'));
 
 
-insert into resv(resv_id,hotel_user_id,        room_number,resv_time)
-values(seq_resv.nextval,18,        401,        to_date('2017-04-30-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'));
+insert into resv(resv_id,hotel_user_id,        room_number,resv_time, stay, resv_regtime)
+values(seq_resv.nextval,18,        401,        to_date('2017-04-30-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'), 4, to_date('2017-4-30-12-00-00','yyyy-mm-dd-hh24-mi-ss'));
 
 
-insert into resv(resv_id,hotel_user_id,        room_number,resv_time)
-values(seq_resv.nextval,19,        102,        to_date('2017-05-01-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'));
+insert into resv(resv_id,hotel_user_id,        room_number,resv_time, stay, resv_regtime)
+values(seq_resv.nextval,19,        102,        to_date('2017-05-01-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'), 1, to_date('2017-5-01-12-00-00','yyyy-mm-dd-hh24-mi-ss'));
 
 
-insert into resv(resv_id,hotel_user_id,        room_number,resv_time)
-values(seq_resv.nextval,20,        204,        to_date('2017-05-02-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'));
+insert into resv(resv_id,hotel_user_id,        room_number,resv_time, stay, resv_regtime)
+values(seq_resv.nextval,20,        204,        to_date('2017-05-02-10-22-24', 'yyyy-mm-dd-hh24-mi-ss'), 4, to_date('2017-5-02-12-00-00','yyyy-mm-dd-hh24-mi-ss'));
 
 
 

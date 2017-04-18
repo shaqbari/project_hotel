@@ -17,10 +17,12 @@ public class Resv_OutModel extends AbstractTableModel{
 	
 	Vector<String> columnName = new Vector<String>();
 	Vector<Vector> list = new Vector<Vector>();
+	int col;
 	
-	public Resv_OutModel(HotelMain main,Connection con){
+	public Resv_OutModel(HotelMain main,Connection con,int col){
 		this.main=main;
 		this.con=con;
+		this.col=col;
 		
 		getList();
 	}
@@ -30,9 +32,10 @@ public class Resv_OutModel extends AbstractTableModel{
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
-		String sql="select check_io_id , resv_id, check_out_time from check_io order by check_out_time asc";
+		String sql="select check_io_id,resv_id,to_char(check_out_time,'yyyy-mm-dd-hh24-mi-ss') as check_out_time from check_io where  to_char(check_out_time,'dd')=?";
 		try {
 			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1,col);
 			rs=pstmt.executeQuery();
 			
 			//컬럼명 추출하자
@@ -41,9 +44,15 @@ public class Resv_OutModel extends AbstractTableModel{
 				columnName.add(meta.getColumnName(i));
 			}
 			
+			columnName.removeAll(columnName);
+			list.removeAll(columnName);
+			
 			
 			while(rs.next()){
 				Vector vec = new Vector();
+				
+				//int date=Integer.parseInt(rs.getString("check_in_time").split("-")[2]);
+				//System.out.println(date);
 				
 				vec.add(rs.getString("check_io_id"));
 				vec.add(rs.getString("resv_id"));
@@ -84,6 +93,14 @@ public class Resv_OutModel extends AbstractTableModel{
 	public String getColumnName(int col) {
 		
 		return columnName.get(col);
+	}
+	
+	public boolean isCellEditable(int row, int col) {
+		boolean flag=true;
+		if(col==0|col==1){
+			flag=false;
+		}
+		return flag;
 	}
 	
 	public Object getValueAt(int row, int col) {

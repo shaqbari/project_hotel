@@ -86,8 +86,8 @@ public class Resv_Open extends JFrame{
 		setVisible(true);
 		setSize(new Dimension(820, 400));
 		
-		table_in.setModel(newModel_in = new Resv_InModel(main,con));
-		table_out.setModel(newModel_out = new Resv_OutModel(main,con));
+		table_in.setModel(newModel_in = new Resv_InModel(main,con,col));
+		table_out.setModel(newModel_out = new Resv_OutModel(main,con,col));
 		table_in.updateUI();
 		table_out.updateUI();
 	}
