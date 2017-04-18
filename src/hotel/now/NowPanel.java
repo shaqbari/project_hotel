@@ -36,7 +36,7 @@ public class NowPanel extends JPanel{
 		setBackground(Color.LIGHT_GRAY);
 		
 		setPreferredSize(new Dimension(1100, 900));
-		setVisible(false);	
+		setVisible(true);	
 	}
 	
 	//객실 현황 불러오기 메서드
@@ -100,7 +100,6 @@ public class NowPanel extends JPanel{
 						
 				Room_Item item = new Room_Item(number, name, img, this);
 				add(item);
-				
 			} catch (IOException e) {
 				e.printStackTrace();
 			} 

@@ -60,6 +60,7 @@ public class HotelMain extends JFrame implements ActionListener{
 	};//res폴더에서 사용할 이미지		
 	public MyButton[] myButtons=new MyButton[imgName.length];
 	
+	
 	HomePanel p_home;
 	NowPanel p_now;
 	ResvPanel p_resv;	
