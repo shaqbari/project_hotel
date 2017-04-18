@@ -15,7 +15,7 @@ public class Resv_Render extends DefaultTableCellRenderer{
 		Component cell=super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
 		  if(table.getValueAt(row, col).equals("O")){
 	            cell.setBackground(Color.RED);
-	        } else if(table.getValueAt(row, col).equals(" ")){
+	        } else{
 	            cell.setBackground(Color.WHITE);
 	        }
 	        return cell;
