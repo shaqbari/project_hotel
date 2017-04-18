@@ -189,3 +189,6 @@ ALTER TABLE service_use
         ADD FOREIGN KEY (service_id)
         REFERENCES service (service_id)
 ;
+
+ALTER TABLE RESV
+ADD STAY NUMBER;
