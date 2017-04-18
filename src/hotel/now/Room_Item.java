@@ -11,6 +11,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
@@ -33,8 +34,21 @@ public class Room_Item extends JPanel {
 		//캔버스에 마우스 클릭이벤트 추가
 		can.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				Object obj=e.getSource();
+				Canvas can=(Canvas)obj;
+				Room_Item container=(Room_Item)can.getParent();
+				for(int i=0; i<nowPanel.list.size(); i++){
+					if(Integer.parseInt(container.la_number.getText())==nowPanel.list.get(i).getRoom_number()){
+						new Room_Detail(nowPanel,i);
+					}
+				}
 				//DetailView();
+<<<<<<< HEAD
 				new Room_Detail(nowPanel);
+=======
+				System.out.println("클릭");
+				
+>>>>>>> 9c6c715c954a844f3175e565a40181eec90cabe5
 			}
 		});
 		
