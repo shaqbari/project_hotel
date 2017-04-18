@@ -63,6 +63,8 @@ public class CheckAdminPanel extends JPanel implements ActionListener{
 		la_title.setFont(new Font("¸¼Àº°íµñ", font.BOLD, 25));
 		la_id.setFont(font);
 		la_pw.setFont(font);
+		txt_id.setFont(font);
+		txt_pw.setFont(font);
 		
 		p_north.add(la_title);
 		
