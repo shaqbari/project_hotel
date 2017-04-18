@@ -33,8 +33,9 @@ public class Room_Item extends JPanel {
 			}
 		};
 		
-		la_number.setForeground(Color.BLACK);
-		la_name.setForeground(Color.BLACK);
+		//la_number.setForeground(Color.BLACK);
+		//la_name.setForeground(Color.BLACK);
+		
 		la_number.setFont(font);
 		la_name.setFont(font);
 		
