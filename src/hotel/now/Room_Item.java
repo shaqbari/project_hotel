@@ -34,7 +34,6 @@ public class Room_Item extends JPanel {
 		can.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				//DetailView();
-				System.out.println("Å¬¸¯");
 				new Room_Detail(nowPanel);
 			}
 		});

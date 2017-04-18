@@ -28,7 +28,6 @@ public class Room_Detail extends JFrame {
 	JLabel la_north, la_center;
 	Canvas can;
 	//ArrayList roomInfo = new ArrayList();
-	URL[] url = new URL[7];
 	Image img;
 	NowPanel nowPanel;
 	
@@ -92,7 +91,8 @@ public class Room_Detail extends JFrame {
 				
 				la_north.setText(number);
 				la_center.setText("<html>"+"<br>"+name+"<br>"+size+"<br>"+bed+"<br>"+view+"<br>"+max+"<br>"+price+"</html>");
-			
+				
+					
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
