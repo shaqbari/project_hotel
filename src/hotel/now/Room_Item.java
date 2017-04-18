@@ -50,9 +50,6 @@ public class Room_Item extends JPanel {
 					}
 				}
 				
-				//DetailView();
-				//new Room_Detail(nowPanel);
-				//System.out.println("클릭");
 			}
 		});
 		
@@ -66,23 +63,6 @@ public class Room_Item extends JPanel {
 		//setBackground(Color.LIGHT_GRAY);
 	}
 	
-	
-	//방의 상세정보 보기
-	/*
-	public void DetailView(){
-		JFrame frame = new JFrame("상세정보");
-		frame.setVisible(true);
-		
-		frame.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				frame.dispose();
-			}
-		});
-		
-		frame.setSize(500, 300);
-		frame.setLocation(400, 500);
-	}
-	*/
 }
 
 

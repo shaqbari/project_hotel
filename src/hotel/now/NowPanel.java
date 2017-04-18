@@ -86,30 +86,7 @@ public class NowPanel extends JPanel {
 			}
 		}
 	}
-<<<<<<< HEAD
 	
-	public void init(){
-		JPanel vacant=new JPanel();
-		vacant.setPreferredSize(new Dimension(165, 120));
-		for(int i=list.size()-1; i>=0; i--){
-			Room_Option room = list.get(i);
-			try {
-				String number = Integer.toString(room.getRoom_number());
-				String name = room.getRoom_option_name();
-				
-				//이미지 res 폴더에서 불러오기
-				URL url=this.getClass().getResource("/"+room.getRoom_option_img());
-				Image img = ImageIO.read(url);
-						
-				Room_Item item = new Room_Item(number, name, img, this);
-				if(i==list.size()-2){
-					add(item);
-					add(vacant);
-
-				}else{
-					add(item);
-=======
-
 	public void init() {
 
 		/*
@@ -149,7 +126,6 @@ public class NowPanel extends JPanel {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
->>>>>>> 754c1caa3bb55af94af3ba8233f79285d54d7267
 				}
 			}
 		}
