@@ -5,27 +5,37 @@ import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.util.Iterator;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import hotel.HotelMain;
-import javafx.scene.image.Image;
 
-public class HomePanel extends JPanel{
+public class HomePanel extends JPanel implements ActionListener{
 	HotelMain main;
 	Connection con;
 	
 	JPanel p_info, p_img; //그리드레이아웃에 붙일 패널
 	JPanel p_info_admin, p_info_log; //p_info에 붙일 패널
 	
-	JTextArea area;
+	JButton bt_startServer;
+	public JTextArea area;
+	JLabel la_all;
+	JTextField txt;
 	JScrollPane scroll;	
 	Canvas can; 
 
@@ -39,8 +49,11 @@ public class HomePanel extends JPanel{
 		p_info_admin=new JPanel();
 		p_info_log=new JPanel();
 		
+		bt_startServer=new JButton("서버 가동");
 		area=new JTextArea();
 		scroll=new JScrollPane(area);
+		la_all=new JLabel("전체호실에 말하기");
+		txt=new JTextField(35);
 				
 		can=new Canvas(){
 			
@@ -73,12 +86,30 @@ public class HomePanel extends JPanel{
 		this.setLayout(new GridLayout(1, 2));
 		p_info.setLayout(new BorderLayout());
 		
-		
+		p_info_admin.add(bt_startServer);		
 		p_info_log.add(scroll);
+		p_info_log.add(la_all);		
+		p_info_log.add(txt);
 		
 		p_info.add(p_info_admin, BorderLayout.NORTH);
-		p_info.add(p_info_log);
+		p_info.add(p_info_log);		
 		p_img.add(can);
+		
+		//전체호실에 말하는 메소드
+		txt.addKeyListener(new KeyAdapter() {			
+			public void keyReleased(KeyEvent e) {
+				int key=e.getKeyCode();
+				if (key==KeyEvent.VK_ENTER) {
+					for (int i = 0; i < main.serverThreadList.size(); i++) {
+						main.serverThreadList.get(i).send(txt.getText());
+					}					
+					area.append("전체호실에 말하기: "+txt.getText());
+					txt.setText("");
+				}
+			}
+		});
+		
+		bt_startServer.addActionListener(this);
 		
 		add(p_info);
 		add(p_img);		
@@ -86,6 +117,13 @@ public class HomePanel extends JPanel{
 		
 		setPreferredSize(new Dimension(1100, 900));
 		setVisible(true);		
+	}
+
+
+	public void actionPerformed(ActionEvent e) {
+		System.out.println("서버가동");
+		main.thread.start();
+		bt_startServer.setEnabled(false);
 	}
 	
 }

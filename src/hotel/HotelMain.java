@@ -11,8 +11,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.net.URL;
 import java.sql.Connection;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -29,10 +33,20 @@ import hotel.main.MyButton;
 import hotel.main.RegAdminPanel;
 import hotel.now.NowPanel;
 import hotel.resv.ResvPanel;
+import hotel.server.ServerThread;
 
-public class HotelMain extends JFrame implements ActionListener{
+public class HotelMain extends JFrame implements ActionListener, Runnable{
+	//네트워크에 사용될 객체들
+	ServerSocket server;
+	public Thread thread; //접속자 감지용 쓰레드
+	int port=7777;
+	//접속자마다 생성될 ServerThread를 저장할 객체
+	public Vector<ServerThread>serverThreadList=new Vector<ServerThread>();
+
+	//db연동에 사용될 객체들
 	DBManager manager;
-	public Connection con;
+	public Connection con;	
+	
 	CheckAdminPanel checkAdminPanel; //로그인패널
 	RegAdminPanel regAdminPanel;	//관리자 등록패널
 	JPanel p_container;
@@ -46,7 +60,7 @@ public class HotelMain extends JFrame implements ActionListener{
 	public JLabel la_time;
 	JLabel la_admin;
 	public JLabel la_user;
-	Font font_north, font_content;
+	public Font font_north, font_content;
 	JButton bt_logout;	
 	JButton bt_home, bt_now, bt_resv, bt_member, bt_chat; //p_west에 담길 button
 	JButton[] buttons=new JButton[5];
@@ -61,7 +75,7 @@ public class HotelMain extends JFrame implements ActionListener{
 	public MyButton[] myButtons=new MyButton[imgName.length];
 	
 	
-	HomePanel p_home;
+	public HomePanel p_home;
 	NowPanel p_now;
 	ResvPanel p_resv;	
 	MemberPanel p_member;
@@ -71,9 +85,17 @@ public class HotelMain extends JFrame implements ActionListener{
 	ClockThread clock; //시계
 		
 	public HotelMain() {
+		try {
+			server=new ServerSocket(port);
+			thread=new Thread(this);//runnable로는 시작할수 없으므로 쓰레드로 받아 시작한다.			
+			//thread.start(); home패널의 버튼에서 생성하게 바꾼다.
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		manager=manager.getInstance();
 		con=manager.getConnection();
-				 
+				
 		page[0]=checkAdminPanel=new CheckAdminPanel(this);//로그인정보 확인 패널
 		page[1]=regAdminPanel=new RegAdminPanel(this);//로그인정보 확인 패널
 		page[2]=p_container=new JPanel();//아래 패널을 담을 패널
@@ -227,7 +249,24 @@ public class HotelMain extends JFrame implements ActionListener{
 		}				
 	}
 	
+	public void run() {
+		//접속자를 무한으로 받는다.
+		while (true) {
+			try {
+				Socket socket=server.accept();
+				//접속자 받을때마다 쓰레드 생성해서 듣고 말한다.
+				ServerThread serverThread=new ServerThread(this, socket);
+				serverThreadList.addElement(serverThread);
+				p_home.area.append("현재 접속자수는"+serverThreadList.size()+"명 입니다.\n");
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	public static void main(String[] args) {
 		new HotelMain();
 	}
+
 }
