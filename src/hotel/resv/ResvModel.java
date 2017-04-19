@@ -1,11 +1,8 @@
 package hotel.resv;
  
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,9 +11,10 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Vector;
 
-import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
 
 import hotel.HotelMain;
  
@@ -32,12 +30,17 @@ public class ResvModel extends AbstractTableModel{
 	int dd;
 	int lastDay;
 	JTable table;
+	int date;
+	int stay;
+
 	
-	public ResvModel(Connection con,Calendar cal, JTable table) {
+	
+	public ResvModel(Connection con,Calendar cal,JTable table) {
 		this.con=con; 
 		//열에 날짜 데이터가 들어옴
 		this.cal=cal;
 		this.table=table;
+			
 		yy=cal.get(Calendar.YEAR);
 		mm=cal.get(Calendar.MONTH);
 		
@@ -60,8 +63,7 @@ public class ResvModel extends AbstractTableModel{
 		
 	}
 	
-	
-	
+
 	/*-------------------------------------------------------
 	 * Room 테이블의 room_number를 첫번째 열에 가져옴 
 	 *-------------------------------------------------------*/
@@ -72,16 +74,18 @@ public class ResvModel extends AbstractTableModel{
 
 		/*
 		String sql="select resv_id, hotel_user_id, room_number, to_char(resv_time, 'yy-mm-dd') as resv_time from resv where to_char(resv_time, 'yyyy')=?";
+		
 		sql+=" and to_char(resv_time,'mm')=?";
 		*/
 		StringBuffer sql=new StringBuffer();
 		
-		sql.append("select r.room_number, nvl(resv_id,0) as resv_id , nvl(hotel_user_id,0) as hotel_user_id ,  nvl(to_char(resv_time, 'yy-mm-dd'), '0000-00-00') as resv_time, stay");
+		sql.append("select  r.room_number, nvl(resv_id,0) as resv_id , nvl(hotel_user_id,0) as hotel_user_id ,  nvl(to_char(resv_time, 'yy-mm-dd'), '0000-00-00') as resv_time, stay");
 		sql.append(" from  room r  left outer join resv rv  on r.room_number = rv.room_number ");
 		sql.append(" and to_char(resv_time, 'yyyy')='"+yy+"' and to_char(resv_time,'mm')='"+DateUtil.getDateString(Integer.toString(mm+1))+"' ");
 		sql.append(" order by r.room_number");
 		
-		//System.out.println(sql.toString());
+			
+		System.out.println("sql is "+sql.toString());
 	
 		try {
 			pstmt=con.prepareStatement(sql.toString());
@@ -89,32 +93,48 @@ public class ResvModel extends AbstractTableModel{
 			//pstmt.setString(2, DateUtil.getDateString(Integer.toString(mm)));
 			
 			rs=pstmt.executeQuery();
+			//int count=0;
+			int ho=0;
+			Vector ho_vec=null; //중복될경우엔 이 벡터 쓰자
 			
 			while(rs.next()){
-				Vector vec=new Vector();
+			//	count++;
+				Vector vec=null;
 				
+				if(ho != rs.getInt("room_number")){//중복되지 않은 경우라면,...
+					vec=new Vector();
+					ho_vec= vec;
+					vec.add(rs.getInt("room_number"));
+					data.add(ho_vec);
+				}else{//이미 보관해 놓은 호수라면...
+					
+					System.out.println(ho+"가 중복되고 있네요");
+				}
 				//각 월별 날짜수에 따른 반복문 
-				vec.add(rs.getInt("room_number"));
 				
 				for(int i=1;i<=lastDay;i++){
-					//포문의 i가 날짜이므로, 이 날짜와 rs의 날짜가 일치하면 빨간 사각형 넣자!!
 					int date=Integer.parseInt(rs.getString("resv_time").split("-")[2]);
 					int stay=(rs.getInt("stay"));
 					
 					int duration=date+stay;
 					if(i==date){
 						while(date<duration){
-							vec.addElement("O");
-							//System.out.println(i+"일에 예약발견");
+							if(ho !=rs.getInt("room_number")){
+								ho_vec.addElement("");
+							}else{
+								ho_vec.addElement("");
+								//System.out.println(i+"일에 예약발견");
+							}
 							date++;
 						}
 					}else{
-						vec.addElement(" ");
+						ho_vec.addElement(" ");
 					}
 					//System.out.print(i+"일,");
 				}
 				System.out.println("");
-				data.add(vec);
+				//System.out.println(count);
+				ho=rs.getInt("room_number");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -155,4 +175,6 @@ public class ResvModel extends AbstractTableModel{
 		return data.get(row).get(col);
 	}
  
+	
+	
 }

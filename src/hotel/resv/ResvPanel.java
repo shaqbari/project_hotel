@@ -67,7 +67,7 @@ public class ResvPanel extends JPanel implements ActionListener{
 				int row=table.getSelectedRow();
 				int col=table.getSelectedColumn();
 				value=(String) rm.getValueAt(row, col);
-				if(value=="O"){
+				if(value==""){
 					newOpen = new Resv_Open(main,con,col,cal);
 				}else{
 					

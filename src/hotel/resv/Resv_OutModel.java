@@ -38,14 +38,16 @@ public class Resv_OutModel extends AbstractTableModel{
 			pstmt.setInt(1,col);
 			rs=pstmt.executeQuery();
 			
+			//먼저지우고 추가하자
+			columnName.removeAll(columnName);
+			list.removeAll(columnName);
+			
 			//컬럼명 추출하자
 			ResultSetMetaData meta = rs.getMetaData();
 			for(int i=1; i<=meta.getColumnCount(); i++){
 				columnName.add(meta.getColumnName(i));
 			}
 			
-			columnName.removeAll(columnName);
-			list.removeAll(columnName);
 			
 			
 			while(rs.next()){

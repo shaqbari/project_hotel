@@ -13,7 +13,7 @@ public class Resv_Render extends DefaultTableCellRenderer{
 		ResvModel rm=(ResvModel)table.getModel();
 		
 		Component cell=super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
-		  if(table.getValueAt(row, col).equals("O")){
+		  if(table.getValueAt(row, col).equals("")){
 	            cell.setBackground(Color.RED);
 	        } else{
 	            cell.setBackground(Color.WHITE);
