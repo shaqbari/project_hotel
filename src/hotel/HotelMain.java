@@ -47,11 +47,13 @@ public class HotelMain extends JFrame implements ActionListener, Runnable{
 	DBManager manager;
 	public Connection con;	
 	
+	//윈도우전환에 사용될 객체들
 	CheckAdminPanel checkAdminPanel; //로그인패널
 	RegAdminPanel regAdminPanel;	//관리자 등록패널
 	JPanel p_container;
 	JPanel[] page=new JPanel[3];
 	
+	//p_container에 붙을 ui관련 객체들
 	public JPanel p_north; //p_conatainerdp 에 담길 패널들	
 	JPanel p_west;
 	JPanel p_center;
@@ -74,7 +76,7 @@ public class HotelMain extends JFrame implements ActionListener, Runnable{
 	};//res폴더에서 사용할 이미지		
 	public MyButton[] myButtons=new MyButton[imgName.length];
 	
-	
+	//메뉴선택에 따라 패널전환에 사용될 객체들
 	public HomePanel p_home;
 	NowPanel p_now;
 	ResvPanel p_resv;	
@@ -82,6 +84,7 @@ public class HotelMain extends JFrame implements ActionListener, Runnable{
 	ChatPanel p_chat;	
 	JPanel[] p_menus=new JPanel[5];	
 	
+	//기타 객체들
 	ClockThread clock; //시계
 		
 	public HotelMain() {
@@ -93,7 +96,7 @@ public class HotelMain extends JFrame implements ActionListener, Runnable{
 			e.printStackTrace();
 		}
 
-		manager=manager.getInstance();
+		manager=DBManager.getInstance();
 		con=manager.getConnection();
 				
 		page[0]=checkAdminPanel=new CheckAdminPanel(this);//로그인정보 확인 패널
@@ -263,7 +266,7 @@ public class HotelMain extends JFrame implements ActionListener, Runnable{
 				e.printStackTrace();
 			}
 		}
-	}
+	}				
 	
 	public static void main(String[] args) {
 		new HotelMain();

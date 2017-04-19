@@ -122,6 +122,7 @@ public class HomePanel extends JPanel implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("서버가동");
+		area.append("서버가동했습니다.\n");
 		main.thread.start();
 		bt_startServer.setEnabled(false);
 	}

@@ -38,14 +38,13 @@ public class ServerThread extends Thread{
 		String msg=null;
 		try {
 			msg=buffr.readLine();
+			main.p_home.area.append(msg+"\n");			
+			
+			
+			
+			
 			send(msg);
-			
-			
-			
-			
-			
-			
-			
+						
 		} catch (IOException e) {//client가 나갈경우 이예외에 들어간다.
 			e.printStackTrace();
 			flag=false;//현재의 쓰레드를 죽인다.
@@ -58,7 +57,7 @@ public class ServerThread extends Thread{
 	//말하기
 	public void send(String msg){
 		try {
-			buffw.write(msg+"\n");
+			buffw.write(msg+"\n"); //보낼때 한줄내려야 끝난줄 안다.
 			buffw.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
