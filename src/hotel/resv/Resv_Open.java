@@ -8,6 +8,7 @@ import java.util.Calendar;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import hotel.HotelMain;
@@ -18,6 +19,7 @@ public class Resv_Open extends JFrame{
 	JPanel p_in,p_out;
 	JLabel la_in,la_out;
 	JTable table_in,table_out;
+	JScrollPane scroll_in, scroll_out;
 	
 	Calendar cal=Calendar.getInstance();
 	HotelMain main;
@@ -27,20 +29,18 @@ public class Resv_Open extends JFrame{
 	
 	//ResvModel 과 날짜가 늘 일치하여야하므로, 수정필요
 	//지금은 테스트상태
-	int yy;
+	int yy; 
 	int mm;
 	int dd;
 	int col;
 	
 	Resv_InModel newModel_in;
 	Resv_OutModel newModel_out;
-	
-	public Resv_Open(HotelMain main,Connection con,int col,Calendar cal){
+	public Resv_Open(HotelMain main,Connection con, int col, Calendar cal){
 		this.main=main;
 		this.con=con;
 		this.col=col;
 		this.cal=cal;
-		
 		
 		this.setLayout(new BorderLayout());
 		
@@ -65,6 +65,9 @@ public class Resv_Open extends JFrame{
 		p_in.setLayout(new BorderLayout());
 		p_out.setLayout(new BorderLayout());
 		
+		scroll_in=new JScrollPane(table_in);
+		scroll_out=new JScrollPane(table_out);
+		
 		//table
 		table_in.setPreferredSize(new Dimension(400, 400));
 		table_out.setPreferredSize(new Dimension(400, 400));
@@ -75,22 +78,21 @@ public class Resv_Open extends JFrame{
 		
 		//west
 		p_in.add(la_in,BorderLayout.NORTH);
-		p_in.add(table_in);
+		p_in.add(scroll_in);
 		add(p_in,BorderLayout.WEST);
 		
 		//east
 		p_out.add(la_out,BorderLayout.NORTH);
-		p_out.add(table_out);
+		p_out.add(scroll_out);
 		add(p_out,BorderLayout.EAST);
+	
+		setVisible(true);
+		setSize(new Dimension(950, 400));
 		
 		table_in.setModel(newModel_in = new Resv_InModel(main,con,col));
 		table_in.updateUI();
 		table_out.setModel(newModel_out = new Resv_OutModel(main,con,col));
 		table_out.updateUI();
-	
-		setVisible(true);
-		setSize(new Dimension(820, 400));
-		
 	}
 
 }
