@@ -125,7 +125,7 @@ public class HotelMain extends JFrame implements ActionListener, Runnable{
 		buttons[4]=bt_chat=new JButton();
 		
 		//mybuttons생성
-		for (int i = 0; i < imgName.length; i++) {
+		for (int i = 0; i < imgName.length; i++) {			
 			URL url=this.getClass().getResource("/"+imgName[i][0]); //앞에 /가 있어야 한다.
 			myButtons[i]=new MyButton(this, buttons[i], url, imgName[i][1]);
 		}		
