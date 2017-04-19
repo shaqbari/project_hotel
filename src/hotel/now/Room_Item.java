@@ -33,8 +33,14 @@ public class Room_Item extends JPanel {
 			}
 		};
 		
-		//la_number.setForeground(Color.BLACK);
-		//la_name.setForeground(Color.BLACK);
+		//예약된 방 표시하기
+		for(int i=0; i<nowPanel.resvNumber.size();i++){
+			if(Integer.parseInt(la_number.getText()) == nowPanel.resvNumber.get(i).getRoom_number()){
+				setBackground(Color.RED);
+			} else{
+				//setBackground(Color.LIGHT_GRAY);
+			}
+		}
 		
 		la_number.setFont(font);
 		la_name.setFont(font);
@@ -61,7 +67,6 @@ public class Room_Item extends JPanel {
 		
 		can.setPreferredSize(new Dimension(165, 120));
 		setPreferredSize(new Dimension(165, 125));
-		//setBackground(Color.LIGHT_GRAY);
 	}
 	
 }
