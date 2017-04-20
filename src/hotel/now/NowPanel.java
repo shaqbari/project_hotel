@@ -4,6 +4,7 @@ package hotel.now;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,10 +32,10 @@ public class NowPanel extends JPanel implements ActionListener{
 	HotelMain main;
 	Connection con;
 	JPanel p_north, p_center;
-	JButton bt_prev, bt_next;
+	JButton bt_prevDay, bt_nextDay, bt_prevMonth, bt_nextMonth;
 	JLabel la_date;
-	ArrayList<Room_Option> list = new ArrayList<Room_Option>();
-	ArrayList<Room_Option> resvNumber = new ArrayList<Room_Option>();
+	ArrayList<Room_Option> list;
+	ArrayList<Room_Option> resvNumber; 
 	Calendar cal = Calendar.getInstance();
 	Thread thread;
 	
@@ -43,6 +44,9 @@ public class NowPanel extends JPanel implements ActionListener{
 	int mm;
 	int dd;
 	
+	//마지막 날짜 담을 변수
+	//int lastDay;
+	
 	public NowPanel(HotelMain main) {
 		this.main = main;
 		con = main.con;
@@ -50,15 +54,24 @@ public class NowPanel extends JPanel implements ActionListener{
 		this.setLayout(new BorderLayout());
 		p_north = new JPanel();
 		p_center = new JPanel();
-		bt_prev = new JButton("◀");
+		bt_prevMonth = new JButton("◀◀");
+		bt_prevDay = new JButton("◀");
 		la_date = new JLabel();
-		bt_next = new JButton("▶");
+		bt_nextDay = new JButton("▶");
+		bt_nextMonth = new JButton("▶▶");
 		
-		p_north.add(bt_prev);
+		
+		
+		p_north.add(bt_prevMonth);
+		p_north.add(bt_prevDay);
 		p_north.add(la_date);
-		p_north.add(bt_next);
+		p_north.add(bt_nextDay);
+		p_north.add(bt_nextMonth);
+		
 		
 		p_center.setBackground(Color.LIGHT_GRAY);
+		
+		la_date.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 		
 		add(p_north, BorderLayout.NORTH);
 		add(p_center);
@@ -67,15 +80,16 @@ public class NowPanel extends JPanel implements ActionListener{
 		yy = cal.get(Calendar.YEAR);
 		mm = cal.get(Calendar.MONTH);
 		dd = cal.get(Calendar.DATE);
-			
-		//날짜 불러오기
+		
+		
+		//날짜 불러오기, 객실현황 불러오기 포함되어 있음
 		setDate();
 		
-		// 객실 현황 불러오기
-		loadData();
+		bt_prevDay.addActionListener(this);
+		bt_nextDay.addActionListener(this);
+		bt_prevMonth.addActionListener(this);
+		bt_nextMonth.addActionListener(this);
 		
-		bt_prev.addActionListener(this);
-		bt_next.addActionListener(this);
 
 		setBackground(Color.LIGHT_GRAY);
 		setPreferredSize(new Dimension(1100, 900));
@@ -85,12 +99,15 @@ public class NowPanel extends JPanel implements ActionListener{
 	// 객실 현황 불러오기 메서드
 	public void loadData() {
 		// room 테이블과 room_option 테이블의 자료를 조인.
+		//System.out.println(yy);
+		//System.out.println(mm);
+		//System.out.println(dd);
 		String sql = "select * from room_option o left outer join room r on o.room_option_id = r.room_option_id order by r.room_number asc";
 
 		//원하는 날의 예약된 방 구하기
 		String revday = "select re.ROOM_NUMBER from ROOM_OPTION o, ROOM r, RESV re"
 				+ " where o.ROOM_OPTION_ID=r.ROOM_OPTION_ID and r.ROOM_NUMBER=re.ROOM_NUMBER"
-				+ " and to_char(re.RESV_TIME, 'yyyy')=2017 and to_char(re.RESV_TIME, 'mm')=4 and to_char(re.RESV_TIME, 'dd')=19";
+				+ " and to_char(re.RESV_TIME, 'yyyy')=? and to_char(re.RESV_TIME, 'mm')=? and to_char(re.RESV_TIME, 'dd')=?";
 		
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
@@ -100,7 +117,7 @@ public class NowPanel extends JPanel implements ActionListener{
 		try {
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-
+			list = new ArrayList<Room_Option>();	//날짜변경시 계속해서 배열에 쌓여버리는 것을 방지하기 위해 매번 생성
 			while (rs.next()) {
 				Room_Option dto = new Room_Option();
 				dto.setRoom_option_id(rs.getInt("room_option_id"));
@@ -116,17 +133,14 @@ public class NowPanel extends JPanel implements ActionListener{
 				list.add(dto);
 			}
 					
-			//String yyyy="2017";
-			//바인드 변수 두기
-			
-			//예약된 방 담기
+			//예약된 방 담기, 바인드 변수 설정
 			pstmt2 = con.prepareStatement(revday);
-			//pstmt2.setString(1, yyyy);
-			//pstmt2.setString(2, mm);
-			//pstmt2.setString(3, dd);
+			pstmt2.setInt(1, yy);
+			pstmt2.setInt(2, mm+1);	//표기되는 날보다 +1로 해야함.
+			pstmt2.setInt(3, dd);
 			
 			rs2 = pstmt2.executeQuery();
-			
+			resvNumber = new ArrayList<Room_Option>();	//날짜 변경시 마다 새롭게 예약된 방을 담기 위해 매번 생성 	
 			while (rs2.next()){
 				Room_Option vo = new Room_Option();
 				vo.setRoom_number(rs2.getInt("room_number"));
@@ -134,6 +148,7 @@ public class NowPanel extends JPanel implements ActionListener{
 				resvNumber.add(vo);
 				
 			}
+			
 			
 			/*
 			//rs2 테스트
@@ -174,6 +189,7 @@ public class NowPanel extends JPanel implements ActionListener{
 					JPanel vacant = new JPanel();
 					vacant.setPreferredSize(new Dimension(165, 120));
 					vacant.setBackground(Color.LIGHT_GRAY);
+
 					p_center.add(vacant);
 					
 				} else {
@@ -196,51 +212,86 @@ public class NowPanel extends JPanel implements ActionListener{
 		}
 	}
 
-	
+	//날짜 설정 메서드. 날짜 설정시 마다 예약현황 확인하고 패널리스트들 다시 그린다.
 	public void setDate(){
 		la_date.setText(yy+"-"+(mm+1)+"-"+dd);
-		
+		p_center.removeAll();
+		//p_center.rem
+		loadData();
+
 	}
 	
 	
-	public void prev(){
+	public void prevDay(){
 		dd--;
-		if(dd<0){
+		if(dd<1){
 			mm--;
-			dd=31;
+			//마지막날 구해놓기
+			cal.set(yy, mm+1, 0);
+			int lastDay = cal.get(Calendar.DATE);
+			dd=lastDay;
 			if(mm<0){
 				yy--;
 				mm=11;
-				dd=31;
+				//마지막날 구해놓기
+				cal.set(yy, mm+1, 0);
+				int last = cal.get(Calendar.DATE);
+				dd=last;
 			}
 		}
 		cal.set(yy, mm, dd);
 		setDate();
 	}
 	
-	public void next(){
+	public void nextDay(){
 		dd++;
-		if(dd>31){
+		//마지막날 구해놓기
+		cal.set(yy, mm+1, 0);
+		int lastDay = cal.get(Calendar.DATE);
+		if(dd>lastDay){
 			mm++;
-			dd=1;
-			if(mm>12){
+			dd=1;	
+			if(mm>11){
 				yy++;
-				mm=1;
 				dd=1;
+				mm=0;
 			}
 		}
 		cal.set(yy, mm, dd);
 		setDate();
-		
+	}
+	
+	public void prevMonth(){
+		mm--;
+		if(mm<0){
+			yy--;
+			mm=11;
+		}
+		cal.set(yy, mm, dd);
+		setDate();
+	}
+	
+	public void nextMonth(){
+		mm++;
+		if(mm>11){
+			yy++;
+			mm=0;
+		}
+		cal.set(yy, mm, dd);
+		setDate();
 	}
 	
 	//버튼에 적용할 액션리스너
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
-		if(obj == bt_prev){
-			prev();
-		} else if (obj == bt_next){
-			next();
+		if(obj == bt_prevDay){
+			prevDay();
+		} else if (obj == bt_nextDay){
+			nextDay();
+		} else if (obj == bt_prevMonth){
+			prevMonth();
+		} else if (obj == bt_nextMonth){
+			nextMonth();
 		}
 	}
 	
