@@ -31,9 +31,9 @@ import hotel.HotelMain;
 public class NowPanel extends JPanel implements ActionListener{
 	HotelMain main;
 	Connection con;
-	JPanel p_north, p_center;
+	JPanel p_north, p_center, p_in, p_out;
 	JButton bt_prevDay, bt_nextDay, bt_prevMonth, bt_nextMonth;
-	JLabel la_date;
+	JLabel la_date, la_in, la_out;
 	ArrayList<Room_Option> list;
 	ArrayList<Room_Option> resvNumber; 
 	Calendar cal = Calendar.getInstance();
@@ -44,8 +44,10 @@ public class NowPanel extends JPanel implements ActionListener{
 	int mm;
 	int dd;
 	
-	//마지막 날짜 담을 변수
-	//int lastDay;
+	//rgb 색상 값
+	int r = 96;
+	int g = 96;
+	int b = 96;
 	
 	public NowPanel(HotelMain main) {
 		this.main = main;
@@ -60,7 +62,13 @@ public class NowPanel extends JPanel implements ActionListener{
 		bt_nextDay = new JButton("▶");
 		bt_nextMonth = new JButton("▶▶");
 		
-		
+		p_in = new JPanel();
+		p_out = new JPanel();
+		la_in = new JLabel("사용 중");
+		la_out = new JLabel("비어있음");
+	
+		p_in.setBackground(Color.red);
+		p_out.setBackground(new Color(r,g,b));
 		
 		p_north.add(bt_prevMonth);
 		p_north.add(bt_prevDay);
@@ -68,6 +76,10 @@ public class NowPanel extends JPanel implements ActionListener{
 		p_north.add(bt_nextDay);
 		p_north.add(bt_nextMonth);
 		
+		p_north.add(p_in);
+		p_north.add(la_in);
+		p_north.add(p_out);
+		p_north.add(la_out);
 		
 		p_center.setBackground(Color.LIGHT_GRAY);
 		
