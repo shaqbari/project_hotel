@@ -10,19 +10,24 @@ import java.net.Socket;
 import javax.swing.JTextArea;
 
 import hotel.HotelMain;
+import hotel.chat.ChatBox;
 
 public class ServerThread extends Thread{
 	HotelMain main;
 	Socket socket;
+	ChatBox chatBox;
+	
 	BufferedReader buffr;
 	BufferedWriter buffw;
 	JTextArea area;
 	
 	Boolean flag=true;
 	
-	public ServerThread(HotelMain main, Socket socket) {
+	public ServerThread(HotelMain main, Socket socket, ChatBox chatBox) {
 		this.main=main;
 		this.socket=socket;
+		this.chatBox=chatBox;
+		
 		area=main.p_home.area;
 		try {
 			buffr=new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -38,15 +43,19 @@ public class ServerThread extends Thread{
 		String msg=null;
 		try {
 			msg=buffr.readLine();
+			
+			
+			
+			
 			main.p_home.area.append(msg+"\n");			
-			
-			
-			
-			
+			area.append(msg+"\n");
 			send(msg);
 						
 		} catch (IOException e) {//client가 나갈경우 이예외에 들어간다.
 			e.printStackTrace();
+			main.p_chat.remove(this.chatBox);//chat패널에서 chatBox를 지운다.
+			main.p_chat.updateUI();
+			
 			flag=false;//현재의 쓰레드를 죽인다.
 			main.serverThreadList.remove(this);//벡터에서 이 스레드를 제거
 			area.append("1명 퇴장후 현재 접속자: "+main.serverThreadList.size()+"\n");

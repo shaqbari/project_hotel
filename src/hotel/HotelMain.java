@@ -23,6 +23,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import hotel.chat.ChatBox;
 import hotel.chat.ChatPanel;
 import hotel.guest.MemberPanel;
 import hotel.home.HomePanel;
@@ -78,11 +79,11 @@ public class HotelMain extends JFrame implements ActionListener, Runnable{
 	
 	//메뉴선택에 따라 패널전환에 사용될 객체들
 	public HomePanel p_home;
-	NowPanel p_now;
-	ResvPanel p_resv;	
-	MemberPanel p_member;
-	ChatPanel p_chat;	
-	JPanel[] p_menus=new JPanel[5];	
+	public NowPanel p_now;
+	public ResvPanel p_resv;	
+	public MemberPanel p_member;
+	public ChatPanel p_chat;	
+	public JPanel[] p_menus=new JPanel[5];	
 	
 	//기타 객체들
 	ClockThread clock; //시계
@@ -258,9 +259,13 @@ public class HotelMain extends JFrame implements ActionListener, Runnable{
 			try {
 				Socket socket=server.accept();
 				//접속자 받을때마다 쓰레드 생성해서 듣고 말한다.
-				ServerThread serverThread=new ServerThread(this, socket);
+				ChatBox chatBox=new ChatBox();//1:1채팅에 사용될 패널
+				p_chat.add(chatBox);
+				ServerThread serverThread=new ServerThread(this, socket, chatBox);
+				chatBox.getServerThread(serverThread);//chatBox에 serverThread전달
 				serverThreadList.addElement(serverThread);
 				p_home.area.append("현재 접속자수는"+serverThreadList.size()+"명 입니다.\n");
+				
 				
 			} catch (IOException e) {
 				e.printStackTrace();
