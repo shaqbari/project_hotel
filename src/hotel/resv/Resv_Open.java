@@ -2,11 +2,17 @@ package hotel.resv;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -89,10 +95,53 @@ public class Resv_Open extends JFrame{
 		setVisible(true);
 		setSize(new Dimension(950, 400));
 		
+		table_in.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				int key=e.getKeyCode();
+				if(key==KeyEvent.VK_ENTER){
+					modify();					
+				}
+			}
+		});
+		
 		table_in.setModel(newModel_in = new Resv_InModel(main,con,col));
 		table_in.updateUI();
 		table_out.setModel(newModel_out = new Resv_OutModel(main,con,col));
 		table_out.updateUI();
 	}
-
+	
+	
+	public void modify(){
+		int row=table_in.getSelectedRow();
+		int col=table_in.getSelectedColumn();
+		
+		String check_id=(String)table_in.getValueAt(row, 0);
+		String modify=(String)table_in.getValueAt(row, col);
+		
+		System.out.println("내가 입력한 값은?"+modify);
+		
+		PreparedStatement pstmt=null;
+		
+		StringBuffer sql = new StringBuffer();
+		sql.append("update check_io set check_in_time=?");
+		sql.append(" where check_io_id=?");
+		
+		try {
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setString(1, modify);
+			pstmt.setString(2,check_id);
+			int result=pstmt.executeUpdate();
+			
+			if(result!=0){
+				JOptionPane.showMessageDialog(this, "수정완료");
+			}else{
+				JOptionPane.showMessageDialog(this, "수정실패");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 }

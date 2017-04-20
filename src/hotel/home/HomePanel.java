@@ -102,7 +102,7 @@ public class HomePanel extends JPanel implements ActionListener{
 					for (int i = 0; i < main.serverThreadList.size(); i++) {
 						main.serverThreadList.get(i).send(txt.getText());
 					}					
-					area.append("전체호실에 말하기: "+txt.getText());
+					area.append("전체호실에 말하기: "+txt.getText()+"\n");
 					txt.setText("");
 				}
 			}
@@ -121,6 +121,7 @@ public class HomePanel extends JPanel implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("서버가동");
+		area.append("서버가동했습니다.\n");
 		main.thread.start();
 		bt_startServer.setEnabled(false);
 	}
