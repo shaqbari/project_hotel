@@ -100,7 +100,17 @@ public class Resv_Open extends JFrame{
 			public void keyReleased(KeyEvent e) {
 				int key=e.getKeyCode();
 				if(key==KeyEvent.VK_ENTER){
-					modify();					
+					check_in_modify();					
+				}
+			}
+		});
+		
+		table_out.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				int key=e.getKeyCode();
+				if(key==KeyEvent.VK_ENTER){
+					check_out_modify();					
 				}
 			}
 		});
@@ -112,31 +122,67 @@ public class Resv_Open extends JFrame{
 	}
 	
 	
-	public void modify(){
+	public void check_in_modify(){
 		int row=table_in.getSelectedRow();
 		int col=table_in.getSelectedColumn();
 		
 		String check_id=(String)table_in.getValueAt(row, 0);
 		String modify=(String)table_in.getValueAt(row, col);
 		
-		System.out.println("내가 입력한 값은?"+modify);
+		//System.out.println("내가 입력한 값은?"+modify);
 		
 		PreparedStatement pstmt=null;
 		
 		StringBuffer sql = new StringBuffer();
-		sql.append("update check_io set check_in_time=?");
-		sql.append(" where check_io_id=?");
+		sql.append("update check_io set check_in_time=to_date('"+modify+"','yyyy-mm-dd-hh24-mi')");
+		sql.append(" where check_io_id="+check_id);
+		
+		//System.out.println(sql.toString());
 		
 		try {
 			pstmt=con.prepareStatement(sql.toString());
-			pstmt.setString(1, modify);
-			pstmt.setString(2,check_id);
+			//pstmt.setString(1, check_id);
+			
 			int result=pstmt.executeUpdate();
 			
 			if(result!=0){
-				JOptionPane.showMessageDialog(this, "수정완료");
+				JOptionPane.showMessageDialog(this, "check in time 수정완료");
 			}else{
-				JOptionPane.showMessageDialog(this, "수정실패");
+				JOptionPane.showMessageDialog(this, "check in time 수정실패");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void check_out_modify(){
+		int row=table_out.getSelectedRow();
+		int col=table_out.getSelectedColumn();
+		
+		String check_id=(String)table_out.getValueAt(row, 0);
+		String modify=(String)table_out.getValueAt(row, col);
+		
+		//System.out.println("내가 입력한 값은?"+modify);
+		
+		PreparedStatement pstmt=null;
+		
+		StringBuffer sql = new StringBuffer();
+		sql.append("update check_io set check_out_time=to_date('"+modify+"','yyyy-mm-dd-hh24-mi')");
+		sql.append(" where check_io_id="+check_id);
+		
+		//System.out.println(sql.toString());
+		
+		try {
+			pstmt=con.prepareStatement(sql.toString());
+			//pstmt.setString(1, check_id);
+			
+			int result=pstmt.executeUpdate();
+			
+			if(result!=0){
+				JOptionPane.showMessageDialog(this, "check out time 수정완료");
+			}else{
+				JOptionPane.showMessageDialog(this, "check out time 수정실패");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

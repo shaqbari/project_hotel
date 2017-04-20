@@ -33,9 +33,15 @@ public class Resv_InModel extends AbstractTableModel{
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
-		String sql="select check_io_id,resv_id,to_char(check_in_time,'yyyy-mm-dd-hh24-mi-ss') as check_in_time from check_io where  to_char(check_in_time,'dd')=?";
+		//String sql="select check_io_id,resv_id,to_char(check_in_time,'yyyy-mm-dd-hh24-mi') as check_in_time from check_io where  to_char(check_in_time,'dd')=?";
+		StringBuffer sql= new StringBuffer();
+		sql.append("select check_io_id,r.resv_id,to_char(check_in_time,'yyyy-mm-dd hh24-mi') as check_in_time ,to_char(resv_time,'yyyy-mm-dd hh24-mi') as resv_time ");
+		sql.append(" from resv r , check_io c");
+		sql.append(" where r.resv_id=c.resv_id");
+		sql.append(" and to_char(resv_time,'dd')=?");
+		
 		try {
-			pstmt=con.prepareStatement(sql);
+			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setInt(1,col);
 			rs=pstmt.executeQuery();
 			
@@ -48,17 +54,14 @@ public class Resv_InModel extends AbstractTableModel{
 			for(int i=1; i<=meta.getColumnCount(); i++){
 				columnName.add(meta.getColumnName(i));
 			}
-			System.out.println(columnName);
 			
 			while(rs.next()){
 				Vector vec = new Vector();
 				
-				//int date=Integer.parseInt(rs.getString("check_in_time").split("-")[2]);
-				//System.out.println(date);
-				
 				vec.add(rs.getString("check_io_id"));
 				vec.add(rs.getString("resv_id"));
 				vec.add(rs.getString("check_in_time"));
+				vec.add(rs.getString("resv_time"));
 								
 				list.add(vec);
 			}	
@@ -97,13 +100,17 @@ public class Resv_InModel extends AbstractTableModel{
 	
 	public boolean isCellEditable(int row, int col) {
 		boolean flag=true;
-		if(col==0|col==1){
+		if(col==0|col==1|col==3){
 			flag=false;
 		}
 		return flag;
 	}
 	
 	public Object getValueAt(int row, int col) {
-		return list.get(row).get(col);
+		return list.elementAt(row).elementAt(col);
+	}
+	
+	public void setValueAt(Object Value, int row, int col) {
+		list.elementAt(row).set(col, Value);
 	}
 }

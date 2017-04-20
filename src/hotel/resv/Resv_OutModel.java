@@ -18,6 +18,7 @@ public class Resv_OutModel extends AbstractTableModel{
 	Vector<String> columnName = new Vector<String>();
 	Vector<Vector> list = new Vector<Vector>();
 	int col;
+	ResvModel rm;
 	
 	public Resv_OutModel(HotelMain main,Connection con,int col){
 		this.main=main;
@@ -32,15 +33,21 @@ public class Resv_OutModel extends AbstractTableModel{
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
-		String sql="select check_io_id,resv_id,to_char(check_out_time,'yyyy-mm-dd-hh24-mi-ss') as check_out_time from check_io where  to_char(check_out_time,'dd')=?";
+		//String sql="select check_io_id,resv_id,to_char(check_out_time,'yyyy-mm-dd-hh24-mi') as check_out_time from check_io where  to_char(check_out_time,'dd')=?";
+		StringBuffer sql= new StringBuffer();
+		sql.append("select check_io_id,r.resv_id,to_char(check_out_time,'yyyy-mm-dd hh24-mi') as check_out_time ,to_char(resv_time,'yyyy-mm-dd hh24-mi') as resv_time ");
+		sql.append(" from resv r , check_io c");
+		sql.append(" where r.resv_id=c.resv_id");
+		sql.append(" and to_char(resv_time,'dd')=?");
+		
 		try {
-			pstmt=con.prepareStatement(sql);
+			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setInt(1,col);
 			rs=pstmt.executeQuery();
 			
 			//먼저지우고 추가하자
 			columnName.removeAll(columnName);
-			list.removeAll(columnName);
+			list.removeAll(list);
 			
 			//컬럼명 추출하자
 			ResultSetMetaData meta = rs.getMetaData();
@@ -49,16 +56,13 @@ public class Resv_OutModel extends AbstractTableModel{
 			}
 			
 			
-			
 			while(rs.next()){
 				Vector vec = new Vector();
-				
-				//int date=Integer.parseInt(rs.getString("check_in_time").split("-")[2]);
-				//System.out.println(date);
 				
 				vec.add(rs.getString("check_io_id"));
 				vec.add(rs.getString("resv_id"));
 				vec.add(rs.getString("check_out_time"));
+				vec.add(rs.getString("resv_time"));
 				
 				list.add(vec);
 			}
@@ -99,7 +103,7 @@ public class Resv_OutModel extends AbstractTableModel{
 	
 	public boolean isCellEditable(int row, int col) {
 		boolean flag=true;
-		if(col==0|col==1){
+		if(col==0|col==1|col==3){
 			flag=false;
 		}
 		return flag;
@@ -107,5 +111,9 @@ public class Resv_OutModel extends AbstractTableModel{
 	
 	public Object getValueAt(int row, int col) {
 		return list.get(row).get(col);
+	}
+	
+	public void setValueAt(Object Value, int row, int col) {
+		list.elementAt(row).set(col, Value);
 	}
 }
