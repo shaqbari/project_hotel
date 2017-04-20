@@ -33,6 +33,12 @@ public class Room_Item extends JPanel {
 			}
 		};
 		
+		int r = 96;
+		int g = 96;
+		int b = 96;
+		setBackground(new Color(r,g,b));
+		la_number.setForeground(Color.BLACK);
+		
 		//예약된 방 표시하기
 		for(int i=0; i<nowPanel.resvNumber.size();i++){
 			if(Integer.parseInt(la_number.getText()) == nowPanel.resvNumber.get(i).getRoom_number()){
@@ -44,9 +50,12 @@ public class Room_Item extends JPanel {
 		
 		la_number.setFont(font);
 		la_name.setFont(font);
+		la_number.setForeground(Color.BLACK);
+		la_name.setForeground(Color.BLACK);
 		
-		//캔버스에 마우스 클릭이벤트 추가
+		//캔버스에 마우스 이벤트 추가
 		can.addMouseListener(new MouseAdapter() {
+			//클릭시 해당 방의 번호 비교하여 맞는 정보의 Room_Detail 생성하기
 			public void mouseClicked(MouseEvent e) {
 				Object obj=e.getSource();
 				Canvas can=(Canvas)obj;
@@ -56,17 +65,25 @@ public class Room_Item extends JPanel {
 						new Room_Detail(nowPanel,i);
 					}
 				}
-				
+			}
+			//마우스 올렸을때와 내렸을때 글씨색변화
+			public void mouseEntered(MouseEvent e) {
+				la_number.setForeground(Color.WHITE);
+				la_name.setForeground(Color.WHITE);
+			}
+			public void mouseExited(MouseEvent e) {
+				la_number.setForeground(Color.BLACK);
+				la_name.setForeground(Color.BLACK);
 			}
 		});
-		
-	
+			
 		add(la_number);
 		add(la_name);
 		add(can);
 		
 		can.setPreferredSize(new Dimension(165, 120));
 		setPreferredSize(new Dimension(165, 125));
+		
 	}
 	
 }
