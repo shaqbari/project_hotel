@@ -98,40 +98,49 @@ public class ResvModel extends AbstractTableModel{
 			Vector ho_vec=null; //중복될경우엔 이 벡터 쓰자
 			
 			while(rs.next()){
-			//	count++;
-				Vector vec=null;
+				//	count++;
 				
-				if(ho != rs.getInt("room_number")){//중복되지 않은 경우라면,...
-					vec=new Vector();
-					ho_vec= vec;
-					vec.add(rs.getInt("room_number"));
+				/*------------------------------------------------
+				 중복되지 않은 경우라면
+				------------------------------------------------*/
+				if(ho != rs.getInt("room_number")){
+					ho_vec= new Vector();
+					ho_vec.add(rs.getInt("room_number"));
 					data.add(ho_vec);
-				}else{//이미 보관해 놓은 호수라면...
 					
-					System.out.println(ho+"가 중복되고 있네요");
+					for(int i=1;i<=lastDay;i++){
+						int date=Integer.parseInt(rs.getString("resv_time").split("-")[2]);
+						int stay=(rs.getInt("stay"));
+						
+						int duration=date+stay;
+						if(i==date){
+							while(date<duration){
+								ho_vec.addElement("");
+								date++;
+							}
+						}else{
+							ho_vec.addElement(" ");
+						}
+						//System.out.print(i+"일,");
+					}
+				/*------------------------------------------------
+				 중복되는 경우라면
+				------------------------------------------------*/
+				}else{//이미 보관해 놓은 호수라면...
+					for(int i=1;i<=lastDay;i++){
+						int date=Integer.parseInt(rs.getString("resv_time").split("-")[2]);
+						int stay=(rs.getInt("stay"));
+						
+						int duration=date+stay;
+						if(i==date){
+							System.out.println(i+"일에 예약발견");
+							String str=(String)ho_vec.get(i);
+							str="";
+							ho_vec.set(i, str);
+						}
+					}
 				}
 				//각 월별 날짜수에 따른 반복문 
-				
-				for(int i=1;i<=lastDay;i++){
-					int date=Integer.parseInt(rs.getString("resv_time").split("-")[2]);
-					int stay=(rs.getInt("stay"));
-					
-					int duration=date+stay;
-					if(i==date){
-						while(date<duration){
-							if(ho !=rs.getInt("room_number")){
-								ho_vec.addElement("");
-							}else{
-								ho_vec.addElement("");
-								//System.out.println(i+"일에 예약발견");
-							}
-							date++;
-						}
-					}else{
-						ho_vec.addElement(" ");
-					}
-					//System.out.print(i+"일,");
-				}
 				System.out.println("");
 				//System.out.println(count);
 				ho=rs.getInt("room_number");
