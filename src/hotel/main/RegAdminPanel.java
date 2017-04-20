@@ -144,7 +144,7 @@ public class RegAdminPanel extends JPanel implements ActionListener {
 			initialSet();
 			return false;
 		}		
-		if (txt_id.getText().equals("")) {
+		if (txt_id.getText().isEmpty()) {//txt_id.getText().equals("")는 무거운연산수행
 			JOptionPane.showMessageDialog(this, "id를 입력해주세요");
 			initialSet();
 			return false;
@@ -154,7 +154,7 @@ public class RegAdminPanel extends JPanel implements ActionListener {
 			initialSet();
 			return false;
 		}
-		if (new String(txt_pw.getPassword()).equals("")) {
+		if (new String(txt_pw.getPassword()).length()==0) {
 			JOptionPane.showMessageDialog(this, "password를 입력해주세요");
 			initialSet();
 			return false;
@@ -164,7 +164,7 @@ public class RegAdminPanel extends JPanel implements ActionListener {
 			initialSet();
 			return false;
 		}
-		if(txt_name.getText().equals("")){
+		if(txt_name.getText().length()==0){//txt_id.getText().isEmpty()보다 좋다
 			JOptionPane.showMessageDialog(this, "이름를 입력해주세요");
 			initialSet();							
 			return false;		

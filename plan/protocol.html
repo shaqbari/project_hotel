@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script>
+	/*프로토콜 예시*/	
+	
+	//로그인하면 서버에서 인증하고 hotel_user_id를 보내준다.	
+	
+	//게스트로그인
+	//클라이언트
+	var msgEx1={
+		"requestType":"guest_login",
+		"room_number":204,
+		"requestTime":"2017-04-17-18-19-23", //yyyy-mm-dd-hh24-mi-ss
+		"name":"홍길동",
+		"phone":"010-2222-3333"
+	}
+	
+	//회원로그인
+	var msgEx2={
+		"requestType":"guest_login",
+		"room_number":204,
+		"requestTime":"2017-04-17-18-19-23",
+		"id_to_nick":"asdfas",
+		"password":"1234"
+	}
+	
+	//채팅의 경우
+	var msgEx3={
+		"requestType":"chat",
+		"room_number":203,
+		"requestTime":"2017-04-17-18-19-23",
+		"hotel_user_id":3,
+		"content":"안녕하세요"
+	}
+	
+	//서비스요청의 경우
+	
+	var msgEx4={
+		"requestType":"service",
+		"room_number":402,
+		"requestTime":"2017-04-17-18-19-23",
+		"hotel_user_id":4,
+		"service_id":3	
+	}
+	
+	//예약의 경우
+	var msgEx5={
+		"room_number":303,
+		"reqeustType":"resv",
+		"requestTime":"2017-04-17-18-19-23",
+		"hotel_user_id":7,
+		"resv_room_nummber": 202,
+		"resv_time":"2017-03-14",
+		"stay":3
+	}
+
+
+
+</script>
+
+</head>
+<body>
+
+</body>
+</html>
