@@ -1,8 +1,9 @@
 # Created by https://www.gitignore.io/api/java,eclipse
 
-### Eclipse ###
-DBManager.java
 
+src/hotel/main/DBManager.java
+
+### Eclipse ###
 
 .metadata
 bin/
