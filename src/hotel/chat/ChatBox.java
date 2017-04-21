@@ -16,7 +16,7 @@ public class ChatBox extends JPanel{
 	ServerThread serverThread;
 	
 	JLabel la_room_number;
-	JTextArea area;
+	public JTextArea area;
 	JScrollPane scroll;
 	JTextField txt_input;
 	

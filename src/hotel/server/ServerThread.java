@@ -9,26 +9,32 @@ import java.net.Socket;
 
 import javax.swing.JTextArea;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import hotel.HotelMain;
 import hotel.chat.ChatBox;
 
 public class ServerThread extends Thread{
 	HotelMain main;
 	Socket socket;
-	ChatBox chatBox;
+
+	public JTextArea area;//HomePanel의 area를 담을예정
+	public ChatBox chatBox;//ChatPanel의 chatBox를 담을예정
 	
 	BufferedReader buffr;
 	BufferedWriter buffw;
-	JTextArea area;
-	
+		
 	Boolean flag=true;
 	
 	public ServerThread(HotelMain main, Socket socket, ChatBox chatBox) {
 		this.main=main;
 		this.socket=socket;
-		this.chatBox=chatBox;
 		
-		area=main.p_home.area;
+		this.area=main.p_home.area;
+		this.chatBox=chatBox;
+
 		try {
 			buffr=new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			buffw=new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -43,13 +49,43 @@ public class ServerThread extends Thread{
 		String msg=null;
 		try {
 			msg=buffr.readLine();
+			JSONObject json=null;		
+			JSONParser parser=new JSONParser();
 			
+			//받은 json msg를 parsing한다.
+			try {
+				json=(JSONObject)parser.parse(msg);					
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}			
+			String requestType=json.get("requestType").toString();
 			
+			//파싱결과 requestType에따라 다른 반응을 한다.
+			if (requestType.equalsIgnoreCase("chat")) {
+				ResponseChat responseChat=new ResponseChat(this, json);	
+				responseChat.send();
 			
+			}else if (requestType.equalsIgnoreCase("service")) {
+				ResponseService responseService=new ResponseService(this, json);
+				
+				
+			}else if (requestType.equalsIgnoreCase("resv")) {
+				
+				
+				
+			}else if (requestType.equalsIgnoreCase("guest_login")) {
+				
+				
+				
+			}else if (requestType.equalsIgnoreCase("membership_login")) {
+						
+				
+				
+			}else if(requestType.equalsIgnoreCase("membership_regist")){
+				
+				
+			}
 			
-			main.p_home.area.append(msg+"\n");			
-			area.append(msg+"\n");
-			send(msg);
 						
 		} catch (IOException e) {//client가 나갈경우 이예외에 들어간다.
 			e.printStackTrace();
