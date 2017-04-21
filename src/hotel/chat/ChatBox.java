@@ -21,7 +21,7 @@ public class ChatBox extends JPanel{
 	JTextField txt_input;
 	
 	public ChatBox() {		
-		la_room_number=new JLabel("202ȣ");
+		la_room_number=new JLabel("203ȣ");
 		area=new JTextArea(15, 20);
 		scroll=new JScrollPane(area);
 		txt_input=new JTextField(20);
