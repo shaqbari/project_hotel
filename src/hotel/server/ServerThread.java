@@ -67,7 +67,7 @@ public class ServerThread extends Thread{
 			
 			}else if (requestType.equalsIgnoreCase("service")) {
 				ResponseService responseService=new ResponseService(this, json);
-				
+				responseService.send();
 				
 			}else if (requestType.equalsIgnoreCase("resv")) {
 				
