@@ -1,6 +1,6 @@
 # Created by https://www.gitignore.io/api/java,eclipse
 
-
+res/config/dbConfig.xml
 src/hotel/main/DBManager.java
 
 ### Eclipse ###
