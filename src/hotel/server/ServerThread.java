@@ -66,8 +66,10 @@ public class ServerThread extends Thread{
 				responseChat.send();
 			
 			}else if (requestType.equalsIgnoreCase("service")) {
-				ResponseService service=new ResponseService(this,  json);
-				
+
+				ResponseService responseService=new ResponseService(this, json);
+				responseService.send();
+
 				
 			}else if (requestType.equalsIgnoreCase("resv")) {
 				ResponseResv resv=new ResponseResv(this, json);
