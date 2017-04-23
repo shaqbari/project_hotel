@@ -8,15 +8,25 @@
 	
 	//로그인하면 서버에서 인증하고 hotel_user_id를 보내준다.	
 	
-	//게스트로그인
-	//클라이언트
+	//게스트로그인 클라이언트
 	var msgEx1={
 		"requestType":"guest_login",
 		"room_number":204,
 		"requestTime":"2017-04-17-18-19-23", //yyyy-mm-dd-hh24-mi-ss
-		"name":"홍길동",
+		"resv_id":"홍길동",
 		"phone":"010-2222-3333"
 	}
+	//게스트로그인 서버 응답
+	var msgEx1={
+		"responseType":"guest_login",
+		"result":"yes",
+		"hotel_user_id":1,
+		"geust_name":"김성현",
+		"resv_time":"2017-04-17-18-19-23",
+		"stay:1		
+	}
+	
+	
 	
 	//회원로그인
 	var msgEx2={

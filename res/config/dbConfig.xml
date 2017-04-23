@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+	<db>
+		<ip>localhost</ip>
+		<port>1521</port>
+		<sid>XE</sid>
+		<user>bread</user>
+		<password>bread</password>
+	</db>
+</configs>

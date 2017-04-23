@@ -66,24 +66,25 @@ public class ServerThread extends Thread{
 				responseChat.send();
 			
 			}else if (requestType.equalsIgnoreCase("service")) {
-				ResponseService responseService=new ResponseService(this, json);
+				ResponseService service=new ResponseService(this,  json);
 				
 				
 			}else if (requestType.equalsIgnoreCase("resv")) {
-				
+				ResponseResv resv=new ResponseResv(this, json);
 				
 				
 			}else if (requestType.equalsIgnoreCase("guest_login")) {
-				
+				ResponseGuestLogin guestLogin=new ResponseGuestLogin(this, json);
+				guestLogin.response();
 				
 				
 			}else if (requestType.equalsIgnoreCase("membership_login")) {
-						
-				
+				ResponseMemberLogin memberLogin=new ResponseMemberLogin(this, json);
+				memberLogin.response();
 				
 			}else if(requestType.equalsIgnoreCase("membership_regist")){
-				
-				
+				ResponseMemberResist memberResist=new ResponseMemberResist(this, json);
+				memberResist.response();
 			}
 			
 						

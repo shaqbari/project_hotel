@@ -196,6 +196,8 @@ public class HotelMain extends JFrame implements ActionListener, Runnable{
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent arg0) {
 				manager.disConnect(con);
+				
+				//쓰레드도 종료시켜야?
 				System.exit(0);
 			}		
 		});
