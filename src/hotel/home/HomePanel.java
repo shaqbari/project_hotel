@@ -100,7 +100,7 @@ public class HomePanel extends JPanel implements ActionListener{
 				int key=e.getKeyCode();
 				if (key==KeyEvent.VK_ENTER) {
 					for (int i = 0; i < main.serverThreadList.size(); i++) {
-						main.serverThreadList.get(i).send(txt.getText());
+						main.serverThreadList.get(i).chatSend("전체호실에 말하기: "+txt.getText());
 					}					
 					area.append("전체호실에 말하기: "+txt.getText()+"\n");
 					txt.setText("");

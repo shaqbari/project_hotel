@@ -39,7 +39,7 @@ public class ChatBox extends JPanel{
 				int key=e.getKeyCode();
 				if (key==KeyEvent.VK_ENTER) {
 					String msg=txt_input.getText();
-					serverThread.send(msg);
+					serverThread.chatSend(msg);
 					ChatBox.this.area.append(msg+"\n");
 					txt_input.setText("");
 				}

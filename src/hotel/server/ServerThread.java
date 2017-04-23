@@ -63,7 +63,7 @@ public class ServerThread extends Thread{
 			//파싱결과 requestType에따라 다른 반응을 한다.
 			if (requestType.equalsIgnoreCase("chat")) {
 				ResponseChat responseChat=new ResponseChat(this, json);	
-				responseChat.send();
+				responseChat.responseSend();
 			
 			}else if (requestType.equalsIgnoreCase("service")) {
 
@@ -111,6 +111,14 @@ public class ServerThread extends Thread{
 			e.printStackTrace();
 		}
 	};
+	
+	//관리자가 채팅 보내는 메소드
+		public void chatSend(String msg) {
+			JSONObject sendJSON=new JSONObject();
+			sendJSON.put("responseType", "chat");
+			sendJSON.put("content", msg);
+			send(sendJSON.toJSONString());
+		}
 	
 	public void run() {
 		while (flag) {
