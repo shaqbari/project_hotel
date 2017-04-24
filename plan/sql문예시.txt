@@ -5,3 +5,32 @@ select re.RESV_ID, g.GUEST_NAME, g.GUEST_PHONE, re.RESV_TIME, r.ROOM_NUMBER, ro.
  from ROOM_OPTION ro, ROOM r, RESV re, CHECK_IO c, HOTEL_USER h, GUEST g
  where r.ROOM_OPTION_ID=ro.ROOM_OPTION_ID and r.ROOM_NUMBER=re.ROOM_NUMBER and re.RESV_ID=c.RESV_ID and re.HOTEL_USER_ID=h.HOTEL_USER_ID and h.HOTEL_USER_ID = g.HOTEL_USER_ID
  and g.HOTEL_USER_ID=1;
+ 
+ 
+ --방번호가 404이고, member nick이 minjun password가 1234인 사람의
+ --h.HOTEL_USER_ID,  r.RESV_ID, r.RESV_TIME, r.STAY를 출력하라
+ 
+ select h.HOTEL_USER_ID,  r.RESV_ID, r.RESV_TIME, r.STAY
+FROM RESV r, HOTEL_USER h, MEMBERSHIP m
+WHERE r.HOTEL_USER_ID=h.HOTEL_USER_ID and h.HOTEL_USER_ID=m.HOTEL_USER_ID
+and r.ROOM_NUMBER=404 and m.MEMBERSHIP_NICK='minjung' and m.MEMBERSHIP_PW=1234;
+
+
+
+--예약되어있는 방을 구한다.
+select *
+ from ROOM_OPTION o, ROOM r, RESV re
+ where o.ROOM_OPTION_ID=r.ROOM_OPTION_ID and r.ROOM_NUMBER = re.ROOM_NUMBER
+ and o.ROOM_OPTION_NAME='business'
+ and to_Char(re.RESV_TIME, 'yyyy-mm-dd')<='2017-04-19';
+ --and to_Char(re.END_TIME, 'yyyy-mm-dd')>='2017-04-20'
+--endTime을 추가해서 지정된 입퇴실시간과 비교하면 되겠다.
+ 
+ -- to_Char(re.END_TIME+ (INTERVAL '1' DAY), 'yyyy-mm-dd')>'2017-04-20'
+ 
+ --예약된 방을 제외한 방을 구한다.
+ select room_number
+  from ROOM_OPTION o, ROOM r
+  where o.ROOM_OPTION_ID=r.ROOM_OPTION_ID
+  and o.ROOM_OPTION_NAME='business'
+  and r.ROOM_NUMBER!=all(302, 202);

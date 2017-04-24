@@ -67,6 +67,7 @@ CREATE TABLE resv
         hotel_user_id number NOT NULL,
         room_number number NOT NULL,
         resv_time date NOT NULL,
+        end_time date NOT NULL,
 		stay number NOT NULL,
        	resv_regtime date NOT NULL,
         PRIMARY KEY (resv_id)

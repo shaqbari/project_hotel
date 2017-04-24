@@ -23,7 +23,7 @@
 		"hotel_user_id":1,
 		"geust_name":"김성현",
 		"resv_time":"2017-04-17-18-19-23",
-		"stay:1		
+		"stay":1		
 	}
 	
 	
@@ -33,12 +33,31 @@
 		"requestType":"membership_login",
 		"room_number":204,
 		"requestTime":"2017-04-17-18-19-23",
-		"id_to_nick":"asdfas",
-		"password":"1234"
+		"id_to_nick":"minjung",
+		"password":1234
+	}
+	//회원로그인 서버 응답
+	var msgEx2={
+		"responseType":"membership_login",
+		"result":"yes",
+		"hotel_user_id":1,
+		"member_name":"김민정",
+		"resv_id":3
+		"resv_time":"2017-04-17-18-19-23",
+		"stay:1		
+	}
+	
+	//클라이언트 회원가입 요청
+	var msgExResgist={
+		"responseType":"membership_regist",		
+		"hotel_user_id":1,
+		"geust_name":"김성현",
+		"resv_time":"2017-04-17-18-19-23",
+		"stay":1				
 	}
 	
 	//채팅의 경우
-	var msgEx3={
+	var msgExChat={
 		"requestType":"chat",
 		"room_number":203,
 		"requestTime":"2017-04-17-18-19-23",
@@ -46,9 +65,8 @@
 		"content":"안녕하세요"
 	}
 	
-	//서비스요청의 경우
-	
-	var msgEx4={
+	//서비스요청의 경우	
+	var msgExService={
 		"requestType":"service",
 		"room_number":402,
 		"requestTime":"2017-04-17-18-19-23",
@@ -57,7 +75,7 @@
 	}
 	
 	//예약의 경우
-	var msgEx5={
+	var msgExResv={
 		"room_number":303,
 		"reqeustType":"resv",
 		"requestTime":"2017-04-17-18-19-23",
