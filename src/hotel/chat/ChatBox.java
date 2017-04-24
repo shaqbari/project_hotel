@@ -46,7 +46,7 @@ public class ChatBox extends JPanel{
 			}			
 		});
 		
-		setSize(300, 400);
+		setSize(200, 100);
 		setVisible(true);		
 	}
 	
