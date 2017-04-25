@@ -43,9 +43,10 @@ public class ServiceBox extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				Object obj=e.getSource();
 				if(obj==bt_complete){
-					//String msg="서비스완료";
-					//serverThread.chatSend(msg);
-					//ServiceBox.this.area.append(msg+"\n");*/
+					String msg="서비스완료";
+					serverThread.chatSend(msg);
+					ServiceBox.this.area.append(msg+"\n");
+					ServiceBox.this.removeAll();
 				}
 			}
 		});
