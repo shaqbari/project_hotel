@@ -29,13 +29,12 @@ public class ServerThread extends Thread{
 		
 	Boolean flag=true;
 	
-	public ServerThread(HotelMain main, Socket socket, ChatBox chatBox,ServiceBox servBox) {
+	public ServerThread(HotelMain main, Socket socket, ChatBox chatBox) {
 		this.main=main;
 		this.socket=socket;
 		
 		this.area=main.p_home.area;
 		this.chatBox=chatBox;
-		this.servBox=servBox;
 		
 		try {
 			buffr=new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -68,6 +67,10 @@ public class ServerThread extends Thread{
 				responseChat.responseSend();
 			
 			}else if (requestType.equalsIgnoreCase("service")) {
+				servBox = new ServiceBox();
+				main.p_chat.p_serv.add(servBox);
+				//System.out.println(this);
+				servBox.getServerThread(this);
 				ResponseService responseService=new ResponseService(this, json);
 				responseService.send();
 				

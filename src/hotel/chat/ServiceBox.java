@@ -16,6 +16,7 @@ import hotel.server.ServerThread;
 public class ServiceBox extends JPanel{	
 	ServiceBox servBox;
 	ServerThread serverThread;
+	ChatPanel p_chat;
 	HotelMain main;
 	JLabel la_room_number;
 	public JTextArea area;
@@ -43,10 +44,12 @@ public class ServiceBox extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				Object obj=e.getSource();
 				if(obj==bt_complete){
-					String msg="서비스완료";
+					String msg="주문하신서비스가 준비 완료되어, 5분내로 도착합니다. 감사합니다.";
 					serverThread.chatSend(msg);
-					ServiceBox.this.area.append(msg+"\n");
 					ServiceBox.this.removeAll();
+					//ServiceBox.this.area.append(msg+"\n");
+					ServiceBox.this.updateUI();
+					//System.out.println("서비스완료 메세지 전송 후 이용된 서비스 창 삭제됨");
 				}
 			}
 		});

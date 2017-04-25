@@ -12,7 +12,7 @@ public class ResponseService {
 		this.json=json;
 		
 		responseJson = new JSONObject();
-		System.out.println("HotelClient 의 ResponseService 실행");
+		//System.out.println("HotelClient 의 ResponseService 실행");
 	}
 	
 	 public void send(){
@@ -26,7 +26,7 @@ public class ResponseService {
 		
 		responseJson.put("responseType", "service");
 		responseJson.put("content", content);
-		System.out.println(responseJson.toString());
+		//System.out.println(responseJson.toString());
 		serverThread.send(responseJson.toJSONString());		
 	}
 }
