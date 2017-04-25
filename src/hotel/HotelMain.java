@@ -74,7 +74,7 @@ public class HotelMain extends JFrame implements ActionListener, Runnable{
 			{"room.png", "객실관리"},
 			{"resv.png", "예약관리"},
 			{"membership.png", "고객관리"},
-			{"chat.png", "채팅"}
+			{"chat.png", "서비스"}
 	};//res폴더에서 사용할 이미지		
 	public MyButton[] myButtons=new MyButton[imgName.length];
 	
