@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 
 import hotel.chat.ChatBox;
 import hotel.chat.ChatPanel;
+import hotel.chat.ServiceBox;
 import hotel.guest.MemberPanel;
 import hotel.home.HomePanel;
 import hotel.main.CheckAdminPanel;
@@ -264,12 +265,16 @@ public class HotelMain extends JFrame implements ActionListener, Runnable{
 				Socket socket=server.accept();
 				//접속자 받을때마다 쓰레드 생성해서 듣고 말한다.
 				ChatBox chatBox=new ChatBox();//1:1채팅에 사용될 패널
-				p_chat.add(chatBox);
+				p_chat.p_chat1.add(chatBox);
+				//ServiceBox servBox = new ServiceBox();
+				//p_chat.p_serv.add(servBox);	
+				//p_chat.add(chatBox);
+				//ServerThread serverThread=new ServerThread(this, socket, chatBox,servBox);
 				ServerThread serverThread=new ServerThread(this, socket, chatBox);
 				chatBox.getServerThread(serverThread);//chatBox에 serverThread전달
+				//servBox.getServerThread(serverThread);
 				serverThreadList.addElement(serverThread);
 				p_home.area.append("현재 접속자수는"+serverThreadList.size()+"명 입니다.\n");
-				
 				
 			} catch (IOException e) {
 				e.printStackTrace();

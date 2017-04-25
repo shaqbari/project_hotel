@@ -90,7 +90,7 @@ public class Room_Detail extends JFrame {
 				img = ImageIO.read(url);
 		
 				la_north.setText(number+"호");			
-				la_center.setText("<html>"+"<br> ㆍ이름 : "+name+"<br> ㆍ평형 : "+size+"평 <br> ㆍ침대 : " +bed+"<br> ㆍ객실 뷰 : "+view+"<br> ㆍ최대 인원수 : "+max+"명 <br> ㆍ가격 : "+price+"원 </html>");
+				la_center.setText("<html><br> ㆍ등급 : "+name+"<br> ㆍ평형 : "+size+"평 <br> ㆍ침대 : " +bed+"<br> ㆍ객실 뷰 : "+view+"<br> ㆍ최대 인원수 : "+max+"명 <br> ㆍ가격 : "+price+"원 </html>");
 									
 			} catch (IOException e) {
 				e.printStackTrace();

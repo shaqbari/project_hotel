@@ -111,20 +111,14 @@ public class NowPanel extends JPanel implements ActionListener{
 	// 객실 현황 불러오기 메서드
 	public void loadData() {
 		// room 테이블과 room_option 테이블의 자료를 조인.
-		//System.out.println(yy);
-		//System.out.println(mm);
-		//System.out.println(dd);
 		String sql = "select * from room_option o left outer join room r on o.room_option_id = r.room_option_id order by r.room_number asc";
 
 		//원하는 날의 예약된 방 구하기
-		String revday = "select re.ROOM_NUMBER from ROOM_OPTION o, ROOM r, RESV re"
-				+ " where o.ROOM_OPTION_ID=r.ROOM_OPTION_ID and r.ROOM_NUMBER=re.ROOM_NUMBER"
-				+ " and to_char(re.RESV_TIME, 'yyyy')=? and to_char(re.RESV_TIME, 'mm')=? and to_char(re.RESV_TIME, 'dd')=?";
+		String revday = "select re.room_number from resv re, resv_detail red where re.resv_id = red.resv_id"
+				+ " and to_char(red.stay_date, 'yyyy')=? and to_char(red.stay_date, 'mm')=? and to_char(red.stay_date, 'dd')=?";
 		
 		PreparedStatement pstmt = null;
-		PreparedStatement pstmt2 = null;
 		ResultSet rs = null;
-		ResultSet rs2 = null;
 		
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -146,17 +140,17 @@ public class NowPanel extends JPanel implements ActionListener{
 			}
 					
 			//예약된 방 담기, 바인드 변수 설정
-			pstmt2 = con.prepareStatement(revday);
-			pstmt2.setInt(1, yy);
-			pstmt2.setInt(2, mm+1);	//표기되는 날보다 +1로 해야함.
-			pstmt2.setInt(3, dd);
-			
-			rs2 = pstmt2.executeQuery();
+			pstmt = con.prepareStatement(revday);
+			pstmt.setInt(1, yy);
+			pstmt.setInt(2, mm+1);	//표기되는 날보다 +1로 해야함.
+			pstmt.setInt(3, dd);
+	
+			rs = pstmt.executeQuery();
 			resvNumber = new ArrayList<Room_Option>();	//날짜 변경시 마다 새롭게 예약된 방을 담기 위해 매번 생성 	
-			while (rs2.next()){
+			while (rs.next()){
 				Room_Option vo = new Room_Option();
-				vo.setRoom_number(rs2.getInt("room_number"));
-				
+				vo.setRoom_number(rs.getInt("room_number"));
+		
 				resvNumber.add(vo);
 				
 			}

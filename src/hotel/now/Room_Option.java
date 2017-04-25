@@ -12,6 +12,7 @@ public class Room_Option {
 	
 	private int room_number;
 	private int room_floor;
+	private int stay;	//Ãß°¡
 	
 	
 	public int getRoom_option_id() {
@@ -73,6 +74,12 @@ public class Room_Option {
 	}
 	public void setRoom_floor(int room_floor) {
 		this.room_floor = room_floor;
+	}
+	public int getStay() {
+		return stay;
+	}
+	public void setStay(int stay) {
+		this.stay = stay;
 	}
 	
 }

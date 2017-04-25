@@ -15,6 +15,7 @@ import org.json.simple.parser.ParseException;
 
 import hotel.HotelMain;
 import hotel.chat.ChatBox;
+import hotel.chat.ServiceBox;
 
 public class ServerThread extends Thread{
 	HotelMain main;
@@ -22,7 +23,7 @@ public class ServerThread extends Thread{
 
 	public JTextArea area;//HomePanel의 area를 담을예정
 	public ChatBox chatBox;//ChatPanel의 chatBox를 담을예정
-	
+	public ServiceBox servBox;//ChatPanel의 serviceBox를 담을예정
 	BufferedReader buffr;
 	BufferedWriter buffw;
 		
@@ -34,7 +35,7 @@ public class ServerThread extends Thread{
 		
 		this.area=main.p_home.area;
 		this.chatBox=chatBox;
-
+		
 		try {
 			buffr=new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			buffw=new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -66,10 +67,12 @@ public class ServerThread extends Thread{
 				responseChat.responseSend();
 			
 			}else if (requestType.equalsIgnoreCase("service")) {
-
+				servBox = new ServiceBox();
+				main.p_chat.p_serv.add(servBox);
+				//System.out.println(this);
+				servBox.getServerThread(this);
 				ResponseService responseService=new ResponseService(this, json);
 				responseService.send();
-
 				
 			}else if (requestType.equalsIgnoreCase("room_search")) {
 				System.out.println("방검색들어왔어");
@@ -97,8 +100,10 @@ public class ServerThread extends Thread{
 						
 		} catch (IOException e) {//client가 나갈경우 이예외에 들어간다.
 			e.printStackTrace();
-			main.p_chat.remove(this.chatBox);//chat패널에서 chatBox를 지운다.
-			main.p_chat.updateUI();
+			main.p_chat.p_chat1.remove(this.chatBox);//chat패널에서 chatBox를 지운다.
+			main.p_chat.p_serv.remove(this.servBox);//chat패널에서 servBox도 지운다.
+			main.p_chat.p_chat1.updateUI();
+			main.p_chat.p_serv.updateUI();
 			
 			flag=false;//현재의 쓰레드를 죽인다.
 			main.serverThreadList.remove(this);//벡터에서 이 스레드를 제거
