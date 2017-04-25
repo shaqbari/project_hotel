@@ -89,6 +89,8 @@ public class HotelMain extends JFrame implements ActionListener, Runnable{
 	ClockThread clock; //시계
 		
 	public HotelMain() {
+		super("호텔 예약관리 시스템");
+		
 		try {
 			server=new ServerSocket(port);
 			thread=new Thread(this);//runnable로는 시작할수 없으므로 쓰레드로 받아 시작한다.			

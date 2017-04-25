@@ -74,6 +74,32 @@
 		"service_id":3	
 	}
 	
+	//방검색요청의 경우
+	var msgExRoomSearch={
+		"requestType":"room_search",
+		"room_number":403,
+		"request_time":"2017-05-03-18-19-23",
+		"start":"2017-05-04-14-00-00",
+		"end":"2017-05-05-12-00-00",
+		"option":"vip"				
+	}
+	
+	//방검색응답의 경우
+	var msgExRommSearchResponse={
+		"responseType":"room_search",
+		"result":"yes",
+		"available_room":[
+			203, 303, 403
+		],
+	}
+	
+	//방이 없는경우
+	var msgExRommSearchResponse2={
+			"responseType":"room_search",
+			"result":"no",			
+		}
+	
+	
 	//예약의 경우
 	var msgExResv={
 		"room_number":303,

@@ -71,6 +71,11 @@ public class ServerThread extends Thread{
 				responseService.send();
 
 				
+			}else if (requestType.equalsIgnoreCase("room_search")) {
+				System.out.println("방검색들어왔어");
+				ResponseRoomSearch roomSearch=new ResponseRoomSearch(this, json);
+				roomSearch.response();				
+				
 			}else if (requestType.equalsIgnoreCase("resv")) {
 				ResponseResv resv=new ResponseResv(this, json);
 				
@@ -78,8 +83,7 @@ public class ServerThread extends Thread{
 			}else if (requestType.equalsIgnoreCase("guest_login")) {
 				ResponseGuestLogin guestLogin=new ResponseGuestLogin(this, json);
 				guestLogin.response();
-				
-				
+								
 			}else if (requestType.equalsIgnoreCase("membership_login")) {
 				ResponseMemberLogin memberLogin=new ResponseMemberLogin(this, json);
 				memberLogin.response();
@@ -87,6 +91,7 @@ public class ServerThread extends Thread{
 			}else if(requestType.equalsIgnoreCase("membership_regist")){
 				ResponseMemberResist memberResist=new ResponseMemberResist(this, json);
 				memberResist.response();
+				
 			}
 			
 						

@@ -38,7 +38,7 @@ public class ResponseResv {
 	
 	public ResponseResv(ServerThread serverThread, JSONObject json) {
 		this.serverThread=serverThread;
-		this.main=main;
+		this.main=serverThread.main;
 		con=main.con;
 		
 		this.json=json;
