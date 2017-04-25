@@ -78,7 +78,7 @@
 	var msgExRoomSearch={
 		"requestType":"room_search",
 		"room_number":403,
-		"request_time":"2017-05-03-18-19-23",
+		"requestTime":"2017-05-03-18-19-23",
 		"start":"2017-05-04-14-00-00",
 		"end":"2017-05-05-12-00-00",
 		"option":"vip"				
@@ -100,15 +100,28 @@
 		}
 	
 	
-	//예약의 경우
+	//회원 방예약의 경우
 	var msgExResv={
 		"room_number":303,
-		"reqeustType":"resv",
+		"reqeustType":"member_resv",
 		"requestTime":"2017-04-17-18-19-23",
-		"hotel_user_id":7,
-		"resv_room_nummber": 202,
-		"resv_time":"2017-03-14",
+		"hotel_user_id":8,
+		"resv_room_number": 602,
+		"resv_time":"2017-04-20-14-00-00",
+		"end_time":"2017-04-23-12-00-00",
 		"stay":3
+	}
+	
+	//회원 방예약 응답
+	var msgExMemberResv2{		
+		"responseType":"member_resv",
+		"result":"yes",
+		"resv_id":"24"
+		
+	}	
+	var msgExMemberResv2{		
+		"responseType":"member_resv",
+		"result":"no"
 	}
 
 

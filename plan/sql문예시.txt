@@ -63,3 +63,7 @@ where r.ROOM_OPTION_ID=o.ROOM_OPTION_ID
  on r.ROOM_NUMBER = re.ROOM_NUMBER
  and  (to_Char(re.RESV_TIME, 'yyyy-mm-dd-hh24-mi-ss')>'2017-04-18-12-00-00'
  or to_Char(re.END_TIME, 'yyyy-mm-dd-hh24-mi-ss')<'2017-04-16-14-00-00'));
+ 
+ 
+ 
+ select seq_resv.currVal from dual;--방금입력한 seq_val을 구한다.

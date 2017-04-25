@@ -81,9 +81,13 @@ public class ServerThread extends Thread{
 				ResponseRoomSearch roomSearch=new ResponseRoomSearch(this, json);
 				roomSearch.response();				
 				
-			}else if (requestType.equalsIgnoreCase("resv")) {
-				ResponseResv resv=new ResponseResv(this, json);
+			}else if (requestType.equalsIgnoreCase("guest_resv")) {
 				
+				
+			}else if (requestType.equalsIgnoreCase("member_resv")) {
+				System.out.println("예약들어왔어");
+				ResponseMemberResv memberResv=new ResponseMemberResv(this, json);
+				memberResv.response();
 				
 			}else if (requestType.equalsIgnoreCase("guest_login")) {
 				ResponseGuestLogin guestLogin=new ResponseGuestLogin(this, json);
@@ -102,6 +106,8 @@ public class ServerThread extends Thread{
 						
 		} catch (IOException e) {//client가 나갈경우 이예외에 들어간다.
 			e.printStackTrace();
+			
+			
 			main.p_chat.p_chat1.remove(this.chatBox);//chat패널에서 chatBox를 지운다.
 			main.p_chat.p_chat1.updateUI();
 			
