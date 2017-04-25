@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.util.Calendar;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -37,7 +38,9 @@ public class HomePanel extends JPanel implements ActionListener{
 	JTextField txt;
 	JScrollPane scroll;	
 	Canvas can; 
-
+	
+	Calendar cal;
+	String yy, mm, dd, hh24, mi, ss;
 	
 	public HomePanel(HotelMain main) {
 		this.main=main;
@@ -99,10 +102,18 @@ public class HomePanel extends JPanel implements ActionListener{
 			public void keyReleased(KeyEvent e) {
 				int key=e.getKeyCode();
 				if (key==KeyEvent.VK_ENTER) {
+					cal=Calendar.getInstance();
+					yy=Integer.toString(cal.get(Calendar.YEAR));
+					mm=Integer.toString(cal.get(Calendar.MONTH));
+					dd=Integer.toString(cal.get(Calendar.DATE));
+					hh24=Integer.toString(cal.get(Calendar.HOUR_OF_DAY));
+					mi=Integer.toString(cal.get(Calendar.MINUTE));
+					ss=Integer.toString(cal.get(Calendar.SECOND));
+					 
 					for (int i = 0; i < main.serverThreadList.size(); i++) {
-						main.serverThreadList.get(i).chatSend("전체호실에 말하기: "+txt.getText());
+						main.serverThreadList.get(i).chatSend("전체호실에 말하기: "+txt.getText()+" "+yy+"-"+mm+"-"+dd+" "+hh24+":"+mi+":"+ss+"\n");
 					}					
-					area.append("전체호실에 말하기: "+txt.getText()+"\n");
+					area.append("전체호실에 말하기: "+txt.getText()+" "+yy+"-"+mm+"-"+dd+" "+hh24+":"+mi+":"+ss+"\n");
 					txt.setText("");
 				}
 			}

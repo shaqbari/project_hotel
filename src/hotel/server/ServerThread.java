@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.util.Vector;
 
 import javax.swing.JTextArea;
 
@@ -28,6 +29,7 @@ public class ServerThread extends Thread{
 	BufferedWriter buffw;
 		
 	Boolean flag=true;
+	public Vector<ServerThread>serviceThreadList=new Vector<ServerThread>();
 	
 	public ServerThread(HotelMain main, Socket socket, ChatBox chatBox) {
 		this.main=main;
@@ -69,8 +71,8 @@ public class ServerThread extends Thread{
 			}else if (requestType.equalsIgnoreCase("service")) {
 				servBox = new ServiceBox();
 				main.p_chat.p_serv.add(servBox);
-				//System.out.println(this);
 				servBox.getServerThread(this);
+				//serviceThreadList.addElement(this);
 				ResponseService responseService=new ResponseService(this, json);
 				responseService.send();
 				
@@ -101,9 +103,7 @@ public class ServerThread extends Thread{
 		} catch (IOException e) {//client가 나갈경우 이예외에 들어간다.
 			e.printStackTrace();
 			main.p_chat.p_chat1.remove(this.chatBox);//chat패널에서 chatBox를 지운다.
-			main.p_chat.p_serv.remove(this.servBox);//chat패널에서 servBox도 지운다.
 			main.p_chat.p_chat1.updateUI();
-			main.p_chat.p_serv.updateUI();
 			
 			flag=false;//현재의 쓰레드를 죽인다.
 			main.serverThreadList.remove(this);//벡터에서 이 스레드를 제거
