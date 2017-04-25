@@ -39,7 +39,7 @@ public class Room_Item extends JPanel {
 		setBackground(new Color(r,g,b));
 		la_number.setForeground(Color.BLACK);
 		
-		/*원래코드
+
 		//예약된 방 표시하기
 		for(int i=0; i<nowPanel.resvNumber.size();i++){
 			if(Integer.parseInt(la_number.getText()) == nowPanel.resvNumber.get(i).getRoom_number()){
@@ -48,23 +48,7 @@ public class Room_Item extends JPanel {
 				//setBackground(Color.LIGHT_GRAY);
 			}
 		}
-		*/
-		
-		//스테이 횟수가 2이상일때 스테이와 같은 숫자만큼 방번호를 배열에 저장하고 해당 숫자를 더한 날까지 방번호가 나오게.
-		//체크인 날짜와 체크아웃 날짜를 지정하여 체크아웃 날짜의 -1만큼 숫자를 갖고있게
-		//스테이가 1이상일때 반복 횟수
-	
-		for(int i=0; i<nowPanel.resvNumber.size();i++){
-			if(Integer.parseInt(la_number.getText()) == nowPanel.resvNumber.get(i).getRoom_number()){
-				setBackground(Color.RED);
-			} else{
-				//setBackground(Color.LIGHT_GRAY);
-			}
-		}
-		//---------------------------
-		
-		
-		
+				
 		la_number.setFont(font);
 		la_name.setFont(font);
 		la_number.setForeground(Color.BLACK);

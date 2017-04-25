@@ -91,7 +91,10 @@ public class Room_Detail extends JFrame {
 		
 				la_north.setText(number+"호");			
 				la_center.setText("<html><br> ㆍ등급 : "+name+"<br> ㆍ평형 : "+size+"평 <br> ㆍ침대 : " +bed+"<br> ㆍ객실 뷰 : "+view+"<br> ㆍ최대 인원수 : "+max+"명 <br> ㆍ가격 : "+price+"원 </html>");
-									
+				
+				//예약된 방번호와 일치할 경우 사용하고 있는 사람의 이름과 입실, 퇴실 일자를 함께 출력하자.
+				
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 			

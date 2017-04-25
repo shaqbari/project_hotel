@@ -144,17 +144,14 @@ public class NowPanel extends JPanel implements ActionListener{
 			pstmt.setInt(1, yy);
 			pstmt.setInt(2, mm+1);	//표기되는 날보다 +1로 해야함.
 			pstmt.setInt(3, dd);
-	
 			rs = pstmt.executeQuery();
 			resvNumber = new ArrayList<Room_Option>();	//날짜 변경시 마다 새롭게 예약된 방을 담기 위해 매번 생성 	
 			while (rs.next()){
 				Room_Option vo = new Room_Option();
 				vo.setRoom_number(rs.getInt("room_number"));
 		
-				resvNumber.add(vo);
-				
+				resvNumber.add(vo);		
 			}
-			
 			
 			/*
 			//rs2 테스트
