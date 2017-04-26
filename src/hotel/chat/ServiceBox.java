@@ -26,7 +26,7 @@ public class ServiceBox extends JPanel{
 	
 	public ServiceBox() {
 		la_room_number=new JLabel("203호");
-		area=new JTextArea(15, 20);
+		area=new JTextArea(8, 40);
 		scroll=new JScrollPane(area);
 		//txt_input=new JTextField(20);
 		bt_complete = new JButton("서비스준비완료");
@@ -49,6 +49,8 @@ public class ServiceBox extends JPanel{
 					ServiceBox.this.removeAll();
 					//ServiceBox.this.area.append(msg+"\n");
 					ServiceBox.this.updateUI();
+					//serverThread.serviceThreadList.removeElement(serverThread); //벡터에서 이 쓰레드를 제거
+					//serverThread.area.append("현재 준비해야할 남은 서비스는?: "+serverThread.serviceThreadList.size()+"\n");
 					//System.out.println("서비스완료 메세지 전송 후 이용된 서비스 창 삭제됨");
 				}
 			}

@@ -111,7 +111,7 @@ public class HomePanel extends JPanel implements ActionListener{
 					ss=Integer.toString(cal.get(Calendar.SECOND));
 					 
 					for (int i = 0; i < main.serverThreadList.size(); i++) {
-						main.serverThreadList.get(i).chatSend("전체호실에 말하기: "+txt.getText()+" "+yy+"-"+mm+"-"+dd+" "+hh24+":"+mi+":"+ss+"\n");
+						main.serverThreadList.get(i).chatSend("전체호실에 말하기: "+txt.getText()+" "+yy+"-"+mm+"-"+dd+" "+hh24+":"+mi+":"+ss);
 					}					
 					area.append("전체호실에 말하기: "+txt.getText()+" "+yy+"-"+mm+"-"+dd+" "+hh24+":"+mi+":"+ss+"\n");
 					txt.setText("");

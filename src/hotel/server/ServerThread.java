@@ -15,28 +15,29 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import hotel.HotelMain;
-import hotel.chat.ChatBox;
-import hotel.chat.ServiceBox;
 
 public class ServerThread extends Thread{
 	HotelMain main;
 	Socket socket;
 
 	public JTextArea area;//HomePanel의 area를 담을예정
-	public ChatBox chatBox;//ChatPanel의 chatBox를 담을예정
-	public ServiceBox servBox;//ChatPanel의 serviceBox를 담을예정
+	//public ChatBox chatBox;//ChatPanel의 chatBox를 담을예정
+	
 	BufferedReader buffr;
 	BufferedWriter buffw;
 		
 	Boolean flag=true;
 	public Vector<ServerThread>serviceThreadList=new Vector<ServerThread>();
+	ResponseChat responseChat;
 	
-	public ServerThread(HotelMain main, Socket socket, ChatBox chatBox) {
+	
+	
+	public ServerThread(HotelMain main, Socket socket) {
 		this.main=main;
 		this.socket=socket;
 		
 		this.area=main.p_home.area;
-		this.chatBox=chatBox;
+		//this.chatBox=chatBox;
 		
 		try {
 			buffr=new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -65,13 +66,15 @@ public class ServerThread extends Thread{
 			
 			//파싱결과 requestType에따라 다른 반응을 한다.
 			if (requestType.equalsIgnoreCase("chat")) {
-				ResponseChat responseChat=new ResponseChat(this, json);	
+
+				//serverThreadList.addElement(this);
+				if(responseChat==null){
+				responseChat=new ResponseChat(this, json);	
+				}
 				responseChat.responseSend();
 			
 			}else if (requestType.equalsIgnoreCase("service")) {
-				servBox = new ServiceBox();
-				main.p_chat.p_serv.add(servBox);
-				servBox.getServerThread(this);
+				
 				//serviceThreadList.addElement(this);
 				ResponseService responseService=new ResponseService(this, json);
 				responseService.send();
@@ -105,14 +108,14 @@ public class ServerThread extends Thread{
 			
 						
 		} catch (IOException e) {//client가 나갈경우 이예외에 들어간다.
-			e.printStackTrace();
+			//e.printStackTrace();
 			
-			
-			main.p_chat.p_chat1.remove(this.chatBox);//chat패널에서 chatBox를 지운다.
-			main.p_chat.p_chat1.updateUI();
+			//main.p_chat.p_chat1.remove(responseChat.chatBox);//chat패널에서 chatBox를 지운다.
+			//main.p_chat.p_chat1.updateUI();
 			
 			flag=false;//현재의 쓰레드를 죽인다.
 			main.serverThreadList.remove(this);//벡터에서 이 스레드를 제거
+			//serviceThreadList.remove(this);
 			area.append("1명 퇴장후 현재 접속자: "+main.serverThreadList.size()+"\n");
 			//여기서 stream 닫나?
 		}

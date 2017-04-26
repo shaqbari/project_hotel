@@ -3,22 +3,28 @@ package hotel.chat;
 import java.awt.BorderLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.Calendar;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import hotel.HotelMain;
 import hotel.server.ServerThread;
 
-public class ChatBox extends JPanel{	
+public class ChatBox extends JFrame{	
 	ServerThread serverThread;
-	
+	HotelMain main;
 	JLabel la_room_number;
 	public JTextArea area;
 	JScrollPane scroll;
 	JTextField txt_input;
+	Calendar cal;
+	String yyyy, mm, dd, hh24, mi, ss;
 	
 	public ChatBox() {		
 		la_room_number=new JLabel("203ȣ");
@@ -38,15 +44,30 @@ public class ChatBox extends JPanel{
 			public void keyReleased(KeyEvent e) {
 				int key=e.getKeyCode();
 				if (key==KeyEvent.VK_ENTER) {
+					cal=Calendar.getInstance();
+					yyyy=Integer.toString(cal.get(Calendar.YEAR));
+					mm=Integer.toString(cal.get(Calendar.MONTH));
+					dd=Integer.toString(cal.get(Calendar.DATE));
+					hh24=Integer.toString(cal.get(Calendar.HOUR_OF_DAY));
+					mi=Integer.toString(cal.get(Calendar.MINUTE));
+					ss=Integer.toString(cal.get(Calendar.SECOND));
+					
 					String msg=txt_input.getText();
 					serverThread.chatSend(msg);
-					ChatBox.this.area.append(msg+"\n");
+					area.append(msg+yyyy+"-"+mm+"-"+dd+" "+hh24+":"+mi+":"+ss+"\n");
 					txt_input.setText("");
 				}
 			}			
 		});
 		
-		setSize(200, 100);
+		this.addWindowListener(new WindowAdapter() {
+		@Override
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}	
+		});
+		
+		setSize(350, 500);
 		setVisible(true);		
 	}
 	
