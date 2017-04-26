@@ -214,22 +214,27 @@ public class MemberPanel extends JPanel implements ActionListener{
 	public void searchmember(){
 		table.setModel(table_member=new MemberTable(con, this));
 		table_member.getSelectedMemberList();
+		resizeColumnWidth(table);
 		table.updateUI();
+		
 	}
 	public void serachguest(){
 		table.setModel(table_guest=new GuestTable(con, this));
 		table_guest.getSelectedGuestList();
+		resizeColumnWidth(table);
 		table.updateUI();
 	}
 	public void findmember(){
 		table.setModel(table_member=new MemberTable(con, this));
 		table_member.getMemberList();
+		resizeColumnWidth(table);
 		table.updateUI();
 		flag=true;
 	}
 	public void findguest(){
 		table.setModel(table_guest=new GuestTable(con, this));
 		table_guest.getGuestList();
+		resizeColumnWidth(table);
 		table.updateUI();
 		flag=false;
 	}
@@ -247,6 +252,7 @@ public class MemberPanel extends JPanel implements ActionListener{
 		}
 	}
 	
+	//각 셀의 데이터 길이에 따라 길이 조절 메서드  
 	public void resizeColumnWidth(JTable table) { 
 		final TableColumnModel columnModel = table.getColumnModel(); 
 		for (int column = 0; column < table.getColumnCount(); column++) { 
