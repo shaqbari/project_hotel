@@ -67,3 +67,10 @@ where r.ROOM_OPTION_ID=o.ROOM_OPTION_ID
  
  
  select seq_resv.currVal from dual;--방금입력한 seq_val을 구한다.
+ 
+ 
+ INSERT INTO RESV_DETAIL (RESV_DETAIL_ID, STAY_DATE, RESV_ID) 
+VALUES (seq_resv_detail.nextVal, to_date('2017-04-27-14-00-00', 'yyyy-mm-dd-hh24-mi-ss'), seq_resv.currVal)
+--resv_detail테이블에 레코드를 추가한다.
+
+commit;

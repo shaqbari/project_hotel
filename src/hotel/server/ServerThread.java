@@ -77,7 +77,7 @@ public class ServerThread extends Thread{
 				responseService.send();
 				
 			}else if (requestType.equalsIgnoreCase("room_search")) {
-				System.out.println("방검색들어왔어");
+				System.out.println("남는방검색들어왔어");
 				ResponseRoomSearch roomSearch=new ResponseRoomSearch(this, json);
 				roomSearch.response();				
 				
