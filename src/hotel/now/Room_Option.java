@@ -12,7 +12,11 @@ public class Room_Option {
 	
 	private int room_number;
 	private int room_floor;
-	private int stay;	//Ãß°¡
+	
+	private String resv_time;
+	private String end_time;
+	private String membership_name;
+	private String guest_name;
 	
 	
 	public int getRoom_option_id() {
@@ -75,11 +79,30 @@ public class Room_Option {
 	public void setRoom_floor(int room_floor) {
 		this.room_floor = room_floor;
 	}
-	public int getStay() {
-		return stay;
+	public String getResv_time() {
+		return resv_time;
 	}
-	public void setStay(int stay) {
-		this.stay = stay;
+	public void setResv_time(String resv_time) {
+		this.resv_time = resv_time;
 	}
+	public String getEnd_time() {
+		return end_time;
+	}
+	public void setEnd_time(String end_time) {
+		this.end_time = end_time;
+	}
+	public String getMembership_name() {
+		return membership_name;
+	}
+	public void setMembership_name(String membership_name) {
+		this.membership_name = membership_name;
+	}
+	public String getGuest_name() {
+		return guest_name;
+	}
+	public void setGuest_name(String guest_name) {
+		this.guest_name = guest_name;
+	}
+
 	
 }
