@@ -16,10 +16,10 @@ public class ServiceMemberTable extends AbstractTableModel{
 	public ServiceMemberTable(Connection con,String value) {
 		this.value=value;
 		this.con=con;
-		columnName.add("SERVICE_ID");
-		columnName.add("SERVICE_NAME");
-		columnName.add("SERVICE_PRICE");
-		columnName.add("SERVICE_USE_TIME");
+		columnName.add("서비스번호");
+		columnName.add("제품명");
+		columnName.add("가격");
+		columnName.add("서비스 주문시간");
 		getList();
 	}
 	

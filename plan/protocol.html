@@ -49,12 +49,28 @@
 	
 	//클라이언트 회원가입 요청
 	var msgExResgist={
-		"responseType":"membership_regist",		
-		"hotel_user_id":1,
-		"geust_name":"김성현",
-		"resv_time":"2017-04-17-18-19-23",
-		"stay":1				
+		"requestType":"membership_regist",
+		"room_number":204,
+		"requestTime":"2017-04-17-18-19-23",
+		"member_nick":"jsklsk",
+		"member_pw":"1234",
+		"member_name":"김성현",
+		"member_phone":"010-2322-1111"",
+		"member_email":"syssk@aewr.com",
 	}
+	
+	//회원가입 응답
+	var msgExMemberResv2{		
+		"responseType":"membership_regist",
+		"result":"yes",
+		"membership_id":23
+		
+	}	
+	var msgExMemberResv2{		
+		"responseType":"membership_regist",
+		"result":"no"
+	}
+	
 	
 	//채팅의 경우
 	var msgExChat={
@@ -121,6 +137,31 @@
 	}	
 	var msgExMemberResv2{		
 		"responseType":"member_resv",
+		"result":"no"
+	}
+	
+	//비회원 방예약의 경우
+	var msgExResv={
+		"room_number":303,
+		"reqeustType":"guest_resv",
+		"requestTime":"2017-04-17-18-19-23",
+		"guest_name":"남남남",
+		"guest_phone":"010-2222-3333"	
+		"resv_room_number": 602,
+		"resv_time":"2017-04-20-14-00-00",
+		"end_time":"2017-04-23-12-00-00",
+		"stay":3
+	}
+	
+	//비회원 방예약 응답
+	var msgExMemberResv2{		
+		"responseType":"guest_resv",
+		"result":"yes",
+		"resv_id":"24"
+		
+	}	
+	var msgExMemberResv2{		
+		"responseType":"guest_resv",
 		"result":"no"
 	}
 

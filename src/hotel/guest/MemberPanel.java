@@ -3,6 +3,7 @@ package hotel.guest;
 import java.awt.BorderLayout;
 import java.awt.Checkbox;
 import java.awt.CheckboxGroup;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -11,12 +12,9 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.temporal.ValueRange;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -25,6 +23,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
 import hotel.HotelMain;
 import hotel.main.DBManager;
@@ -73,13 +74,22 @@ public class MemberPanel extends JPanel implements ActionListener{
 		p_center.add(la_center);
 		p_center.add(t_name);
 		p_center.add(bt_search);
+		p_center.add(bt_reservation);
 		p_container.setLayout(new GridLayout(2, 1));
 		p_container.add(p_north);
 		p_container.add(p_center);
 		
+		//-------------------
+		table.setRowHeight(25);
+		
+		resizeColumnWidth(table);
+		
+		//DefaultTableCellRenderer render = new DefaultTableCellRenderer();
+		//render.setHorizontalAlignment(JLabel.CENTER);
+		
+		//----------
+		
 		//p_container.setPreferredSize(new Dimension(800, 100));
-		p_south.add(bt_reservation);
-		//p_south.add(bt_modify);
 		p_main.setLayout(new BorderLayout());
 		p_main.add(p_container,BorderLayout.NORTH);
 		p_main.add(scroll,BorderLayout.CENTER);
@@ -236,7 +246,18 @@ public class MemberPanel extends JPanel implements ActionListener{
 			modify();
 		}
 	}
-
-
 	
+	public void resizeColumnWidth(JTable table) { 
+		final TableColumnModel columnModel = table.getColumnModel(); 
+		for (int column = 0; column < table.getColumnCount(); column++) { 
+			int width = 50; // Min width 
+			for (int row = 0; row < table.getRowCount(); row++) { 
+				TableCellRenderer renderer = table.getCellRenderer(row, column); 
+				Component comp = table.prepareRenderer(renderer, row, column); 
+				width = Math.max(comp.getPreferredSize().width +1 , width); 
+				} 
+			columnModel.getColumn(column).setPreferredWidth(width); 
+			} 
+	}
+
 }
