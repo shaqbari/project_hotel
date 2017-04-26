@@ -72,7 +72,7 @@ public class ServerThread extends Thread{
 				//serverThreadList.addElement(this);
 				if(chatOff){
 					chatOff=false;
-					chatBox=new ChatBox();
+					chatBox=new ChatBox(json.get("room_number").toString()+"호 와의 채팅");
 					chatBox.getServerThread(this);
 				}
 				ResponseChat responseChat=new ResponseChat(this, json);	

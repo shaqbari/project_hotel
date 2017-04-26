@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 
 import hotel.HotelMain;
 import hotel.server.ServerThread;
+import oracle.net.ano.SupervisorService;
 
 public class ChatBox extends JFrame{	
 	ServerThread serverThread;
@@ -26,7 +27,8 @@ public class ChatBox extends JFrame{
 	Calendar cal;
 	String yyyy, mm, dd, hh24, mi, ss;
 	
-	public ChatBox() {		
+	public ChatBox(String title) {
+		super(title);
 		la_room_number=new JLabel("203ȣ");
 		area=new JTextArea(15, 20);
 		scroll=new JScrollPane(area);
