@@ -30,16 +30,7 @@ public class Room_Detail extends JFrame {
 	NowPanel nowPanel;
 	Room_Item roomItem;
 	int i;
-	/*
-	String number;
-	String name;
-	String size;
-	String bed;
-	String view;
-	String max;
-	String price;
-	URL url;
-	*/
+
 	String membership_name="";
 	String guest_name="";
 	String resv_time="";
@@ -119,6 +110,7 @@ public class Room_Detail extends JFrame {
 						p_north.setBackground(Color.RED);
 					}
 				}
+				
 				if(membership_name==null){
 					membership_name = "";
 				} else if(guest_name==null){
