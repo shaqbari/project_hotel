@@ -10,13 +10,14 @@ import java.util.Map;
 import org.json.simple.JSONObject;
 
 import hotel.HotelMain;
+import hotel.resv.DateUtil;
 
 public class ResponseMemberResv {
 	ServerThread serverThread;
 	HotelMain main;
 	Connection con;
 	JSONObject json;
-	int resv_id=0;
+	int resv_id=0;//예약번호를 받을 변수
 	boolean flag=false;
 	
 	/*//회원 방예약의 경우
@@ -84,6 +85,24 @@ public class ResponseMemberResv {
 				
 				rs.next();
 				resv_id=rs.getInt("currVal");
+				
+				String stay_date=json.get("resv_time").toString();
+				for (int i = 0; i < Integer.parseInt(json.get("stay").toString()); i++) {
+					sql.delete(0, sql.length());
+					sql.append("INSERT INTO RESV_DETAIL (RESV_DETAIL_ID, STAY_DATE, RESV_ID)");
+					sql.append("VALUES (seq_resv_detail.nextVal, to_date(?, 'yyyy-mm-dd-hh24-mi-ss'), seq_resv.currVal)");					
+					pstmt=con.prepareStatement(sql.toString());
+					
+					if (i==0) {
+						pstmt.setString(1, stay_date);						
+					}else{
+						stay_date=DateUtil.getPlusDate(stay_date, 1);
+						pstmt.setString(1, stay_date);
+					}					
+					pstmt.executeUpdate();
+					
+					
+				}
 				
 			}
 			
