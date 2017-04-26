@@ -86,6 +86,8 @@ public class ResponseMemberResv {
 				rs.next();
 				resv_id=rs.getInt("currVal");
 				
+				
+				//resv_detail에도 날짜를 하루씩 더하면서 추가하자.
 				String stay_date=json.get("resv_time").toString();
 				for (int i = 0; i < Integer.parseInt(json.get("stay").toString()); i++) {
 					sql.delete(0, sql.length());

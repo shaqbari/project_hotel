@@ -16,14 +16,14 @@ public class ReservationGuestTable extends AbstractTableModel{
 	public ReservationGuestTable(Connection con,String value) {
 		this.value=value;
 		this.con=con;
-		columnName.add("RESV_ID");
-		columnName.add("GUEST_NAME");
-		columnName.add("GUEST_PHONE");
-		columnName.add("RESV_TIME");
-		columnName.add("ROOM_NUMBER");
-		columnName.add("ROOM_OPTION_NAME");
-		columnName.add("CHECK_IN_TIME");
-		columnName.add("CHECK_OUT_TIME");
+		columnName.add("예약번호");
+		columnName.add("이름");
+		columnName.add("전화번호");
+		columnName.add("예약시간");
+		columnName.add("방번호");
+		columnName.add("옵션명");
+		columnName.add("체크인 예정시간");
+		columnName.add("체크아웃 예정시간");
 		getList();
 	}
 	

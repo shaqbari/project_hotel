@@ -41,11 +41,9 @@ public class Room_Item extends JPanel {
 		
 
 		//예약된 방 표시하기
-		for(int i=0; i<nowPanel.resvNumber.size();i++){
-			if(Integer.parseInt(la_number.getText()) == nowPanel.resvNumber.get(i).getRoom_number()){
+		for(int i=0; i<nowPanel.resv.size();i++){
+			if(Integer.parseInt(la_number.getText()) == nowPanel.resv.get(i).getRoom_number()){
 				setBackground(Color.RED);
-			} else{
-				//setBackground(Color.LIGHT_GRAY);
 			}
 		}
 				
@@ -63,7 +61,7 @@ public class Room_Item extends JPanel {
 				Room_Item container=(Room_Item)can.getParent();
 				for(int i=0; i<nowPanel.list.size(); i++){
 					if(Integer.parseInt(container.la_number.getText())==nowPanel.list.get(i).getRoom_number()){
-						new Room_Detail(nowPanel,i);
+						new Room_Detail(nowPanel,container,i);
 					}
 				}
 			}

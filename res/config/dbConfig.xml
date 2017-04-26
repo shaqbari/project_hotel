@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+	<db>
+		<ip>211.238.142.108</ip>
+		<port>1521</port>
+		<sid>XE</sid>
+		<user>hotelmanager</user>
+		<password>manager4</password>
+	</db>
+</configs>

@@ -35,7 +35,7 @@ public class NowPanel extends JPanel implements ActionListener{
 	JButton bt_prevDay, bt_nextDay, bt_prevMonth, bt_nextMonth;
 	JLabel la_date, la_in, la_out;
 	ArrayList<Room_Option> list;
-	ArrayList<Room_Option> resvNumber; 
+	ArrayList<Room_Option> resv; 
 	Calendar cal = Calendar.getInstance();
 	Thread thread;
 	
@@ -112,10 +112,12 @@ public class NowPanel extends JPanel implements ActionListener{
 	public void loadData() {
 		// room 테이블과 room_option 테이블의 자료를 조인.
 		String sql = "select * from room_option o left outer join room r on o.room_option_id = r.room_option_id order by r.room_number asc";
-
-		//원하는 날의 예약된 방 구하기
-		String revday = "select re.room_number from resv re, resv_detail red where re.resv_id = red.resv_id"
-				+ " and to_char(red.stay_date, 'yyyy')=? and to_char(red.stay_date, 'mm')=? and to_char(red.stay_date, 'dd')=?";
+		
+		//원하는 날의 예약된 방 구하기(만들어진 뷰를 통해서 추가로 예약자 이름,입퇴실 시간 정보 가져오기)
+		String revday ="SELECT re.room_number, re.resv_time, re.END_TIME, v.GUEST_NAME, v.MEMBERSHIP_NAME"
+				+ " FROM resv re, resv_detail red, view_hotel_user2 v"
+				+ " WHERE re.resv_id = red.resv_id and re.HOTEL_USER_ID = v.HOTEL_USER_ID"
+				+ " AND TO_CHAR (red.stay_date, 'yyyy') = ? AND TO_CHAR (red.stay_date, 'mm') = ? AND TO_CHAR (red.stay_date, 'dd') = ?";
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -145,12 +147,16 @@ public class NowPanel extends JPanel implements ActionListener{
 			pstmt.setInt(2, mm+1);	//표기되는 날보다 +1로 해야함.
 			pstmt.setInt(3, dd);
 			rs = pstmt.executeQuery();
-			resvNumber = new ArrayList<Room_Option>();	//날짜 변경시 마다 새롭게 예약된 방을 담기 위해 매번 생성 	
+			resv = new ArrayList<Room_Option>();	//날짜 변경시 마다 새롭게 예약된 방을 담기 위해 매번 생성 	
 			while (rs.next()){
 				Room_Option vo = new Room_Option();
 				vo.setRoom_number(rs.getInt("room_number"));
-		
-				resvNumber.add(vo);		
+				vo.setResv_time(rs.getString("resv_time"));
+				vo.setEnd_time(rs.getString("end_time"));
+				vo.setMembership_name(rs.getString("membership_name"));
+				vo.setGuest_name(rs.getString("guest_name"));
+				
+				resv.add(vo);		
 			}
 			
 			/*
@@ -223,7 +229,6 @@ public class NowPanel extends JPanel implements ActionListener{
 		loadData();
 
 	}
-	
 	
 	public void prevDay(){
 		dd--;

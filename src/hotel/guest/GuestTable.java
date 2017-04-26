@@ -18,10 +18,11 @@ public class GuestTable extends AbstractTableModel{
 	public GuestTable(Connection con,MemberPanel main) {
 		this.con=con;
 		this.main=main;
-		columnName.add("GUEST_ID");
-		columnName.add("HOTEL_USER_ID");
-		columnName.add("GUEST_NAME");
-		columnName.add("GUEST_PHONE");
+		columnName.add("비회원번호");
+		columnName.add("호텔이용자번호");
+		columnName.add("이름");
+		columnName.add("전화번호");
+		
 	}
 	public void getGuestList(){
 		PreparedStatement pstmt=null;

@@ -80,15 +80,16 @@ public class ServerThread extends Thread{
 				responseService.send();
 				
 			}else if (requestType.equalsIgnoreCase("room_search")) {
-				System.out.println("방검색들어왔어");
+				System.out.println("남는방검색들어왔어");
 				ResponseRoomSearch roomSearch=new ResponseRoomSearch(this, json);
 				roomSearch.response();				
 				
 			}else if (requestType.equalsIgnoreCase("guest_resv")) {
-				
+				System.out.println("비회원 예약들어왔어");
+				ResponseGuestResv guestResv=new ResponseGuestResv(this, json);
+				guestResv.response();
 				
 			}else if (requestType.equalsIgnoreCase("member_resv")) {
-				System.out.println("예약들어왔어");
 				ResponseMemberResv memberResv=new ResponseMemberResv(this, json);
 				memberResv.response();
 				

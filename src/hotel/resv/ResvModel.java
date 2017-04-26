@@ -10,12 +10,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Vector;
-
+ 
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
-
+ 
 import hotel.HotelMain;
  
 public class ResvModel extends AbstractTableModel{
@@ -24,7 +24,7 @@ public class ResvModel extends AbstractTableModel{
 	Vector <Vector> data=new Vector<Vector>(); //호수
 	HotelMain main;
 	Connection con;
-	Calendar cal;
+	Calendar cal, temp_cal, resv_cal, stay_cal;
 	int yy;
 	int mm;
 	int dd;
@@ -32,7 +32,7 @@ public class ResvModel extends AbstractTableModel{
 	JTable table;
 	int date;
 	int stay;
-
+ 
 	
 	
 	public ResvModel(Connection con,Calendar cal,JTable table) {
@@ -43,6 +43,10 @@ public class ResvModel extends AbstractTableModel{
 			
 		yy=cal.get(Calendar.YEAR);
 		mm=cal.get(Calendar.MONTH);
+		
+		temp_cal=Calendar.getInstance();
+		resv_cal=Calendar.getInstance();
+		stay_cal=Calendar.getInstance();
 		
 		System.out.println(TAG+" 실제 달은?"+(mm));
 		
@@ -59,11 +63,13 @@ public class ResvModel extends AbstractTableModel{
 			columnName.add(Integer.toString(num));
 		}
 	
+		//싱크맞추기 위해 제목에 달력 표시뒤에 mm에 +1을 한다.
+		mm=mm+1;
 		getList();
 		
 	}
 	
-
+ 
 	/*-------------------------------------------------------
 	 * Room 테이블의 room_number를 첫번째 열에 가져옴 
 	 *-------------------------------------------------------*/
@@ -71,7 +77,7 @@ public class ResvModel extends AbstractTableModel{
 	public void getList(){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-
+ 
 		/*
 		String sql="select resv_id, hotel_user_id, room_number, to_char(resv_time, 'yy-mm-dd') as resv_time from resv where to_char(resv_time, 'yyyy')=?";
 		
@@ -79,11 +85,15 @@ public class ResvModel extends AbstractTableModel{
 		*/
 		StringBuffer sql=new StringBuffer();
 		
-		sql.append("select  r.room_number, nvl(resv_id,0) as resv_id , nvl(hotel_user_id,0) as hotel_user_id ,  nvl(to_char(resv_time, 'yy-mm-dd'), '0000-00-00') as resv_time, stay");
-		sql.append(" from  room r  left outer join resv rv  on r.room_number = rv.room_number ");
-		sql.append(" and to_char(resv_time, 'yyyy')='"+yy+"' and to_char(resv_time,'mm')='"+DateUtil.getDateString(Integer.toString(mm+1))+"' ");
-		sql.append(" order by r.room_number");
 		
+		
+		sql.append("select  room_number, nvl(v.resv_id,0) as resv_id, hotel_user_id,");
+		sql.append(" resv_time,  nvl(resv_detail_id,0) as resv_detail_id,");
+		sql.append(" nvl(to_char(stay_date,'yyyy-mm-dd'),'0000-00-00') as stay_date,   nvl(r.resv_id,0) as resv_id");
+		sql.append(" from view_resv_list v left outer join resv_detail r");
+		sql.append(" on v.resv_id = r.resv_id");
+		//sql.append(" and to_char(resv_time, 'yyyy')='"+yy+"' and to_char(resv_time,'mm')='"+DateUtil.getDateString(Integer.toString(mm+1))+"' ");
+		//sql.append(" and to_char(stay_date, 'yyyy')='"+yy+"' and to_char(stay_date,'mm')='"+DateUtil.getDateString(Integer.toString(mm+1))+"' ");
 			
 		System.out.println("sql is "+sql.toString());
 	
@@ -109,15 +119,24 @@ public class ResvModel extends AbstractTableModel{
 					data.add(ho_vec);
 					
 					for(int i=1;i<=lastDay;i++){
-						int date=Integer.parseInt(rs.getString("resv_time").split("-")[2]);
-						int stay=(rs.getInt("stay"));
 						
-						int duration=date+stay;
-						if(i==date){
-							while(date<duration){
-								ho_vec.addElement("");
-								date++;
-							}
+						int date=Integer.parseInt(rs.getString("resv_time").split("-")[2]); //resv 테이블의 resv_time 중 일을 뽑아냄.
+						
+						int year=Integer.parseInt(rs.getString("stay_date").split("-")[0]);
+						int month=Integer.parseInt(rs.getString("stay_date").split("-")[1]);
+						int stay=Integer.parseInt(rs.getString("stay_date").split("-")[2]);
+						
+						
+						temp_cal.set(yy, mm, i); //반복문 내에서 날짜 설정 i일 
+						resv_cal.set(yy, mm,date); //resv 테이블의 예약날짜
+						stay_cal.set(year, month,stay); //resv_detail 테이블의 stay_date로 날짜 설정
+						
+					
+						if((temp_cal.get(Calendar.YEAR)==stay_cal.get(Calendar.YEAR))&&(temp_cal.get(Calendar.MONTH)==stay_cal.get(Calendar.MONTH))&&(temp_cal.get(Calendar.DATE)==stay_cal.get(Calendar.DATE)))
+							{
+									ho_vec.addElement("");
+								
+							
 						}else{
 							ho_vec.addElement(" ");
 						}
@@ -129,14 +148,23 @@ public class ResvModel extends AbstractTableModel{
 				}else{//이미 보관해 놓은 호수라면...
 					for(int i=1;i<=lastDay;i++){
 						int date=Integer.parseInt(rs.getString("resv_time").split("-")[2]);
-						int stay=(rs.getInt("stay"));
+						int year=Integer.parseInt(rs.getString("stay_date").split("-")[0]);
+						int month=Integer.parseInt(rs.getString("stay_date").split("-")[1]);
+						int stay=Integer.parseInt(rs.getString("stay_date").split("-")[2]);
 						
-						int duration=date+stay;
-						if(i==date){
-							System.out.println(i+"일에 예약발견");
-							String str=(String)ho_vec.get(i);
-							str="";
-							ho_vec.set(i, str);
+						
+						temp_cal.set(yy, mm, i); //반복문 내에서 날짜 설정 i일 
+						resv_cal.set(yy, mm,date); //resv 테이블의 예약날짜
+						stay_cal.set(year, month,stay); //resv_detail 테이블의 stay_date로 날짜 설정
+						
+						//호수는 같지만 예약날짜가 다른 경우->이미 존재하는 호벡터에 담고, 해당하는 stay_date에 칠한다.
+						if((temp_cal.get(Calendar.YEAR)==stay_cal.get(Calendar.YEAR))&&(temp_cal.get(Calendar.MONTH)==stay_cal.get(Calendar.MONTH))&&(temp_cal.get(Calendar.DATE)==stay_cal.get(Calendar.DATE))){
+							
+								
+								String str=(String)ho_vec.get(i);
+								str="";
+								ho_vec.set(i, str);
+							
 						}
 					}
 				}
