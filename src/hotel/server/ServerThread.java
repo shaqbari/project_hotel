@@ -82,10 +82,11 @@ public class ServerThread extends Thread{
 				roomSearch.response();				
 				
 			}else if (requestType.equalsIgnoreCase("guest_resv")) {
-				
+				System.out.println("비회원 예약들어왔어");
+				ResponseGuestResv guestResv=new ResponseGuestResv(this, json);
+				guestResv.response();
 				
 			}else if (requestType.equalsIgnoreCase("member_resv")) {
-				System.out.println("예약들어왔어");
 				ResponseMemberResv memberResv=new ResponseMemberResv(this, json);
 				memberResv.response();
 				
