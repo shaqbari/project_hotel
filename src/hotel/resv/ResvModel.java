@@ -63,6 +63,8 @@ public class ResvModel extends AbstractTableModel{
 			columnName.add(Integer.toString(num));
 		}
 	
+		//싱크맞추기 위해 제목에 달력 표시뒤에 mm에 +1을 한다.
+		mm=mm+1;
 		getList();
 		
 	}
