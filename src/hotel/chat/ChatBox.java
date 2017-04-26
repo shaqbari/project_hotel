@@ -60,17 +60,21 @@ public class ChatBox extends JFrame{
 			}			
 		});
 		
-		this.addWindowListener(new WindowAdapter() {
-		@Override
+		this.addWindowListener(new WindowAdapter() {			
 			public void windowClosing(WindowEvent e) {
-				System.exit(0);
+				System.out.println("들어가나?");
+				ChatBox.this.serverThread.chatOff=true;
+				System.out.println(ChatBox.this.serverThread.chatOff);
 			}	
 		});
 		
 		setSize(350, 500);
-		setVisible(true);		
+		setVisible(true);
+		//setDefaultCloseOperation(EXIT_ON_CLOSE);새로 띄우는 jframe은 이거 쓰면 안된다.
 	}
 	
+	
+	//chatbox에서 생성하고 정보넘겨주자.
 	public void getServerThread(ServerThread serverThread){
 		this.serverThread=serverThread;		
 	}

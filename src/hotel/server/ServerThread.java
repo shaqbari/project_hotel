@@ -15,6 +15,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import hotel.HotelMain;
+import hotel.chat.ChatBox;
 
 public class ServerThread extends Thread{
 	HotelMain main;
@@ -28,8 +29,9 @@ public class ServerThread extends Thread{
 		
 	Boolean flag=true;
 	public Vector<ServerThread>serviceThreadList=new Vector<ServerThread>();
-	ResponseChat responseChat;
 	
+	ChatBox chatBox;
+	public boolean chatOff=true;
 	
 	
 	public ServerThread(HotelMain main, Socket socket) {
@@ -68,9 +70,12 @@ public class ServerThread extends Thread{
 			if (requestType.equalsIgnoreCase("chat")) {
 
 				//serverThreadList.addElement(this);
-				if(responseChat==null){
-				responseChat=new ResponseChat(this, json);	
+				if(chatOff){
+					chatOff=false;
+					chatBox=new ChatBox();
+					chatBox.getServerThread(this);
 				}
+				ResponseChat responseChat=new ResponseChat(this, json);	
 				responseChat.responseSend();
 			
 			}else if (requestType.equalsIgnoreCase("service")) {
@@ -110,6 +115,7 @@ public class ServerThread extends Thread{
 						
 		} catch (IOException e) {//client가 나갈경우 이예외에 들어간다.
 			//e.printStackTrace();
+			
 			
 			//main.p_chat.p_chat1.remove(responseChat.chatBox);//chat패널에서 chatBox를 지운다.
 			//main.p_chat.p_chat1.updateUI();
