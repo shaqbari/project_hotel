@@ -7,7 +7,9 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Vector;
 
+import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 public class MemberTable extends AbstractTableModel{
 Connection con;
@@ -17,15 +19,16 @@ Vector<Vector> data= new Vector<Vector>();
 	public MemberTable(Connection con,MemberPanel main) {
 		this.con=con;
 		this.main=main;
-		columnName.add("MEMBERSHIP_ID");
-		columnName.add("HOTEL_USER_ID");
-		columnName.add("MEMBERSHIP_NAME");
-		columnName.add("MEMBERSHIP_NICK");
-		columnName.add("MEMBERSHIP_REGDATE");
-		columnName.add("MEMBERSHIP_PHONE");
-		columnName.add("MEMBERSHIP_EMAIL");
-		columnName.add("MEMBERSHIP_GENDER");
-		columnName.add("MEMBERSHIP_BIRTHDAY");
+		columnName.add("회원번호");
+		columnName.add("호텔이용자번호");
+		columnName.add("이름");
+		columnName.add("닉네임");
+		columnName.add("회원등록일");
+		columnName.add("전화번호");
+		columnName.add("이메일");
+		columnName.add("성별");
+		columnName.add("생년월일");
+		
 	}
 	
 	public void getMemberList(){
