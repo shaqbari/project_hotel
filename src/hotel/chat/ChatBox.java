@@ -48,7 +48,8 @@ public class ChatBox extends JFrame{
 				if (key==KeyEvent.VK_ENTER) {
 					cal=Calendar.getInstance();
 					yyyy=Integer.toString(cal.get(Calendar.YEAR));
-					mm=Integer.toString(cal.get(Calendar.MONTH));
+					int month=cal.get(Calendar.MONTH)+1;
+					mm=Integer.toString(month);
 					dd=Integer.toString(cal.get(Calendar.DATE));
 					hh24=Integer.toString(cal.get(Calendar.HOUR_OF_DAY));
 					mi=Integer.toString(cal.get(Calendar.MINUTE));
@@ -71,12 +72,12 @@ public class ChatBox extends JFrame{
 			}	
 		});
 		
-		setSize(350, 500);
+		setBounds(0, 200, 350, 500);
+		
 		setVisible(true);
 		//setDefaultCloseOperation(EXIT_ON_CLOSE);새로 띄우는 jframe은 이거 쓰면 안된다.
 	}
-	
-	
+
 	//chatbox에서 생성하고 정보넘겨주자.
 	public void getServerThread(ServerThread serverThread){
 		this.serverThread=serverThread;		

@@ -104,7 +104,8 @@ public class HomePanel extends JPanel implements ActionListener{
 				if (key==KeyEvent.VK_ENTER) {
 					cal=Calendar.getInstance();
 					yy=Integer.toString(cal.get(Calendar.YEAR));
-					mm=Integer.toString(cal.get(Calendar.MONTH));
+					int month=cal.get(Calendar.MONTH)+1;
+					mm=Integer.toString(month);
 					dd=Integer.toString(cal.get(Calendar.DATE));
 					hh24=Integer.toString(cal.get(Calendar.HOUR_OF_DAY));
 					mi=Integer.toString(cal.get(Calendar.MINUTE));
