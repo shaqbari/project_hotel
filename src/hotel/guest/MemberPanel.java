@@ -124,7 +124,7 @@ public class MemberPanel extends JPanel implements ActionListener{
 		int row=table.getSelectedRow();
 		Object obj=table.getValueAt(row, 0);
 		String value=obj.toString();
-		System.out.println(value);
+		//System.out.println(value);
 		ReservationTable reservation=new ReservationTable(con,value,flag);
 		reservation.setVisible(true);
 		//System.out.println(table.getColumnCount());
