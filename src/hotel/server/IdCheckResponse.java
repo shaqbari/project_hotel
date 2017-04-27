@@ -4,12 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.json.simple.JSONObject;
-
-import com.sun.xml.internal.ws.api.addressing.WSEndpointReference.Metadata;
 
 import hotel.HotelMain;
 
@@ -49,7 +45,7 @@ public class IdCheckResponse {
 		sql.append("select m.MEMBERSHIP_NICK from MEMBERSHIP m where m.MEMBERSHIP_NICK=?");
 				
 		try {
-			pstmt=con.prepareStatement(sql.toString(), ResultSet.CONCUR_READ_ONLY, ResultSet.TYPE_SCROLL_INSENSITIVE);
+			pstmt=con.prepareStatement(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			pstmt.setString(1, json.get("id_to_nick").toString());
 			rs=pstmt.executeQuery();
 			
@@ -58,7 +54,7 @@ public class IdCheckResponse {
 			rs.beforeFirst();
 			
 			//last가 0이면 중복값이 없는것이다.
-			if (last!=0) {
+			if (last==0) {
 				overlap=false;
 			}else {
 				overlap=true;
