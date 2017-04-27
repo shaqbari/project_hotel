@@ -48,7 +48,7 @@ public class ResvModel extends AbstractTableModel{
 		resv_cal=Calendar.getInstance();
 		stay_cal=Calendar.getInstance();
 		
-		//System.out.println(TAG+" 실제 달은?"+(mm));
+		System.out.println(TAG+" 실제 달은?"+(mm));
 		
 		//각 월의 마지막 날 구하기 
 		cal.set(yy, mm+1 ,0);//다음달로 우선 간 후, 그 날보다 -1일인 날이 바로 해당 월의 마지막날.. 
@@ -120,7 +120,9 @@ public class ResvModel extends AbstractTableModel{
 					
 					for(int i=1;i<=lastDay;i++){
 						
-						int date=Integer.parseInt(rs.getString("resv_time").split("-")[2]); //resv 테이블의 resv_time 중 일을 뽑아냄.
+						int y=Integer.parseInt(rs.getString("resv_time").split("-")[0]);
+						int m=Integer.parseInt(rs.getString("resv_time").split("-")[1]);
+						int date=Integer.parseInt(rs.getString("resv_time").split("-")[2]); 
 						
 						int year=Integer.parseInt(rs.getString("stay_date").split("-")[0]);
 						int month=Integer.parseInt(rs.getString("stay_date").split("-")[1]);
@@ -128,43 +130,64 @@ public class ResvModel extends AbstractTableModel{
 						
 						
 						temp_cal.set(yy, mm, i); //반복문 내에서 날짜 설정 i일 
-						resv_cal.set(yy, mm,date); //resv 테이블의 예약날짜
+						resv_cal.set(y, m,date); //resv 테이블의 예약날짜
 						stay_cal.set(year, month,stay); //resv_detail 테이블의 stay_date로 날짜 설정
 						
-					
 						if((temp_cal.get(Calendar.YEAR)==stay_cal.get(Calendar.YEAR))&&(temp_cal.get(Calendar.MONTH)==stay_cal.get(Calendar.MONTH))&&(temp_cal.get(Calendar.DATE)==stay_cal.get(Calendar.DATE)))
 							{
+								if((temp_cal.get(Calendar.YEAR)==resv_cal.get(Calendar.YEAR))&&(temp_cal.get(Calendar.MONTH)==resv_cal.get(Calendar.MONTH))&&(temp_cal.get(Calendar.DATE)==resv_cal.get(Calendar.DATE)))
+								{
+									//서로 다른 예약임을 구분할 수 있도록 첫날은 다른색으로 채움
 									ho_vec.addElement("");
-								
+								}	
+								else{
+									ho_vec.addElement(" ");
 							
-						}else{
-							ho_vec.addElement(" ");
+								}
+							}
+						else{
+							ho_vec.addElement("  ");
 						}
 						//System.out.print(i+"일,");
 					}
+					
 				/*------------------------------------------------
 				 중복되는 경우라면
 				------------------------------------------------*/
 				}else{//이미 보관해 놓은 호수라면...
 					for(int i=1;i<=lastDay;i++){
-						int date=Integer.parseInt(rs.getString("resv_time").split("-")[2]);
+						
+						int y=Integer.parseInt(rs.getString("resv_time").split("-")[0]);
+						int m=Integer.parseInt(rs.getString("resv_time").split("-")[1]);
+						int date=Integer.parseInt(rs.getString("resv_time").split("-")[2]); 
+			
 						int year=Integer.parseInt(rs.getString("stay_date").split("-")[0]);
 						int month=Integer.parseInt(rs.getString("stay_date").split("-")[1]);
 						int stay=Integer.parseInt(rs.getString("stay_date").split("-")[2]);
 						
 						
 						temp_cal.set(yy, mm, i); //반복문 내에서 날짜 설정 i일 
-						resv_cal.set(yy, mm,date); //resv 테이블의 예약날짜
+						resv_cal.set(y, m,date); //resv 테이블의 예약날짜
 						stay_cal.set(year, month,stay); //resv_detail 테이블의 stay_date로 날짜 설정
 						
 						//호수는 같지만 예약날짜가 다른 경우->이미 존재하는 호벡터에 담고, 해당하는 stay_date에 칠한다.
-						if((temp_cal.get(Calendar.YEAR)==stay_cal.get(Calendar.YEAR))&&(temp_cal.get(Calendar.MONTH)==stay_cal.get(Calendar.MONTH))&&(temp_cal.get(Calendar.DATE)==stay_cal.get(Calendar.DATE))){
-							
-								
+						if((temp_cal.get(Calendar.YEAR)==stay_cal.get(Calendar.YEAR))&&(temp_cal.get(Calendar.MONTH)==stay_cal.get(Calendar.MONTH))&&(temp_cal.get(Calendar.DATE)==stay_cal.get(Calendar.DATE)))
+						{
+							if((temp_cal.get(Calendar.YEAR)==resv_cal.get(Calendar.YEAR))&&(temp_cal.get(Calendar.MONTH)==resv_cal.get(Calendar.MONTH))&&(temp_cal.get(Calendar.DATE)==resv_cal.get(Calendar.DATE)))
+							{
+								//서로 다른 예약임을 구분할 수 있도록 첫날은 다른색으로 채움
 								String str=(String)ho_vec.get(i);
 								str="";
 								ho_vec.set(i, str);
 							
+							}	
+							else{
+								String str=(String)ho_vec.get(i);
+								str=" ";
+								ho_vec.set(i, str);
+							
+						
+							}
 						}
 					}
 				}
