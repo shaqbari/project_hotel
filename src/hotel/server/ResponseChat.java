@@ -24,7 +24,6 @@ public class ResponseChat {
 	// 클라이언트가 메시지보냈을때 응답해보내는 메소드
 	public void responseSend() {
 		String content = json.get("content").toString();
-		System.out.println(content);
 		serverThread.area.append(content + "\n");//home패널의 area에 붙인다.
 		chatBox.area.append(content + "\n");//chatbox에 붙인다.
 

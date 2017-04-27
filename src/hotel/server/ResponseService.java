@@ -51,7 +51,7 @@ public class ResponseService {
 			//pstmt.setInt(2, Integer.parseInt(json.get("service_id").toString()));
 			//pstmt.setString(3, json.get("requestTime").toString());
 			
-			System.out.println(sql.toString());
+			//System.out.println(sql.toString());
 			int result=pstmt.executeUpdate();
 			
 			if (result==1) {

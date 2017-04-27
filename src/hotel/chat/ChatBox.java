@@ -55,8 +55,9 @@ public class ChatBox extends JFrame{
 					ss=Integer.toString(cal.get(Calendar.SECOND));
 					
 					String msg=txt_input.getText();
-					serverThread.chatSend(msg);
-					area.append(msg+yyyy+"-"+mm+"-"+dd+" "+hh24+":"+mi+":"+ss+"\n");
+					String requestTime=yyyy+"-"+mm+"-"+dd+" "+hh24+":"+mi+":"+ss;
+					serverThread.chatSend(msg+requestTime);
+					area.append(msg+requestTime+"\n");
 					txt_input.setText("");
 				}
 			}			
