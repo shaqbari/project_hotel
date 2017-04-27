@@ -20,10 +20,12 @@ public class Resv_InModel extends AbstractTableModel{
 	ResvModel rm;
 	int col;
 	int mm;
+	String num;
 	
-	public Resv_InModel(HotelMain main,Connection con,int col,int mm){
+	public Resv_InModel(HotelMain main,Connection con,String num,int col,int mm){
 		this.main=main;
 		this.con=con;
+		this.num=num;
 		this.col=col;
 		this.mm=mm;
 		
@@ -42,14 +44,15 @@ public class Resv_InModel extends AbstractTableModel{
 		sql.append(" from resv r ,VIEW_HOTEL_USER2 v");
 		sql.append(" where r.HOTEL_USER_ID=v.HOTEL_USER_ID");
 		sql.append(" and to_char(resv_time,'mm-dd')=?");
-		
+		sql.append(" and r.ROOM_NUMBER=?");
 		//System.out.println(sql.toString());
 		
 		try {
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setString(1,DateUtil.getDateString(Integer.toString(mm+1))+"-"+DateUtil.getDateString(Integer.toString(col)));
+			pstmt.setString(2,num);
 			rs=pstmt.executeQuery();
-			
+			//System.out.println(sql.toString());
 			//먼저지우고 추가하자
 			columnName.removeAll(columnName);
 			list.removeAll(list);

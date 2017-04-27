@@ -41,13 +41,16 @@ public class Resv_Open extends JFrame{
 	int yy; 
 	int mm;
 	int dd;
+	String num;
 	int col;
 	
 	Resv_InModel newModel_in;
 	Resv_OutModel newModel_out;
-	public Resv_Open(HotelMain main,Connection con, int col, Calendar cal){
+	
+	public Resv_Open(HotelMain main,Connection con,String num,int col, Calendar cal){
 		this.main=main;
 		this.con=con;
+		this.num=num;
 		this.col=col;
 		this.cal=cal;
 		
@@ -120,9 +123,9 @@ public class Resv_Open extends JFrame{
 			}
 		});
 		
-		table_in.setModel(newModel_in = new Resv_InModel(main,con,col,mm));
+		table_in.setModel(newModel_in = new Resv_InModel(main,con,num,col,mm));
 		table_in.updateUI();
-		table_out.setModel(newModel_out = new Resv_OutModel(main,con,col,mm));
+		table_out.setModel(newModel_out = new Resv_OutModel(main,con,num,col,mm));
 		table_out.updateUI();
 	}
 	
