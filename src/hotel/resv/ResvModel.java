@@ -56,7 +56,7 @@ public class ResvModel extends AbstractTableModel{
 		
 		int num=0;
 		
-		columnName.add("³¯Â¥");
+		columnName.add("R"+"\\"+"D");
 		
 		for(int i=num; i<lastDay; i++){
 			num++;
