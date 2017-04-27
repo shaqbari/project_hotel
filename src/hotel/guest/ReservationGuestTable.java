@@ -26,20 +26,21 @@ public class ReservationGuestTable extends AbstractTableModel{
 		columnName.add("체크아웃 예정시간");
 		getList();
 	}
-	
+
 	public void getList(){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		StringBuffer sql=new StringBuffer();
 		sql.append("select re.RESV_ID, g.GUEST_NAME, g.GUEST_PHONE");
-		sql.append(" , re.RESV_TIME, r.ROOM_NUMBER, ro.ROOM_OPTION_NAME");
-		sql.append(" , c.CHECK_IN_TIME, c.CHECK_OUT_TIME");
+		sql.append(" , re.RESV_REGTIME, r.ROOM_NUMBER, ro.ROOM_OPTION_NAME");
+		sql.append(" , re.RESV_TIME, re.END_TIME");
 		sql.append(" from ROOM_OPTION ro, ROOM r, RESV re");
-		sql.append(" , CHECK_IO c, HOTEL_USER h, GUEST g");
+		sql.append(" , HOTEL_USER h, GUEST g");
 		sql.append(" where r.ROOM_OPTION_ID=ro.ROOM_OPTION_ID");
-		sql.append(" and r.ROOM_NUMBER=re.ROOM_NUMBER and re.RESV_ID=c.RESV_ID and re.HOTEL_USER_ID=h.HOTEL_USER_ID");
+		sql.append(" and r.ROOM_NUMBER=re.ROOM_NUMBER and re.HOTEL_USER_ID=h.HOTEL_USER_ID");
 		sql.append("  and h.HOTEL_USER_ID = g.HOTEL_USER_ID");
 		sql.append("  and g.guest_id=?");
+
 		try {
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setString(1, value);
@@ -49,11 +50,11 @@ public class ReservationGuestTable extends AbstractTableModel{
 				vec.add(rs.getString("RESV_ID"));
 				vec.add(rs.getString("GUEST_NAME"));
 				vec.add(rs.getString("GUEST_PHONE"));
-				vec.add(rs.getString("RESV_TIME"));
+				vec.add(rs.getString("RESV_REGTIME"));
 				vec.add(rs.getString("ROOM_NUMBER"));
 				vec.add(rs.getString("ROOM_OPTION_NAME"));
-				vec.add(rs.getString("CHECK_IN_TIME"));
-				vec.add(rs.getString("CHECK_OUT_TIME"));
+				vec.add(rs.getString("RESV_TIME"));
+				vec.add(rs.getString("END_TIME"));
 				data.add(vec);
 			}
 		} catch (SQLException e) {

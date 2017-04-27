@@ -15,7 +15,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import hotel.HotelMain;
-import hotel.chat.ChatBox;
+import hotel.service.ChatBox;
 
 public class ServerThread extends Thread{
 	HotelMain main;

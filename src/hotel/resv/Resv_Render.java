@@ -14,19 +14,23 @@ public class Resv_Render extends DefaultTableCellRenderer{
 		ResvModel rm=(ResvModel)table.getModel();
 		
 		Component cell=super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
-		if(col == 0){ //첫번째 컬럼(호수)- 색칠되면 안되므로 따로 조건 지정
-			cell.setBackground(Color.WHITE);
-		}
-		else if(table.getValueAt(row, col).equals(" ")){ //stay_date
-	        	cell.setBackground(Color.RED);
-	     }
-		 else if(table.getValueAt(row, col).equals("")){ //resv_time
-			  cell.setBackground(Color.GREEN);
+		  if(table.getValueAt(row, col).equals(" ")){ //stay_date
+            	cell.setBackground(new Color(255,182,193));
+	      }
+		  else if(table.getValueAt(row, col).equals("")){ //resv_time
+			  cell.setBackground(new Color(135,206,235));
 		  } 
-		 else if(table.getValueAt(row, col).equals("  ")){
+		  else if(table.getValueAt(row, col).equals("  ")){
 			  cell.setBackground(Color.WHITE);
 		  }	  
 		
+		     if(col == 0)//color of first column is gray(index 0)
+
+             {
+
+		    	 cell.setBackground(Color.WHITE);
+
+         }
 	        return cell;
 	    }
 	}

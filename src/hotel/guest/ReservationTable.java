@@ -58,7 +58,7 @@ public class ReservationTable extends JFrame{
 		p_down.setLayout(new BorderLayout());
 		p_up.add(scroll_up);
 		p_down.add(scroll_down);
-		setSize(1100,300);
+		setSize(1100,400);
 		setBackground(Color.YELLOW);
 	}
 }

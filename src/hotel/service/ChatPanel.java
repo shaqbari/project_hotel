@@ -1,4 +1,4 @@
-package hotel.chat;
+package hotel.service;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -39,7 +39,6 @@ public class ChatPanel extends JPanel{
 		//add(p_chat1,BorderLayout.WEST);
 		//add(p_serv);
 		
-		setBackground(Color.GRAY);
 		
 		setPreferredSize(new Dimension(1100, 900));
 		setVisible(false);		
