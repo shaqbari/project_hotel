@@ -5,16 +5,20 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Connection;
 import java.util.Calendar;
-import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -28,9 +32,9 @@ public class ResvPanel extends JPanel implements ActionListener{
 	String TAG=this.getClass().getName();
 	HotelMain main;
 	Connection con;
-	JPanel p_north, p_center;
+	JPanel p_info,p_bt,p_north, p_center;
 	JButton bt_prev, bt_next, bt_refresh;
-	JLabel la_date;
+	JLabel la_date,la_info;
 	JScrollPane scroll;
 	JTable table;
 	Calendar cal=Calendar.getInstance();
@@ -46,28 +50,47 @@ public class ResvPanel extends JPanel implements ActionListener{
 	public ResvPanel(HotelMain main) {
 		this.main=main;
 		con=main.con;
-		
+		/*----------------------------------------
+			refresh 버튼 이미지 가져오기, 사이즈 조절하기
+		----------------------------------------------*/
+		URL url = null;
+		try {
+			url = new URL("http://pseudoluna.synology.me/experi/images/refresh.png");
+		} catch (MalformedURLException e1) {
+			e1.printStackTrace();
+		}		
+		ImageIcon icon = new ImageIcon(url);
+		Image orignImg = icon.getImage();
+		Image changeImg = orignImg.getScaledInstance(28, 30, Image.SCALE_SMOOTH);
+		ImageIcon resizeIcon = new ImageIcon(changeImg);
+				
 		this.setLayout(new BorderLayout());
+		p_info = new JPanel();
+		p_bt = new JPanel();
 		p_north=new JPanel();
 		p_center=new JPanel();
+		la_info = new JLabel("초록색:예약일(체류시작일) , 빨간색:체류일수");
 		bt_prev=new JButton("◀");
 		la_date=new JLabel();
 		bt_next=new JButton("▶");
-		bt_refresh = new JButton("새로고침");
+		bt_refresh = new JButton(resizeIcon);
 		table=new JTable();
 		scroll=new JScrollPane(table);
 		
 		table.setPreferredScrollableViewportSize(new Dimension(1000, 736));
 		table.setRowHeight(23);		//추가했음
 		
-		p_north.add(bt_prev);
-		p_north.add(la_date);
-		p_north.add(bt_next);
-		p_north.add(bt_refresh);
+		p_info.add(la_info);
+		p_bt.add(bt_prev);
+		p_bt.add(la_date);
+		p_bt.add(bt_next);
+		p_bt.add(bt_refresh);
 		p_center.add(scroll);
 		
 		la_date.setFont(new Font("맑은 고딕", Font.BOLD, 20));	//추가했음
 		
+		p_north.add(p_info,BorderLayout.NORTH);
+		p_north.add(p_bt,BorderLayout.SOUTH);
 		add(p_north, BorderLayout.NORTH);
 		add(p_center,BorderLayout.CENTER);
 		
@@ -75,9 +98,11 @@ public class ResvPanel extends JPanel implements ActionListener{
 			public void mouseClicked(MouseEvent e) {
 				int row=table.getSelectedRow();
 				int col=table.getSelectedColumn();
+				String num=table.getValueAt(row,0).toString();
+				System.out.println(num);
 				value=(String) rm.getValueAt(row, col);
 				if(value==""){
-					newOpen = new Resv_Open(main,con,col,cal);
+					newOpen = new Resv_Open(main,con,num,col,cal);
 				}else{
 					
 				}
@@ -88,6 +113,8 @@ public class ResvPanel extends JPanel implements ActionListener{
 		bt_next.addActionListener(this);
 		bt_refresh.addActionListener(this);
 		
+		bt_refresh.setPreferredSize(new Dimension(28, 30));
+
 		
 		//------------추가했음-----------
 		/*
@@ -158,6 +185,7 @@ public class ResvPanel extends JPanel implements ActionListener{
 			next();
 		}else if(obj==bt_refresh){
 			setMonth();
+			JOptionPane.showMessageDialog(this, "예약현황 갱신완료");
 		}
 	}
 	
