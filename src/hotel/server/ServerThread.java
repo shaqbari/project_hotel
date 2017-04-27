@@ -105,10 +105,9 @@ public class ServerThread extends Thread{
 				IdCheckResponse checkResponse=new IdCheckResponse(this, json);
 				checkResponse.response();
 				
-			}else if(requestType.equalsIgnoreCase("membership_regist")){
-				
-				ResponseMemberResist memberResist=new ResponseMemberResist(this, json);
-				memberResist.response();
+			}else if(requestType.equalsIgnoreCase("membership_login")){				
+				ResponseMemberLogin memberLogin=new ResponseMemberLogin(this, json);
+				memberLogin.response();
 				
 			}else if(requestType.equalsIgnoreCase("membership_regist")){
 				ResponseMemberResist memberResist=new ResponseMemberResist(this, json);
