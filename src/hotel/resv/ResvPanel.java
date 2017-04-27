@@ -92,9 +92,11 @@ public class ResvPanel extends JPanel implements ActionListener{
 			public void mouseClicked(MouseEvent e) {
 				int row=table.getSelectedRow();
 				int col=table.getSelectedColumn();
+				String num=table.getValueAt(row,0).toString();
+				System.out.println(num);
 				value=(String) rm.getValueAt(row, col);
 				if(value==""){
-					newOpen = new Resv_Open(main,con,col,cal);
+					newOpen = new Resv_Open(main,con,num,col,cal);
 				}else{
 					
 				}

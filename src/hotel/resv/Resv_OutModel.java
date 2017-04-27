@@ -16,13 +16,15 @@ public class Resv_OutModel extends AbstractTableModel{
 	
 	Vector<String> columnName = new Vector<String>();
 	Vector<Vector> list = new Vector<Vector>();
+	String num;
 	int col;
 	ResvModel rm;
 	int mm;
 	
-	public Resv_OutModel(HotelMain main,Connection con,int col,int mm){
+	public Resv_OutModel(HotelMain main,Connection con,String num,int col,int mm){
 		this.main=main;
 		this.con=con;
+		this.num=num;
 		this.col=col;
 		this.mm=mm;
 		
@@ -46,7 +48,7 @@ public class Resv_OutModel extends AbstractTableModel{
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setString(1,DateUtil.getDateString(Integer.toString(mm+1))+"-"+DateUtil.getDateString(Integer.toString(col)));
 			rs=pstmt.executeQuery();
-			
+			//System.out.println(sql.toString());
 			//먼저지우고 추가하자
 			columnName.removeAll(columnName);
 			list.removeAll(list);
