@@ -5,15 +5,20 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Connection;
 import java.util.Calendar;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -45,7 +50,20 @@ public class ResvPanel extends JPanel implements ActionListener{
 	public ResvPanel(HotelMain main) {
 		this.main=main;
 		con=main.con;
-		
+		/*----------------------------------------
+			refresh 버튼 이미지 가져오기, 사이즈 조절하기
+		----------------------------------------------*/
+		URL url = null;
+		try {
+			url = new URL("http://pseudoluna.synology.me/experi/images/refresh.png");
+		} catch (MalformedURLException e1) {
+			e1.printStackTrace();
+		}		
+		ImageIcon icon = new ImageIcon(url);
+		Image orignImg = icon.getImage();
+		Image changeImg = orignImg.getScaledInstance(28, 30, Image.SCALE_SMOOTH);
+		ImageIcon resizeIcon = new ImageIcon(changeImg);
+				
 		this.setLayout(new BorderLayout());
 		p_info = new JPanel();
 		p_bt = new JPanel();
@@ -55,7 +73,7 @@ public class ResvPanel extends JPanel implements ActionListener{
 		bt_prev=new JButton("◀");
 		la_date=new JLabel();
 		bt_next=new JButton("▶");
-		bt_refresh = new JButton("새로고침");
+		bt_refresh = new JButton(resizeIcon);
 		table=new JTable();
 		scroll=new JScrollPane(table);
 		
@@ -95,6 +113,8 @@ public class ResvPanel extends JPanel implements ActionListener{
 		bt_next.addActionListener(this);
 		bt_refresh.addActionListener(this);
 		
+		bt_refresh.setPreferredSize(new Dimension(28, 30));
+
 		
 		//------------추가했음-----------
 		/*
@@ -165,6 +185,7 @@ public class ResvPanel extends JPanel implements ActionListener{
 			next();
 		}else if(obj==bt_refresh){
 			setMonth();
+			JOptionPane.showMessageDialog(this, "예약현황 갱신완료");
 		}
 	}
 	
