@@ -1,6 +1,7 @@
 package hotel.resv;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -16,6 +17,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
 import hotel.HotelMain;
 
@@ -60,11 +63,11 @@ public class Resv_Open extends JFrame{
 		la_date = new JLabel(yy+"-"+(mm+1)+"-"+dd);
 		//west
 		p_in = new JPanel();
-		la_in = new JLabel("Check-In");
+		la_in = new JLabel("예약정보");
 		table_in = new JTable();
 		//east
 		p_out = new JPanel();
-		la_out = new JLabel("Check-Out");
+		la_out = new JLabel("Check-In&Out");
 		table_out = new JTable();
 		
 		p_date.setLayout(new BorderLayout());
@@ -75,8 +78,10 @@ public class Resv_Open extends JFrame{
 		scroll_out=new JScrollPane(table_out);
 		
 		//table
-		table_in.setPreferredSize(new Dimension(400, 400));
-		table_out.setPreferredSize(new Dimension(400, 400));
+		scroll_in.setPreferredSize(new Dimension(1100, 150));
+		scroll_out.setPreferredSize(new Dimension(1100, 150));
+		
+		resizeColumnWidth(table_out);
 		
 		//north
 		p_date.add(la_date,BorderLayout.NORTH);
@@ -85,15 +90,15 @@ public class Resv_Open extends JFrame{
 		//west
 		p_in.add(la_in,BorderLayout.NORTH);
 		p_in.add(scroll_in);
-		add(p_in,BorderLayout.WEST);
+		add(p_in,BorderLayout.NORTH);
 		
 		//east
 		p_out.add(la_out,BorderLayout.NORTH);
 		p_out.add(scroll_out);
-		add(p_out,BorderLayout.EAST);
+		add(p_out,BorderLayout.SOUTH);
 	
 		setVisible(true);
-		setSize(new Dimension(950, 400));
+		setSize(new Dimension(1100, 400));
 		
 		table_in.addKeyListener(new KeyAdapter() {
 			@Override
@@ -188,6 +193,20 @@ public class Resv_Open extends JFrame{
 			e.printStackTrace();
 		}
 		
+	}
+	
+	//각 셀의 데이터 길이에 따라 길이 조절 메서드  
+	public void resizeColumnWidth(JTable table) { 
+		final TableColumnModel columnModel = table.getColumnModel(); 
+		for (int column = 0; column < table.getColumnCount(); column++) { 
+			int width = 70; // Min width 
+			for (int row = 0; row < table.getRowCount(); row++) { 
+				TableCellRenderer renderer = table.getCellRenderer(row, column); 
+				Component comp = table.prepareRenderer(renderer, row, column); 
+				width = Math.max(comp.getPreferredSize().width +10 , width); 
+				} 
+			columnModel.getColumn(column).setPreferredWidth(width); 
+			} 
 	}
 	
 }
