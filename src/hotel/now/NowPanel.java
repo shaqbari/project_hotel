@@ -8,6 +8,8 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -78,9 +80,9 @@ public class NowPanel extends JPanel implements ActionListener{
 		
 		p_in = new JPanel();
 		p_out = new JPanel();
-		la_in = new JLabel("사용 중");
-		la_out = new JLabel("비어있음");
-	
+		la_in = new JLabel("예약완료");
+		la_out = new JLabel("예약가능");
+	 
 		p_in.setBackground(Color.red);
 		p_out.setBackground(new Color(r,g,b));	
 		p_north.setLayout(new BorderLayout());
@@ -115,7 +117,7 @@ public class NowPanel extends JPanel implements ActionListener{
 		
 		add(p_north, BorderLayout.NORTH);
 		add(p_center);
-		
+				
 		//날짜설정
 		yy = cal.get(Calendar.YEAR);
 		mm = cal.get(Calendar.MONTH);
