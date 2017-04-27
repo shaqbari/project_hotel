@@ -3,7 +3,6 @@ package hotel.resv;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Vector;
 
@@ -19,11 +18,13 @@ public class Resv_OutModel extends AbstractTableModel{
 	Vector<Vector> list = new Vector<Vector>();
 	int col;
 	ResvModel rm;
+	int mm;
 	
-	public Resv_OutModel(HotelMain main,Connection con,int col){
+	public Resv_OutModel(HotelMain main,Connection con,int col,int mm){
 		this.main=main;
 		this.con=con;
 		this.col=col;
+		this.mm=mm;
 		
 		getList();
 	}

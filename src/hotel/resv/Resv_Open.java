@@ -120,9 +120,9 @@ public class Resv_Open extends JFrame{
 			}
 		});
 		
-		table_in.setModel(newModel_in = new Resv_InModel(main,con,col));
+		table_in.setModel(newModel_in = new Resv_InModel(main,con,col,mm));
 		table_in.updateUI();
-		table_out.setModel(newModel_out = new Resv_OutModel(main,con,col));
+		table_out.setModel(newModel_out = new Resv_OutModel(main,con,col,mm));
 		table_out.updateUI();
 	}
 	

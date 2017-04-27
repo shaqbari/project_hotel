@@ -4,7 +4,6 @@ package hotel.resv;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Vector;
 
@@ -20,10 +19,13 @@ public class Resv_InModel extends AbstractTableModel{
 	Vector<Vector> list = new Vector<Vector>();
 	ResvModel rm;
 	int col;
-	public Resv_InModel(HotelMain main,Connection con,int col){
+	int mm;
+	
+	public Resv_InModel(HotelMain main,Connection con,int col,int mm){
 		this.main=main;
 		this.con=con;
 		this.col=col;
+		this.mm=mm;
 		
 		getList();
 	}
@@ -35,17 +37,17 @@ public class Resv_InModel extends AbstractTableModel{
 		
 		//String sql="select check_io_id,resv_id,to_char(check_in_time,'yyyy-mm-dd-hh24-mi') as check_in_time from check_io where  to_char(check_in_time,'dd')=?";
 		StringBuffer sql= new StringBuffer();
-		sql.append("select r.resv_id,r.hotel_user_id,v.membership_name,v.guest_name,r.room_number,to_char(resv_time,'yyyy-mm-dd hh24-mi') as resv_time,r.end_time,r.stay,r.resv_regtime ");
-		sql.append(" from resv r , check_io c,VIEW_HOTEL_USER2 v");
-		sql.append(" where r.resv_id=c.resv_id");
-		sql.append(" and r.HOTEL_USER_ID=v.HOTEL_USER_ID");
-		sql.append(" and to_char(resv_time,'dd')=?");
+		sql.append("select r.resv_id,r.hotel_user_id,v.membership_name,v.guest_name ");
+		sql.append(" ,r.room_number,to_char(resv_time,'yyyy-mm-dd hh24-mi') as resv_time,r.end_time,r.stay,r.resv_regtime");
+		sql.append(" from resv r ,VIEW_HOTEL_USER2 v");
+		sql.append(" where r.HOTEL_USER_ID=v.HOTEL_USER_ID");
+		sql.append(" and to_char(resv_time,'mm-dd')=?");
 		
 		System.out.println(sql.toString());
 		
 		try {
 			pstmt=con.prepareStatement(sql.toString());
-			pstmt.setInt(1,col);
+			pstmt.setString(1,mm+"-"+col);
 			rs=pstmt.executeQuery();
 			
 			//먼저지우고 추가하자
