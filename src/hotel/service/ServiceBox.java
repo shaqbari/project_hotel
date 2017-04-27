@@ -1,4 +1,4 @@
-package hotel.chat;
+package hotel.service;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;

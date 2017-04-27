@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import org.json.simple.JSONObject;
 
 import hotel.HotelMain;
-import hotel.chat.ServiceBox;
+import hotel.service.ServiceBox;
 
 public class ResponseService {
 	ServerThread serverThread;

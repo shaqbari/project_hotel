@@ -3,7 +3,7 @@ package hotel.server;
 import org.json.simple.JSONObject;
 
 import hotel.HotelMain;
-import hotel.chat.ChatBox;
+import hotel.service.ChatBox;
 
 public class ResponseChat {
 	ServerThread serverThread;

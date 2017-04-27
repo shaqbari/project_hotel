@@ -23,8 +23,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import hotel.chat.ChatBox;
-import hotel.chat.ChatPanel;
 import hotel.guest.MemberPanel;
 import hotel.home.HomePanel;
 import hotel.main.CheckAdminPanel;
@@ -35,6 +33,8 @@ import hotel.main.RegAdminPanel;
 import hotel.now.NowPanel;
 import hotel.resv.ResvPanel;
 import hotel.server.ServerThread;
+import hotel.service.ChatBox;
+import hotel.service.ChatPanel;
 
 public class HotelMain extends JFrame implements ActionListener, Runnable{
 	//네트워크에 사용될 객체들
@@ -73,7 +73,7 @@ public class HotelMain extends JFrame implements ActionListener, Runnable{
 			{"room.png", "객실관리"},
 			{"resv.png", "예약관리"},
 			{"membership.png", "고객관리"},
-			{"chat.png", "서비스"}
+			{"service.png", "서비스"}
 	};//res폴더에서 사용할 이미지		
 	public MyButton[] myButtons=new MyButton[imgName.length];
 	
