@@ -84,9 +84,6 @@ public class MemberPanel extends JPanel implements ActionListener{
 		
 		resizeColumnWidth(table);
 		
-		//DefaultTableCellRenderer render = new DefaultTableCellRenderer();
-		//render.setHorizontalAlignment(JLabel.CENTER);
-		
 		//----------
 		
 		//p_container.setPreferredSize(new Dimension(800, 100));

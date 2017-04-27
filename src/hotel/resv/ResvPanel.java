@@ -4,6 +4,7 @@ package hotel.resv;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -20,6 +21,9 @@ import javax.swing.JTable;
 
 import hotel.HotelMain;
 
+//----------추가했음--------
+//-------------------------
+
 public class ResvPanel extends JPanel implements ActionListener{
 	String TAG=this.getClass().getName();
 	HotelMain main;
@@ -32,7 +36,7 @@ public class ResvPanel extends JPanel implements ActionListener{
 	Calendar cal=Calendar.getInstance();
 	ResvModel rm;
 	Resv_Open newOpen;
-	
+		
 	//현재 날짜 받아오는 변수
 	int yy;
 	int mm;
@@ -52,12 +56,15 @@ public class ResvPanel extends JPanel implements ActionListener{
 		table=new JTable();
 		scroll=new JScrollPane(table);
 		
-		table.setPreferredScrollableViewportSize(new Dimension(1000, 750));
+		table.setPreferredScrollableViewportSize(new Dimension(1000, 736));
+		table.setRowHeight(23);		//추가했음
 		
 		p_north.add(bt_prev);
 		p_north.add(la_date);
 		p_north.add(bt_next);
 		p_center.add(scroll);
+		
+		la_date.setFont(new Font("맑은 고딕", Font.BOLD, 20));	//추가했음
 		
 		add(p_north, BorderLayout.NORTH);
 		add(p_center,BorderLayout.CENTER);
@@ -77,6 +84,24 @@ public class ResvPanel extends JPanel implements ActionListener{
 		
 		bt_prev.addActionListener(this);
 		bt_next.addActionListener(this);
+		
+		//------------추가했음-----------
+		Thread thread = new Thread(){
+			public void run(){
+				while(true){
+					try{
+						Thread.sleep(100);
+						setMonth();
+						//System.out.println("달력 새로 불러오기한다");
+					} catch (InterruptedException e){
+						e.printStackTrace();
+					}
+				}
+			}	
+		};
+		
+		thread.start();
+		//---------------------------------------
 		
 		setBackground(Color.CYAN);
 		setPreferredSize(new Dimension(1100, 900));
@@ -118,6 +143,7 @@ public class ResvPanel extends JPanel implements ActionListener{
 		cal.set(yy, mm, 1);
 		setMonth();
 	}
+	
 	//이전 과 다음 버튼을 눌러 이전달, 다음달로 이동
 	public void actionPerformed(ActionEvent e) {
 		Object obj=e.getSource();

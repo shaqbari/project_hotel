@@ -48,7 +48,7 @@ public class ResvModel extends AbstractTableModel{
 		resv_cal=Calendar.getInstance();
 		stay_cal=Calendar.getInstance();
 		
-		System.out.println(TAG+" 실제 달은?"+(mm));
+		//System.out.println(TAG+" 실제 달은?"+(mm));
 		
 		//각 월의 마지막 날 구하기 
 		cal.set(yy, mm+1 ,0);//다음달로 우선 간 후, 그 날보다 -1일인 날이 바로 해당 월의 마지막날.. 

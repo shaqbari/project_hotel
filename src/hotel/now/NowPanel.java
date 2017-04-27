@@ -31,7 +31,7 @@ import hotel.HotelMain;
 public class NowPanel extends JPanel implements ActionListener{
 	HotelMain main;
 	Connection con;
-	JPanel p_north, p_center, p_in, p_out;
+	JPanel p_north, p_center, p_in, p_out, p_option_center, p_option_east;
 	JButton bt_prevDay, bt_nextDay, bt_prevMonth, bt_nextMonth;
 	JLabel la_date, la_in, la_out;
 	ArrayList<Room_Option> list;
@@ -61,6 +61,8 @@ public class NowPanel extends JPanel implements ActionListener{
 		la_date = new JLabel();
 		bt_nextDay = new JButton("¢º");
 		bt_nextMonth = new JButton("¢º¢º");
+		
+		//p_option_center = new JP
 		
 		p_in = new JPanel();
 		p_out = new JPanel();
