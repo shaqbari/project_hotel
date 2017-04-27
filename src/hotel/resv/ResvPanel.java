@@ -29,14 +29,14 @@ public class ResvPanel extends JPanel implements ActionListener{
 	HotelMain main;
 	Connection con;
 	JPanel p_north, p_center;
-	JButton bt_prev, bt_next;
+	JButton bt_prev, bt_next, bt_refresh;
 	JLabel la_date;
 	JScrollPane scroll;
 	JTable table;
 	Calendar cal=Calendar.getInstance();
 	ResvModel rm;
 	Resv_Open newOpen;
-		
+	
 	//현재 날짜 받아오는 변수
 	int yy;
 	int mm;
@@ -53,6 +53,7 @@ public class ResvPanel extends JPanel implements ActionListener{
 		bt_prev=new JButton("◀");
 		la_date=new JLabel();
 		bt_next=new JButton("▶");
+		bt_refresh = new JButton("새로고침");
 		table=new JTable();
 		scroll=new JScrollPane(table);
 		
@@ -62,6 +63,7 @@ public class ResvPanel extends JPanel implements ActionListener{
 		p_north.add(bt_prev);
 		p_north.add(la_date);
 		p_north.add(bt_next);
+		p_north.add(bt_refresh);
 		p_center.add(scroll);
 		
 		la_date.setFont(new Font("맑은 고딕", Font.BOLD, 20));	//추가했음
@@ -84,13 +86,16 @@ public class ResvPanel extends JPanel implements ActionListener{
 		
 		bt_prev.addActionListener(this);
 		bt_next.addActionListener(this);
+		bt_refresh.addActionListener(this);
+		
 		
 		//------------추가했음-----------
+		/*
 		Thread thread = new Thread(){
 			public void run(){
 				while(true){
 					try{
-						Thread.sleep(1000);
+						Thread.sleep(3000);
 						setMonth();
 						//System.out.println("달력 새로 불러오기한다");
 					} catch (InterruptedException e){
@@ -100,6 +105,7 @@ public class ResvPanel extends JPanel implements ActionListener{
 			}	
 		};
 		thread.start();
+		*/
 		//---------------------------------------
 		
 		setBackground(Color.CYAN);
@@ -150,7 +156,10 @@ public class ResvPanel extends JPanel implements ActionListener{
 			prev();
 		}else if(obj==bt_next){
 			next();
+		}else if(obj==bt_refresh){
+			setMonth();
 		}
 	}
+	
 	
 }
