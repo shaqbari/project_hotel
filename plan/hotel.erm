@@ -146,7 +146,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2017-04-11 15:29:50</creation_date>
-			<updated_date>2017-04-27 13:33:20</updated_date>
+			<updated_date>2017-04-27 17:31:34</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -871,7 +871,7 @@
 			<connections>
 				<relation>
 					<id>0</id>
-					<source>7</source>
+					<source>6</source>
 					<target>0</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -1041,25 +1041,8 @@
 				<schema></schema>
 			</table_properties>
 		</table>
-		<note>
-			<id>1</id>
-			<height>120</height>
-			<width>388</width>
-				<font_name>Verdana</font_name>
-				<font_size>12</font_size>
-			<x>12</x>
-			<y>730</y>
-			<color>
-				<r>128</r>
-				<g>128</g>
-				<b>192</b>
-			</color>
-			<connections>
-			</connections>
-			<text>해당날자의 resv테이블에 room_number 유무에 따라 &#x0D;&#x0A;예약완료, 예약가능(공실) 여부를 알 수 있다.&#x0D;&#x0A;&#x0D;&#x0A;check_in_time과 check_out_time, 현재시간으로&#x0D;&#x0A; 입실, 외출, 퇴실여부를 알 수 있다.</text>
-		</note>
 		<table>
-			<id>2</id>
+			<id>1</id>
 			<height>173</height>
 			<width>372</width>
 				<font_name>Verdana</font_name>
@@ -1074,8 +1057,8 @@
 			<connections>
 				<relation>
 					<id>1</id>
-					<source>8</source>
-					<target>2</target>
+					<source>7</source>
+					<target>1</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
 						<target_xp>-1</target_xp>
@@ -1212,7 +1195,7 @@
 			</table_properties>
 		</table>
 		<table>
-			<id>3</id>
+			<id>2</id>
 			<height>142</height>
 			<width>372</width>
 				<font_name>Verdana</font_name>
@@ -1227,8 +1210,8 @@
 			<connections>
 				<relation>
 					<id>2</id>
-					<source>5</source>
-					<target>3</target>
+					<source>4</source>
+					<target>2</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
 						<target_xp>-1</target_xp>
@@ -1398,7 +1381,7 @@
 			</table_properties>
 		</table>
 		<table>
-			<id>4</id>
+			<id>3</id>
 			<height>166</height>
 			<width>373</width>
 				<font_name>Verdana</font_name>
@@ -1561,7 +1544,7 @@
 			</table_properties>
 		</table>
 		<table>
-			<id>5</id>
+			<id>4</id>
 			<height>142</height>
 			<width>347</width>
 				<font_name>Verdana</font_name>
@@ -1658,7 +1641,7 @@
 			</table_properties>
 		</table>
 		<table>
-			<id>6</id>
+			<id>5</id>
 			<height>165</height>
 			<width>347</width>
 				<font_name>Verdana</font_name>
@@ -1673,8 +1656,8 @@
 			<connections>
 				<relation>
 					<id>3</id>
-					<source>5</source>
-					<target>6</target>
+					<source>4</source>
+					<target>5</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
 						<target_xp>-1</target_xp>
@@ -1695,8 +1678,8 @@
 				</relation>
 				<relation>
 					<id>4</id>
-					<source>4</source>
-					<target>6</target>
+					<source>3</source>
+					<target>5</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
 						<target_xp>-1</target_xp>
@@ -1867,7 +1850,7 @@
 			</table_properties>
 		</table>
 		<table>
-			<id>7</id>
+			<id>6</id>
 			<height>173</height>
 			<width>347</width>
 				<font_name>Verdana</font_name>
@@ -1882,8 +1865,8 @@
 			<connections>
 				<relation>
 					<id>5</id>
-					<source>2</source>
-					<target>7</target>
+					<source>4</source>
+					<target>6</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
 						<target_xp>-1</target_xp>
@@ -1904,8 +1887,8 @@
 				</relation>
 				<relation>
 					<id>6</id>
-					<source>5</source>
-					<target>7</target>
+					<source>1</source>
+					<target>6</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
 						<target_xp>-1</target_xp>
@@ -1968,7 +1951,7 @@
 				<normal_column>
 					<id>22</id>
 					<referenced_column>15</referenced_column>
-					<relation>6</relation>
+					<relation>5</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2002,7 +1985,7 @@
 				<normal_column>
 					<id>23</id>
 					<referenced_column>4</referenced_column>
-					<relation>5</relation>
+					<relation>6</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2142,7 +2125,7 @@
 			</table_properties>
 		</table>
 		<table>
-			<id>8</id>
+			<id>7</id>
 			<height>264</height>
 			<width>374</width>
 				<font_name>Verdana</font_name>
@@ -2437,7 +2420,7 @@
 			</table_properties>
 		</table>
 		<table>
-			<id>9</id>
+			<id>8</id>
 			<height>166</height>
 			<width>372</width>
 				<font_name>Verdana</font_name>
@@ -2567,7 +2550,7 @@
 			</table_properties>
 		</table>
 		<table>
-			<id>10</id>
+			<id>9</id>
 			<height>286</height>
 			<width>372</width>
 				<font_name>Verdana</font_name>
@@ -2582,8 +2565,8 @@
 			<connections>
 				<relation>
 					<id>7</id>
-					<source>5</source>
-					<target>10</target>
+					<source>4</source>
+					<target>9</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
 						<target_xp>-1</target_xp>
@@ -2951,7 +2934,7 @@
 			</table_properties>
 		</table>
 		<table>
-			<id>11</id>
+			<id>10</id>
 			<height>120</height>
 			<width>346</width>
 				<font_name>Verdana</font_name>
@@ -2966,8 +2949,8 @@
 			<connections>
 				<relation>
 					<id>8</id>
-					<source>7</source>
-					<target>11</target>
+					<source>6</source>
+					<target>10</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
 						<target_xp>-1</target_xp>
