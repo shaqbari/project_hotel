@@ -32,9 +32,9 @@ public class ResvPanel extends JPanel implements ActionListener{
 	String TAG=this.getClass().getName();
 	HotelMain main;
 	Connection con;
-	JPanel p_info,p_bt,p_north, p_center;
+	JPanel p_north,p_bt,p_info,p_resv,p_due, p_center;
 	JButton bt_prev, bt_next, bt_refresh;
-	JLabel la_date,la_info;
+	JLabel la_date,la_resv, la_due;
 	JScrollPane scroll;
 	JTable table;
 	Calendar cal=Calendar.getInstance();
@@ -65,11 +65,14 @@ public class ResvPanel extends JPanel implements ActionListener{
 		ImageIcon resizeIcon = new ImageIcon(changeImg);
 				
 		this.setLayout(new BorderLayout());
-		p_info = new JPanel();
-		p_bt = new JPanel();
 		p_north=new JPanel();
+		p_bt = new JPanel();
+		p_info = new JPanel();
+		p_resv=new JPanel();
+		p_due=new JPanel();
 		p_center=new JPanel();
-		la_info = new JLabel("초록색:예약일(체류시작일) , 빨간색:체류일수");
+		la_resv= new JLabel("예약일");
+		la_due=new JLabel("체류기간");
 		bt_prev=new JButton("◀");
 		la_date=new JLabel();
 		bt_next=new JButton("▶");
@@ -80,17 +83,25 @@ public class ResvPanel extends JPanel implements ActionListener{
 		table.setPreferredScrollableViewportSize(new Dimension(1000, 736));
 		table.setRowHeight(23);		//추가했음
 		
-		p_info.add(la_info);
+		p_resv.setBackground(new Color(135,206,235));
+		p_due.setBackground(new Color(255,182,193));
+
+		la_date.setFont(new Font("맑은 고딕", Font.BOLD, 20));	//추가했음
+	
 		p_bt.add(bt_prev);
 		p_bt.add(la_date);
 		p_bt.add(bt_next);
 		p_bt.add(bt_refresh);
+		p_info.add(p_resv);
+		p_info.add(la_resv);
+		p_info.add(p_due);
+		p_info.add(la_due);
+		
+		//p_north.setLayout(new BorderLayout());
+		p_north.add(p_bt);
+		p_north.add(p_info);
 		p_center.add(scroll);
 		
-		la_date.setFont(new Font("맑은 고딕", Font.BOLD, 20));	//추가했음
-		
-		p_north.add(p_info,BorderLayout.NORTH);
-		p_north.add(p_bt,BorderLayout.SOUTH);
 		add(p_north, BorderLayout.NORTH);
 		add(p_center,BorderLayout.CENTER);
 		
