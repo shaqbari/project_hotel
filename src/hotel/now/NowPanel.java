@@ -23,6 +23,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import hotel.HotelMain;
 
@@ -31,9 +32,10 @@ import hotel.HotelMain;
 public class NowPanel extends JPanel implements ActionListener{
 	HotelMain main;
 	Connection con;
-	JPanel p_north, p_center, p_in, p_out, p_option_center, p_option_east;
-	JButton bt_prevDay, bt_nextDay, bt_prevMonth, bt_nextMonth;
-	JLabel la_date, la_in, la_out;
+	JPanel p_north, p_center, p_in, p_out, p_option_center, p_option_west, p_option_east;
+	JButton bt_prevDay, bt_nextDay, bt_prevMonth, bt_nextMonth, bt_search;
+	JLabel la_date, la_in, la_out, la_yy, la_mm, la_dd;
+	JTextField t_yy, t_mm, t_dd;	
 	ArrayList<Room_Option> list;
 	ArrayList<Room_Option> resv; 
 	Calendar cal = Calendar.getInstance();
@@ -62,7 +64,17 @@ public class NowPanel extends JPanel implements ActionListener{
 		bt_nextDay = new JButton("▶");
 		bt_nextMonth = new JButton("▶▶");
 		
-		//p_option_center = new JP
+		p_option_center = new JPanel();		
+		p_option_west = new JPanel();
+		p_option_east = new JPanel();
+		
+		t_yy = new JTextField(3);
+		t_mm = new JTextField(3);
+		t_dd = new JTextField(3);
+		la_yy = new JLabel("년");
+		la_mm = new JLabel("월");
+		la_dd = new JLabel("일");
+		bt_search = new JButton("검색");
 		
 		p_in = new JPanel();
 		p_out = new JPanel();
@@ -70,18 +82,32 @@ public class NowPanel extends JPanel implements ActionListener{
 		la_out = new JLabel("비어있음");
 	
 		p_in.setBackground(Color.red);
-		p_out.setBackground(new Color(r,g,b));
+		p_out.setBackground(new Color(r,g,b));	
+		p_north.setLayout(new BorderLayout());
+		p_option_west.setPreferredSize(new Dimension(280, 40));
 		
-		p_north.add(bt_prevMonth);
-		p_north.add(bt_prevDay);
-		p_north.add(la_date);
-		p_north.add(bt_nextDay);
-		p_north.add(bt_nextMonth);
+		p_option_west.add(p_in);
+		p_option_west.add(la_in);
+		p_option_west.add(p_out);
+		p_option_west.add(la_out);
 		
-		p_north.add(p_in);
-		p_north.add(la_in);
-		p_north.add(p_out);
-		p_north.add(la_out);
+		p_option_center.add(bt_prevMonth);
+		p_option_center.add(bt_prevDay);
+		p_option_center.add(la_date);
+		p_option_center.add(bt_nextDay);
+		p_option_center.add(bt_nextMonth);
+		
+		p_option_east.add(t_yy);
+		p_option_east.add(la_yy);
+		p_option_east.add(t_mm);
+		p_option_east.add(la_mm);
+		p_option_east.add(t_dd);
+		p_option_east.add(la_dd);
+		p_option_east.add(bt_search);
+	
+		p_north.add(p_option_west, BorderLayout.WEST);
+		p_north.add(p_option_center);
+		p_north.add(p_option_east, BorderLayout.EAST);
 		
 		p_center.setBackground(Color.LIGHT_GRAY);
 		
@@ -94,8 +120,7 @@ public class NowPanel extends JPanel implements ActionListener{
 		yy = cal.get(Calendar.YEAR);
 		mm = cal.get(Calendar.MONTH);
 		dd = cal.get(Calendar.DATE);
-		
-		
+
 		//날짜 불러오기, 객실현황 불러오기 포함되어 있음
 		setDate();
 		
@@ -103,8 +128,8 @@ public class NowPanel extends JPanel implements ActionListener{
 		bt_nextDay.addActionListener(this);
 		bt_prevMonth.addActionListener(this);
 		bt_nextMonth.addActionListener(this);
+		bt_search.addActionListener(this);
 		
-
 		setBackground(Color.LIGHT_GRAY);
 		setPreferredSize(new Dimension(1100, 900));
 		setVisible(true);
@@ -291,6 +316,18 @@ public class NowPanel extends JPanel implements ActionListener{
 		setDate();
 	}
 	
+	public void search(){
+		yy = Integer.parseInt(t_yy.getText());
+		mm = Integer.parseInt(t_mm.getText())-1;
+		dd = Integer.parseInt(t_dd.getText());
+		
+		cal.set(yy, mm, dd);
+		setDate();
+		t_yy.setText("");
+		t_mm.setText("");
+		t_dd.setText("");
+	}
+	
 	//버튼에 적용할 액션리스너
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
@@ -302,6 +339,8 @@ public class NowPanel extends JPanel implements ActionListener{
 			prevMonth();
 		} else if (obj == bt_nextMonth){
 			nextMonth();
+		} else if (obj == bt_search){
+			search();
 		}
 	}
 	
