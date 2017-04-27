@@ -47,6 +47,26 @@
 		"stay:1		
 	}
 	
+	//id중복확인 요청
+	var msgExcheck1={
+		"requestType":"idCheck",
+		"room_number":204,
+		"requestTime":"2017-04-17-18-19-23",
+		"id_to_nick":"jsklsk",
+	}
+	
+	//id중복확인 응답
+	var msgExCheck2{		//중복안됨
+		"responseType":"idCheck",
+		"result":"yes",
+		
+	}	
+	var msgExCheck3{		//중복됨
+		"responseType":"idCheck",
+		"result":"no"
+	}
+	
+	
 	//클라이언트 회원가입 요청
 	var msgExResgist={
 		"requestType":"membership_regist",

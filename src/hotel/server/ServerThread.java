@@ -85,12 +85,10 @@ public class ServerThread extends Thread{
 				responseService.send();
 				
 			}else if (requestType.equalsIgnoreCase("room_search")) {
-				System.out.println("남는방검색들어왔어");
 				ResponseRoomSearch roomSearch=new ResponseRoomSearch(this, json);
 				roomSearch.response();				
 				
 			}else if (requestType.equalsIgnoreCase("guest_resv")) {
-				System.out.println("비회원 예약들어왔어");
 				ResponseGuestResv guestResv=new ResponseGuestResv(this, json);
 				guestResv.response();
 				
@@ -102,9 +100,15 @@ public class ServerThread extends Thread{
 				ResponseGuestLogin guestLogin=new ResponseGuestLogin(this, json);
 				guestLogin.response();
 								
-			}else if (requestType.equalsIgnoreCase("membership_login")) {
-				ResponseMemberLogin memberLogin=new ResponseMemberLogin(this, json);
-				memberLogin.response();
+			}else if (requestType.equalsIgnoreCase("idCheck")) {
+				System.out.println("아이디 확인 들어왔어");
+				IdCheckResponse checkResponse=new IdCheckResponse(this, json);
+				checkResponse.response();
+				
+			}else if(requestType.equalsIgnoreCase("membership_regist")){
+				
+				ResponseMemberResist memberResist=new ResponseMemberResist(this, json);
+				memberResist.response();
 				
 			}else if(requestType.equalsIgnoreCase("membership_regist")){
 				ResponseMemberResist memberResist=new ResponseMemberResist(this, json);

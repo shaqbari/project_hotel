@@ -90,7 +90,7 @@ public class ResvPanel extends JPanel implements ActionListener{
 			public void run(){
 				while(true){
 					try{
-						Thread.sleep(100);
+						Thread.sleep(1000);
 						setMonth();
 						//System.out.println("달력 새로 불러오기한다");
 					} catch (InterruptedException e){
@@ -99,7 +99,6 @@ public class ResvPanel extends JPanel implements ActionListener{
 				}
 			}	
 		};
-		
 		thread.start();
 		//---------------------------------------
 		

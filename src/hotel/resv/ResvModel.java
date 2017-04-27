@@ -48,7 +48,7 @@ public class ResvModel extends AbstractTableModel{
 		resv_cal=Calendar.getInstance();
 		stay_cal=Calendar.getInstance();
 		
-		System.out.println(TAG+" 실제 달은?"+(mm));
+		//System.out.println(TAG+" 실제 달은?"+(mm));
 		
 		//각 월의 마지막 날 구하기 
 		cal.set(yy, mm+1 ,0);//다음달로 우선 간 후, 그 날보다 -1일인 날이 바로 해당 월의 마지막날.. 
@@ -95,7 +95,7 @@ public class ResvModel extends AbstractTableModel{
 		//sql.append(" and to_char(resv_time, 'yyyy')='"+yy+"' and to_char(resv_time,'mm')='"+DateUtil.getDateString(Integer.toString(mm+1))+"' ");
 		//sql.append(" and to_char(stay_date, 'yyyy')='"+yy+"' and to_char(stay_date,'mm')='"+DateUtil.getDateString(Integer.toString(mm+1))+"' ");
 			
-		System.out.println("sql is "+sql.toString());
+		//System.out.println("sql is "+sql.toString());
 	
 		try {
 			pstmt=con.prepareStatement(sql.toString());
@@ -192,7 +192,7 @@ public class ResvModel extends AbstractTableModel{
 					}
 				}
 				//각 월별 날짜수에 따른 반복문 
-				System.out.println("");
+				//System.out.println("");
 				//System.out.println(count);
 				ho=rs.getInt("room_number");
 			}

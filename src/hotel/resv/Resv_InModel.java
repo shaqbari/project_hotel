@@ -43,7 +43,7 @@ public class Resv_InModel extends AbstractTableModel{
 		sql.append(" where r.HOTEL_USER_ID=v.HOTEL_USER_ID");
 		sql.append(" and to_char(resv_time,'mm-dd')=?");
 		
-		System.out.println(sql.toString());
+		//System.out.println(sql.toString());
 		
 		try {
 			pstmt=con.prepareStatement(sql.toString());
