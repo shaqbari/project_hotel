@@ -39,11 +39,12 @@ public class Resv_OutModel extends AbstractTableModel{
 		sql.append("select check_io_id,r.resv_id,to_char(check_in_time,'yyyy-mm-dd hh24-mi') as check_in_time,to_char(check_out_time,'yyyy-mm-dd hh24-mi') as check_out_time ,to_char(resv_time,'yyyy-mm-dd hh24-mi') as resv_time ");
 		sql.append(" from resv r , check_io c");
 		sql.append(" where r.resv_id=c.resv_id");
-		sql.append(" and to_char(resv_time,'dd')=?");
+		sql.append(" and to_char(resv_time,'mm-dd')=?");
 		
+		//System.out.println(sql.toString());
 		try {
 			pstmt=con.prepareStatement(sql.toString());
-			pstmt.setInt(1,col);
+			pstmt.setString(1,DateUtil.getDateString(Integer.toString(mm+1))+"-"+DateUtil.getDateString(Integer.toString(col)));
 			rs=pstmt.executeQuery();
 			
 			//먼저지우고 추가하자

@@ -47,7 +47,7 @@ public class Resv_InModel extends AbstractTableModel{
 		
 		try {
 			pstmt=con.prepareStatement(sql.toString());
-			pstmt.setString(1,mm+"-"+col);
+			pstmt.setString(1,DateUtil.getDateString(Integer.toString(mm+1))+"-"+DateUtil.getDateString(Integer.toString(col)));
 			rs=pstmt.executeQuery();
 			
 			//먼저지우고 추가하자
