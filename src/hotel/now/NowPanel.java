@@ -24,6 +24,7 @@ import java.util.Calendar;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -342,7 +343,25 @@ public class NowPanel extends JPanel implements ActionListener{
 		} else if (obj == bt_nextMonth){
 			nextMonth();
 		} else if (obj == bt_search){
-			search();
+			if(t_yy.getText().equals("")){	
+				JOptionPane.showMessageDialog(this, "년도를 올바르게 입력하세요");
+			} else if(t_mm.getText().equals("")){
+				JOptionPane.showMessageDialog(this, "월을 올바르게 입력하세요");
+			} else if(t_dd.getText().equals("")){
+				JOptionPane.showMessageDialog(this, "일자를 올바르게 입력하세요");
+			} else if(Integer.parseInt(t_yy.getText())<=0){
+				JOptionPane.showMessageDialog(this, "년도를 올바르게 입력하세요");
+			} else if(Integer.parseInt(t_mm.getText())<=0){
+				JOptionPane.showMessageDialog(this, "월을 올바르게 입력하세요");
+			} else if(Integer.parseInt(t_mm.getText())>12){
+				JOptionPane.showMessageDialog(this, "월을 올바르게 입력하세요");
+			} else if(Integer.parseInt(t_dd.getText())<=0){
+				JOptionPane.showMessageDialog(this, "일자를 올바르게 입력하세요");
+			} else if(Integer.parseInt(t_dd.getText())>31){
+				JOptionPane.showMessageDialog(this, "일자를 올바르게 입력하세요");
+			} else{
+				search();
+			}
 		}
 	}
 	
