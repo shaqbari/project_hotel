@@ -28,6 +28,7 @@ public class ReservationTable extends JFrame{
 		this.con=con;
 		this.value=value;
 		this.flag=flag;
+		this.setTitle("상세내역");
 		p_up=new JPanel();
 		p_upup=new JPanel();
 		p_down=new JPanel();
