@@ -35,7 +35,7 @@ public class ChatBox extends JFrame{
 		
 		setLayout(new BorderLayout());
 		
-		add(la_room_number, BorderLayout.NORTH);
+		//add(la_room_number, BorderLayout.NORTH);
 		add(scroll);
 		add(txt_input, BorderLayout.SOUTH);
 		
