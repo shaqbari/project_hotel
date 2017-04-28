@@ -26,7 +26,7 @@ public class ServiceBox extends JPanel{
 	
 	public ServiceBox() {
 		la_room_number=new JLabel("203호");
-		area=new JTextArea(8, 40);
+		area=new JTextArea(5,38);
 		scroll=new JScrollPane(area);
 		//txt_input=new JTextField(20);
 		bt_complete = new JButton("서비스준비완료");
@@ -56,7 +56,7 @@ public class ServiceBox extends JPanel{
 			}
 		});
 		
-		setSize(200, 100);
+		setSize(180, 50);
 		setVisible(true);		
 	}
 

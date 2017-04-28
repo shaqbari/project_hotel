@@ -64,7 +64,7 @@ public class Resv_InModel extends AbstractTableModel{
 			columnName.add("방번호");
 			columnName.add("예약 시간");
 			columnName.add("퇴실 시간");
-			columnName.add("숙박일수");
+			columnName.add("체류일수");
 			columnName.add("예약 등록시간");
 			
 			//컬럼명 추출하자
