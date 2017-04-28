@@ -29,14 +29,13 @@ public class ChatBox extends JFrame{
 	
 	public ChatBox(String title) {
 		super(title);
-		la_room_number=new JLabel("203ȣ");
 		area=new JTextArea(15, 20);
 		scroll=new JScrollPane(area);
 		txt_input=new JTextField(20);
 		
 		setLayout(new BorderLayout());
 		
-		add(la_room_number, BorderLayout.NORTH);
+		//add(la_room_number, BorderLayout.NORTH);
 		add(scroll);
 		add(txt_input, BorderLayout.SOUTH);
 		
