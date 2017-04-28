@@ -54,7 +54,7 @@ public class ResponseMemberLogin {
 		}*/
 	
 	//회원이 맞는지 확인
-	public boolean dbCheck(){
+	public void dbCheck(){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		StringBuffer sql=new StringBuffer();
@@ -81,6 +81,7 @@ public class ResponseMemberLogin {
 				sql.append(" from RESV r, HOTEL_USER h, MEMBERSHIP m");
 				sql.append(" where r.HOTEL_USER_ID=h.HOTEL_USER_ID and h.HOTEL_USER_ID=m.HOTEL_USER_ID");
 				sql.append(" and  m.MEMBERSHIP_NICK=? and m.MEMBERSHIP_PW=?");
+				sql.append("order by r.RESV_ID DESC"); //가장 최근 예약를 보여줄수 있게 한다.
 				pstmt = con.prepareStatement(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE,
 						ResultSet.CONCUR_READ_ONLY);
 				pstmt.setString(1, json.get("id_to_nick").toString());
@@ -89,6 +90,7 @@ public class ResponseMemberLogin {
 				rs.last();
 				last = rs.getRow();
 				rs.beforeFirst();
+				System.out.println("last는"+last);
 				
 				//마지막으로 예약한 정보를 받는다.
 				if (last >= 1) {
@@ -98,6 +100,7 @@ public class ResponseMemberLogin {
 					resvInfo.put("hotel_user_id", rs.getString("hotel_user_id"));
 					resvInfo.put("member_name", rs.getString("MEMBERSHIP_NAME"));
 					resvInfo.put("resv_time", rs.getString("resv_time"));
+					resvInfo.put("end_time", rs.getString("end_time"));
 					resvInfo.put("resv_id", rs.getString("resv_id"));
 					resvInfo.put("stay", rs.getString("stay"));
 				} 
@@ -121,8 +124,6 @@ public class ResponseMemberLogin {
 				}
 			}
 		}		
-		
-		return false;
 	}	
 	
 	/*
@@ -136,6 +137,7 @@ public class ResponseMemberLogin {
 		//아래는 예약했을때만 보낸다.
 		"resv_id":3
 		"resv_time":"2017-04-17-18-19-23",
+		"end_time":"2017-04-17-18-19-23",
 		"stay:1		
 	}*/
 	
@@ -149,6 +151,7 @@ public class ResponseMemberLogin {
 				responseJSON.put("member_name", resvInfo.get("member_name"));
 				responseJSON.put("resv_id", resvInfo.get("resv_id"));
 				responseJSON.put("resv_time", resvInfo.get("resv_time"));
+				responseJSON.put("end_time", resvInfo.get("end_time"));
 				responseJSON.put("stay", resvInfo.get("stay"));				
 			}else{
 				responseJSON.put("hotel_user_id", hotel_user_id);
@@ -156,6 +159,7 @@ public class ResponseMemberLogin {
 			}
 			
 			String msg=responseJSON.toJSONString();
+			System.out.println(msg);
 			serverThread.send(msg);
 		}else {
 			JSONObject responseJSON=new JSONObject();
